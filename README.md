@@ -7,3 +7,5 @@ Depuis 2010, 99ko est un CMS en français, simple et léger, permettant la réal
 - Support de thèmes et de plugins
 - Menu à deux niveaux
 - Plugins intégrés (galerie, news / blog, contact, éditeur wysiwyg, etc...)
+
+https://www.facebook.com/groups/130444474278984/
