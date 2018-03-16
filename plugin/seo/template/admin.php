@@ -8,11 +8,11 @@ include_once(ROOT.'admin/header.php');
   <h3>Google</h3>
   <p>
       <label>Identifiant de suivi Analytics</label><br>
-      <input placeholder="Example : UA-XXXXXXXX-X" type="text" name="trackingId" value="<?php echo $runPlugin->getConfigVal('trackingId'); ?>" />
+      <input type="text" name="trackingId" value="<?php echo $runPlugin->getConfigVal('trackingId'); ?>" />
   </p>
   <p>
       <label>Meta google site verification</label><br>
-      <input placeholder="Example : rfeR0JazK3Hgj2jkj1WG8Tl_V2RLPtdqfBu1hhJLWLm" type="text" name="wt" value="<?php echo $runPlugin->getConfigVal('wt'); ?>" />
+      <input type="text" name="wt" value="<?php echo $runPlugin->getConfigVal('wt'); ?>" />
   </p>
 	<p>
       <label>Page Google+</label><br>

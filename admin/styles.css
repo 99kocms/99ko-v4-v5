@@ -9,7 +9,7 @@ body.login{background:#fff;margin:60px;}
 a{text-decoration:none;color: #14161a}
 h1{font-weight:normal;text-transform:uppercase;margin:0;font-size:22px}
 h2{font-weight:normal;text-transform:uppercase;font-size:22px;margin-bottom:60px;margin-top:0px}
-h3{font-weight:normal;text-transform:uppercase;font-size:14px;margin-bottom:30px;margin-top:30px;padding:15px;text-align:right;background:#eee}
+h3{font-weight:normal;text-transform:uppercase;font-size:14px;margin-bottom:30px;margin-top:30px;padding:15px;text-align:right;background:#eee;font-style:italic;}
 ul,ol{padding-left:0;margin-left:0;list-style-position:inside}
 img{max-width:100%}
 table{width:100%;border-spacing:0;border-collapse:collapse;border:1px solid #eee}
@@ -17,8 +17,6 @@ td{border-bottom:1px solid #eee;text-align:left;padding:15px}
 th{background:#eee;text-align:left;padding:15px;text-transform:uppercase;font-weight:normal}
 
 /* FORM */
-
-label{}
 
 input[type=text], input[type=email], input[type=password], input[type=url], input[type=number], input[type=date]{
     font-family: 'Open Sans', sans-serif;
@@ -162,9 +160,6 @@ ul.tabs a, ul.tabs_style a{
     z-index: 9999;
 }
 
-#header_content{
-}
-
 #body{
     height: 100%;
 }
@@ -182,7 +177,7 @@ ul.tabs a, ul.tabs_style a{
 
 #content{
     background: #fff;
-    padding: 120px;
+    padding: 120px 15px;
     max-width: 1280px;
     margin: 0 auto;
     position: relative;
@@ -257,32 +252,53 @@ ul.tabs a, ul.tabs_style a{
 /* PARAM */
 
 #param_link{
-    z-index: 999;
-    position: absolute;
-    right: 30px;
-    top: 90px;
+    float: right;
 }
 
 #param_panel{
     position: absolute;
     right: 15px;
-    top: 90px;
+    top: 175px;
     z-index: 998;
     background: #fff;
     display: none;
     border: 1px solid #eee;
     padding: 30px;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
+    max-width: 650px;
+}
+
+/* HELP */
+
+#help_link{
+    float: right;
+}
+
+#help_panel{
+    position: absolute;
+    right: 15px;
+    top: 175px;
+    z-index: 998;
+    background: #fff;
+    display: none;
+    border: 1px solid #eee;
+    padding: 30px;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
+    max-width: 650px;
+}
+
+#help_panel h3{
+    padding:0px;
+    text-align:left;
+    background:none;
+    margin-bottom: 0;
 }
 
 /* MOBILE */
 
 @media only screen and (max-width: 960px){
     
-    body,
-    input[type=text], input[type=email], input[type=password], input[type=url], input[type=number], input[type=date],
-    textarea,
-    input[type=submit], input[type=button], button, .button{
+    body, input[type=text], input[type=email], input[type=password], input[type=url], input[type=number], input[type=date], textarea, input[type=submit], input[type=button], button, .button{
         font-size: 12px !important;
     }
     
@@ -306,8 +322,8 @@ ul.tabs a, ul.tabs_style a{
         display: block;
     }
     
-    #content{
-        padding: 120px 15px;
+    #param_panel, #help_panel{
+        max-width: 400px;
     }
 
 }

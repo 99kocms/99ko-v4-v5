@@ -93,7 +93,7 @@ if(count($_POST) > 0 && $administrator->isAuthorized()){
 					<a id="showPassword" href="javascript:showPassword()" class="button success">Montrer le mot de passe</a>
 					<button type="submit" class="button success">Valider</button>
 			  </p>
-			  <p class="just_using"><a target="_blank" href="http://99ko.org">Just using 99ko</a>
+			  <p class="just_using"><a target="_blank" href="https://github.com/99kocms/">Just using 99ko</a>
 	  </p>
             </form>
 	</div>

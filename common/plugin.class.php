@@ -38,6 +38,7 @@ class plugin{
 	private $adminCssFile;
 	private $adminJsFile;
 	private $isDefaultAdminPlugin;
+	private $helpTemplate;
 	
 	## Constructeur
 	public function __construct($name, $config = array(), $infos = array(), $hooks = array(), $initConfig = array()){
@@ -86,6 +87,9 @@ class plugin{
 		$this->initConfig = $initConfig;
 		// Navigation
 		$this->navigation = array();
+		// Template d'aide (en cours d'intégration)
+		//$this->helpTemplate = (file_exists(PLUGINS.$this->name.'/template/help.php')) ? PLUGINS.$this->name.'/template/help.php' : false;
+		$this->helpTemplate = false;
 	}
 	
 	## Getters
@@ -169,8 +173,8 @@ class plugin{
 		return $this->paramTemplate;
 	}
 	
-	public function getConfigTemplate(){
-		return $this->configTemplate;
+	public function getHelpTemplate(){
+		return $this->helpTemplate;
 	}
 	
 	public function getIsValid(){

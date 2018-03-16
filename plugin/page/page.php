@@ -31,7 +31,7 @@ function pageInstall(){
 		$pageItem->setContent('');
 		$pageItem->setIsHidden(0);
 		$pageItem->setFile('');
-		$pageItem->setTarget('http://janisjoplin.fr/page/made-with-99ko-cms,28.html');
+		$pageItem->setTarget('https://github.com/99kocms/');
 		$pageItem->setTargetAttr('_blank');
 		$page->save($pageItem);
 	}

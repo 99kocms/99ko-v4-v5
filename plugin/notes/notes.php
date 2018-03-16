@@ -1,8 +1,6 @@
 <?php
-defined('ROOT') OR exit('No direct script access allowed');
-
-## Fonction d'installation
-
+defined('ROOT') OR exit('No direct script access allowed');
+## Fonction d'installation
 function notesInstall(){
     $notes = array(array(
         'id' => 0,
@@ -14,9 +12,7 @@ function notesInstall(){
 ## Hooks
 
 function noteEndAdminBody(){
-    
     global $administrator;
-    
     if($administrator->isLogged()){
         $plugin = pluginsManager::getInstance()->getPlugin('seo');
         $temp = '<a class="button" href="javascript:" id="notes_btn"></a>';

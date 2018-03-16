@@ -29,7 +29,7 @@
 		<input type="button" class="button alert" value="Quitter" rel="<?php echo $core->getConfigVal('siteUrl'); ?>" />
 		<input type="submit" class="button" value="Valider" />
 		</p>
-	  <p class="just_using"><a target="_blank" href="http://janisjoplin.fr/page/99ko-cms,28.html">Just using 99ko</a>
+	  <p class="just_using"><a target="_blank" href="https://github.com/99kocms/">Just using 99ko</a>
 	  </p>
 	</form>
   </div>
