@@ -1,8 +1,0 @@
-function updateHtaccess(rewriteBase){
-        var content = "Options -Indexes";
-        var checked = $('#urlRewriting')[0].checked;
-        if(checked) content+= "\nOptions +FollowSymlinks\nRewriteEngine On\nRewriteBase "+rewriteBase+"\nRewriteRule ^admin/$  admin/ [L]\nRewriteRule ^([a-z]+)/([a-z-0-9,./]+).html$  index.php?p=$1&param=$2 [L]\nRewriteRule ^([a-z]+)/$  index.php?p=$1 [L]";
-        checked = $('#htaccessOptimization')[0].checked;
-        if(checked) content+= "\n<ifModule mod_gzip.c>\nmod_gzip_on Yes\nmod_gzip_dechunk Yes\nmod_gzip_item_include file .(html?|txt|css|js|php|pl)$\nmod_gzip_item_include handler ^cgi-script$\nmod_gzip_item_include mime ^text/.*\nmod_gzip_item_include mime ^application/x-javascript.*\nmod_gzip_item_exclude mime ^image/.*\nmod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*\n</ifModule>\n<IfModule mod_headers.c>\n<FilesMatch \"\\.(ico|jpe?g|png|gif|swf)$\">\nHeader set Cache-Control \"max-age=2592000, public\"\n</FilesMatch>\n<FilesMatch \"\\.(css)$\">\nHeader set Cache-Control \"max-age=604800, public\"\n</FilesMatch>\n<FilesMatch \"\\.(js)$\">\nHeader set Cache-Control \"max-age=216000, private\"\n</FilesMatch>\n<filesmatch \"\\.(html|htm)$\">\nHeader set Cache-Control \"max-age=5, public\"\n</filesmatch>\n</IfModule>\nAddType image/x-icon .ico\nAddType video/ogg  .ogv\nAddType video/mp4  .mp4\nAddType video/webm .webm\nAddType application/vnd.ms-fontobject .eot\nAddType font/ttf .ttf\nAddType font/otf .otf\nAddType font/x-woff .woff\nAddType image/svg+xml .svg";
-        $('#htaccess').html(content);
-}

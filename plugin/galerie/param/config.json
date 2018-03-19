@@ -1,9 +1,0 @@
-{
-    "priority" : "2",
-    "label" : "Galerie",
-    "order" : "byDate",
-    "onlyImg" : "0",
-    "introduction" : "",
-    "showTitles" : "1",
-    "size" :"800"
-}
