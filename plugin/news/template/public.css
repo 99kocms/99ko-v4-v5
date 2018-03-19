@@ -1,0 +1,59 @@
+.news .items{
+    list-style: none inside;
+}
+
+.news .items li.item{
+    overflow: hidden;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+.news .items li.item:first-child{
+    padding-top: 0;
+}
+
+.news .date{
+    font-size: 12px;
+    display: block;
+}
+
+.news .pagination{
+    font-size: 12px;
+    margin-left: 0;
+    padding-left: 0;
+    list-style: none inside;
+    float: right;
+}
+
+.news .pagination li{
+    float: left;
+    margin-right: 5px;
+}
+
+.news .pagination a{
+    display: block;
+    text-decoration: none;
+    margin: 0;
+    padding: 15px;
+    background: #4986b7;
+    color: #fff;
+}
+
+.news .pagination a:hover{
+    color: #fff;
+}
+
+.news .comment{
+    background: #f7f7f7;
+    padding: 15px;
+    margin-bottom: 1px;
+}
+
+.news .comment .infos{
+    font-size: 12px;
+    clear: both;
+    display: block;
+    text-align: right;
+    padding: 15px;
+}
