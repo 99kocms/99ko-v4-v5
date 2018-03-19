@@ -88,8 +88,7 @@ class plugin{
 		// Navigation
 		$this->navigation = array();
 		// Template d'aide (en cours d'intégration)
-		//$this->helpTemplate = (file_exists(PLUGINS.$this->name.'/template/help.php')) ? PLUGINS.$this->name.'/template/help.php' : false;
-		$this->helpTemplate = false;
+		$this->helpTemplate = (file_exists(PLUGINS.$this->name.'/template/help.php')) ? PLUGINS.$this->name.'/template/help.php' : false;
 	}
 	
 	## Getters
@@ -211,17 +210,17 @@ class plugin{
 	}
 	
 	## Ajoute un item dans la navigation
-	function addToNavigation($label, $target, $targetAttribut = '_self', $id = 0, $parent = 0, $cssClass = ''){
+	public function addToNavigation($label, $target, $targetAttribut = '_self', $id = 0, $parent = 0, $cssClass = ''){
 		$this->navigation[] = array('label' => $label, 'target' => $target, 'targetAttribut' => $targetAttribut, 'id' => $id, 'parent' => $parent, 'cssClass' => $cssClass);
 	}
 	
 	## Supprime un item de la navigation
-	function removeToNavigation($k){
+	public function removeToNavigation($k){
 		unset($this->navigation[$k]);
 	}
 
 	## Initialise la navigation
-	function initNavigation(){
+	public function initNavigation(){
 		$this->navigation = array();
 	}
 
