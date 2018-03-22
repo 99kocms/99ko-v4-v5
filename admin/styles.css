@@ -263,9 +263,16 @@ ul.tabs a, ul.tabs_style a{
     background: #fff;
     display: none;
     border: 1px solid #eee;
-    padding: 30px;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
     max-width: 650px;
+    padding: 30px;
+}
+
+#param_panel .content{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 300px;
+    padding: 30px;
 }
 
 /* HELP */
@@ -282,9 +289,16 @@ ul.tabs a, ul.tabs_style a{
     background: #fff;
     display: none;
     border: 1px solid #eee;
-    padding: 30px;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
     max-width: 650px;
+    padding: 30px;
+}
+
+#help_panel .content{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 300px;
+    padding: 30px;
 }
 
 #help_panel h3{

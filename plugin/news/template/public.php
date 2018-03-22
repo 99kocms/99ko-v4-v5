@@ -30,7 +30,7 @@
 <p class="date">
 	Posté le <?php echo util::FormatDate($item->getDate(), 'en', 'fr'); ?>
 	<?php if($runPlugin->getConfigVal('comments')){ ?> | <?php echo $newsManager->countComments(); ?> commentaire(s)<?php } ?>
-	| <a href="<?php echo $core->makeUrl('news'); ?>">Retour aux actualités</a>
+	| <a href="<?php echo $core->makeUrl('news'); ?>">Retour à la liste</a>
 </p>
 <?php if($runPlugin->getConfigVal('comments')){ ?>
 
