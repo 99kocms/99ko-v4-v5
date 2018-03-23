@@ -22,17 +22,6 @@
 				<li><h1><a class="active" href="javascript:" id="open_nav"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RUI2RDM2N0YyMDRDMTFFNzkzMDFBMTE1Nzk0RUQ5MDciIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RUI2RDM2ODAyMDRDMTFFNzkzMDFBMTE1Nzk0RUQ5MDciPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpFQjZEMzY3RDIwNEMxMUU3OTMwMUExMTU3OTRFRDkwNyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpFQjZEMzY3RTIwNEMxMUU3OTMwMUExMTU3OTRFRDkwNyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PjUVHUcAAABwSURBVHja7NWxEQAwDAKxsP/QZIQUvlTWj6AC0vZsLgAAAAAAAAAAAAAAAAAAAAAAAAAAAJj2WzQAAAAwggAAAAAAwA0CAADACAIAAAAAADcIAAAAIwgAAAAAAAAAAAAAAAAAAAAAAAAAAIBnV4ABAOfFy4HvRdNGAAAAAElFTkSuQmCC" alt=Administration" /></a></h1></li>
 				<li><a target="_blank" href="../">Voir le site</a></li>
 				<li><a href="index.php?action=logout&token=<?php echo administrator::getToken(); ?>">Déconnexion</a></li>
-				<!--<li class="facebook">
-								<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.8";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-<div class="fb-like" data-href="https://github.com/99kocms/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
-				</li>-->
 			  </ul>
 			</div>
 		</div>
@@ -61,15 +50,19 @@
 				<?php if($runPlugin->getParamTemplate()){ ?>
 				<a id="param_link" href="javascript:"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAANFJREFUaIHt2NsKgkAUheG/nsHqBTrQAd+8ML3womeKiOo6L0ZCBgxnMLfE+mCDCOqaQWEhiIiISJQtUACvegrgYJoowA64A29vHkBqmKuzEhf4CCTADMjqc2XsTf3dGGKSxvPngdcCMI1dbU8mLcejd8HtYobb+QWQN86NXor7YP3X4gosDXMF2eN2/YlbzAlYmSYS6cavAGdgY5ooQFsFuAFrw1ydfasAuWEuYLgK0NcA8VVCFcCKKoCIfKiSWPpJJdFfiQiqJFZUSURERP5CBWNA0IcsbTB2AAAAAElFTkSuQmCC" alt="Paramètres" /></a>
 				<div id="param_panel">
+          <div class="content">
 					<h2>Paramètres</h2>
           <?php include($runPlugin->getParamTemplate()); ?>
+          </div>
 				</div>
 				<?php } ?>
         <?php if($runPlugin->getHelpTemplate()){ ?>
 				<a id="help_link" href="javascript:"><img src="       data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OEVGOEVGMUIwQ0Q4MTFFOEJENEZBN0NGOTlFOEMxMDIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OEVGOEVGMUMwQ0Q4MTFFOEJENEZBN0NGOTlFOEMxMDIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4RUY4RUYxOTBDRDgxMUU4QkQ0RkE3Q0Y5OUU4QzEwMiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4RUY4RUYxQTBDRDgxMUU4QkQ0RkE3Q0Y5OUU4QzEwMiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PnzDwKYAAAJWSURBVHja7JnPS1RRFMfnZdJgiYlmgZZDampNO0ls449lRPgvlOAiKCZ3blxIu0FEwaFFQYt2LfoPQhR1IxKiqBs1jCAoxp6Chcb0vXAeuJjhnXvfuW8YuAc+PHhzf5zvu/eee88dr1AoJCrZLiQq3JwAJ8AJcAKcgEh2kVPI8zydNu+Ae/Tsone7YIvY5DbE2mRVoTAYVg9egjXVZAg7YBzcEvFNQEAG+AzHizGhBrhcAprAgqHj51HT6m7cAlrADwHnA/6BnrgE1IGfgs4HnIE2XQEmYfQzaLAQEavAMj35pjkCL5hfcx88BfdBJ3gEFpl139iaQldoroY58InK14AR8Aq00rssU0TKhoDnjI59KvukyG+v6bcvjHZmbQjYZnScDUa/BNXgMaOdPyApuYjbaC6H2XX6+qWsFhww2rkE+iQX8bBAmDyiLt8xy2ckRyAtECY7wG3wjFk+JXYahbVHdP4h7dy/NepclRQQJW8YAyu0e9dq1PMkHds3dP4YTFN00t29fUkBG4YC5uk5ZFD3QFLAuqEAdUzO0eLVNVafHifjopTyG2iOMd2tg2++5OLMGTixQOnjd816H7hrQOco0WSweV2juqOa9dK2EppJTUfmQD9Y0qjzUefj6qyBIDZ/BTctzftTGulD7rWK7galWhywuHAHA+dtZWSBPQB/hXPi4bivVbrBnoDjPq2TslxsJcFMBOffgxvlvpkLjttTIM9w+gS85SQsNqJQmF0GvSRIRapGep+nnVxd7K6CX1KXu577m9UJcAKcACfACahk+y/AAC3f2jjlL560AAAAAElFTkSuQmCC" alt="Aide" /></a>
 				<div id="help_panel">
-					<h2>Aide</h2>
-          <?php include($runPlugin->getHelpTemplate()); ?>
+          <div class="content">
+            <h2>Aide</h2>
+            <?php include($runPlugin->getHelpTemplate()); ?>
+          </div>
 				</div>
 				<?php } ?>
 			  <h2><?php echo $runPlugin->getInfoVal('name'); ?></h2>

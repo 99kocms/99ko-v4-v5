@@ -1,7 +1,7 @@
 <?php
 /*
  * 99ko CMS (since 2010)
- * http://janisjoplin.fr/page/made-with-99ko-cms,28.html
+ * https://github.com/99kocms/
  *
  * Creator / Developper :
  * Jonathan (j.coulet@gmail.com)
@@ -69,46 +69,39 @@ class core{
     ## Retourne un paramètre d'URL
     ## $k doit être un entier (index du tableau urlParams)
     public function getUrlParam($k){
-        eval($this->callHook('coreGetUrlParam'));
         if(isset($this->urlParams[$k])) return $this->urlParams[$k];
         else return false;
     }
     
     ## Retourne la liste des thèmes
     public function getThemes(){
-        eval($this->callHook('coreGetThemes'));
         return $this->themes;
     }
     
     ## Retourne une valeur de configuration
     public function getConfigVal($k){
-        eval($this->callHook('coreGetConfigVal'));
         if(isset($this->config[$k])) return $this->config[$k];
         else return false;
     }
     
     ## Retourne les infos du thème ciblé
     public function getThemeInfo($k){
-        eval($this->callHook('coreGetThemeInfo'));
         if(isset($this->themes[$this->getConfigVal('theme')])) return $this->themes[$this->getConfigVal('theme')][$k];
         else return false;
     }
     
     ## Retourne l'identifiant du plugin solicité
     public function getPluginToCall(){
-        eval($this->callHook('coreGetPluginToCall'));
         return $this->pluginToCall;
     }
     
     ## Retourne le tableau de ressources JS de base
     public function getJs(){
-        eval($this->callHook('coreGetJs'));
         return $this->js;
     }
     
     ## Retourne le tableau de ressources CSS de base
     public function getCss(){
-        eval($this->callHook('coreGetCss'));
         return $this->css;
     }
     

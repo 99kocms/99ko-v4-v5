@@ -22,20 +22,24 @@ $(document).ready(function () {
 	// param
 	$('#param_link').click(function(){
 		if($('#param_panel').css('display') == 'none'){
+			$('#param_link').addClass('active');
 			$('#help_panel').hide();
 			$('#param_panel').fadeIn();
 		}
 		else{
+			$('#param_link').removeClass('active');
 			$('#param_panel').hide();
 		}
 	});
 	// help
 	$('#help_link').click(function(){
 		if($('#help_panel').css('display') == 'none'){
+			$('#help_link').addClass('active');
 			$('#param_panel').hide();
 			$('#help_panel').fadeIn();
 		}
 		else{
+			$('#help_link').removeClass('active');
 			$('#help_panel').hide();
 		}
 	});

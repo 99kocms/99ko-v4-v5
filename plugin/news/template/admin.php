@@ -12,16 +12,15 @@ include_once(ROOT.'admin/header.php');
   <tr>
     <th>Titre</th>
     <th>Date</th>
-    <th>Commentaires</th>
     <th></th>
   </tr>
   <?php foreach($newsManager->getItems() as $k=>$v){ ?>
   <tr>
     <td><?php echo $v->getName(); ?></td>
     <td><?php echo util::formatDate($v->getDate(), 'en', 'fr'); ?></td>
-    <td><?php echo $newsManager->countComments($v->getId()); ?></td>
     <td>
       <a href="index.php?p=news&action=edit&id=<?php echo $v->getId(); ?>" class="button">Modifier</a>
+      <?php if($newsManager->countComments($v->getId()) > 0){ ?><a href="index.php?p=news&action=listcomments&id=<?php echo $v->getId(); ?>" class="button">Commentaires (<?php echo $newsManager->countComments($v->getId()); ?>)</a><?php } ?>
 			<a href="index.php?p=news&action=del&id=<?php echo $v->getId(); ?>&token=<?php echo administrator::getToken(); ?>" onclick = "if(!confirm('Supprimer cet élément ?')) return false;" class="button alert">Supprimer</a>
     </td>
   </tr>
@@ -56,6 +55,35 @@ include_once(ROOT.'admin/header.php');
   
   <p><button type="submit" class="button">Enregistrer</button></p>
 </form>
+<?php } ?>
+
+<?php if($mode == 'listcomments'){ ?>
+<ul class="tabs_style">
+  <li><a class="button" href="index.php?p=news">Retour</a></li>
+</ul>
+<table>
+  <tr>
+    <th>Commentaire</th>
+    <th></th>
+  </tr>
+  <?php foreach($newsManager->getComments() as $k=>$v){ ?>
+  <tr>
+    <td>
+      <?php echo $v->getAuthor(); ?> <i><?php echo $v->getAuthorEmail(); ?></i> - <?php echo util::formatDate($v->getDate(), 'en', 'fr'); ?></b> :<br><br>
+      <form id="comment<?php echo $v->getId(); ?>" method="post" action="index.php?p=news&action=updatecomment&id=<?php echo $_GET['id']; ?>&idcomment=<?php echo $v->getId(); ?>&token=<?php echo administrator::getToken(); ?>"><textarea name="content<?php echo $v->getId(); ?>"><?php echo $v->getContent(); ?></textarea></form>
+    </td>
+    <td>
+      <a onclick="updateComment(<?php echo $v->getId(); ?>);" href="javascript:" class="button">Enregistrer</a>
+			<a href="index.php?p=news&action=delcomment&id=<?php echo $_GET['id']; ?>&idcomment=<?php echo $v->getId(); ?>&token=<?php echo administrator::getToken(); ?>" onclick = "if(!confirm('Supprimer cet élément ?')) return false;" class="button alert">Supprimer</a>
+    </td>
+  </tr>
+  <?php } ?>
+</table>
+<script>
+  function updateComment(id){
+    document.getElementById('comment'+id).submit();
+  }
+</script>
 <?php } ?>
 
 <?php include_once(ROOT.'admin/footer.php'); ?>

@@ -8,31 +8,35 @@ $newsManager = new newsManager();
 
 switch($action){
 	case 'saveconf':
-		$runPlugin->setConfigVal('label', trim($_REQUEST['label']));
-		$runPlugin->setConfigVal('itemsByPage', trim(intval($_REQUEST['itemsByPage'])));
-		$runPlugin->setConfigVal('hideContent', (isset($_POST['hideContent']) ? 1 : 0));
-		$runPlugin->setConfigVal('comments', (isset($_POST['comments']) ? 1 : 0));
-		$pluginsManager->savePluginConfig($runPlugin);
-		header('location:index.php?p=news');
-		die();
+		if($administrator->isAuthorized()){
+			$runPlugin->setConfigVal('label', trim($_REQUEST['label']));
+			$runPlugin->setConfigVal('itemsByPage', trim(intval($_REQUEST['itemsByPage'])));
+			$runPlugin->setConfigVal('hideContent', (isset($_POST['hideContent']) ? 1 : 0));
+			$runPlugin->setConfigVal('comments', (isset($_POST['comments']) ? 1 : 0));
+			$pluginsManager->savePluginConfig($runPlugin);
+			header('location:index.php?p=news');
+			die();
+		}
 		break;
 	case 'save':
-		$news = ($_REQUEST['id']) ?  $newsManager->create($_REQUEST['id']) : new news();
-		$news->setName($_REQUEST['name']);
-		$news->setContent($_REQUEST['content']);
-		$news->setDraft((isset($_POST['draft']) ? 1 : 0));
-		if($_REQUEST['date'] == "") $news->setDate($news->getDate());
-		else $news->setDate($_REQUEST['date']);
-		if($newsManager->saveNews($news)){
-			$msg = "Les modifications ont été enregistrées";
-			$msgType = 'success';
+		if($administrator->isAuthorized()){
+			$news = ($_REQUEST['id']) ?  $newsManager->create($_REQUEST['id']) : new news();
+			$news->setName($_REQUEST['name']);
+			$news->setContent($_REQUEST['content']);
+			$news->setDraft((isset($_POST['draft']) ? 1 : 0));
+			if($_REQUEST['date'] == "") $news->setDate($news->getDate());
+			else $news->setDate($_REQUEST['date']);
+			if($newsManager->saveNews($news)){
+				$msg = "Les modifications ont été enregistrées";
+				$msgType = 'success';
+			}
+			else{
+				$msg = "Une erreur est survenue";
+				$msgType = 'error';
+			}
+			header('location:index.php?p=news&msg='.urlencode($msg).'&msgType='.$msgType);
+			die();
 		}
-		else{
-			$msg = "Une erreur est survenue";
-			$msgType = 'error';
-		}
-		header('location:index.php?p=news&msg='.urlencode($msg).'&msgType='.$msgType);
-		die();
 		break;
 	case 'edit':
 		$mode = 'edit';
@@ -47,17 +51,57 @@ switch($action){
 		$showDate = (isset($_REQUEST['id'])) ?  true : false;
 		break;
 	case 'del':
-		$news = $newsManager->create($_REQUEST['id']);
-		if($newsManager->delNews($news)){
-			$msg = "Les modifications ont été enregistrées";
-			$msgType = 'success';
+		if($administrator->isAuthorized()){
+			$news = $newsManager->create($_REQUEST['id']);
+			if($newsManager->delNews($news)){
+				$msg = "Les modifications ont été enregistrées";
+				$msgType = 'success';
+			}
+			else{
+				$msg = "Une erreur est survenue";
+				$msgType = 'error';
+			}
+			header('location:index.php?p=news&msg='.urlencode($msg).'&msgType='.$msgType);
+			die();
 		}
-		else{
-			$msg = "Une erreur est survenue";
-			$msgType = 'error';
+		break;
+	case 'listcomments':
+		$mode = 'listcomments';
+		$newsManager->loadComments($_GET['id']);
+		break;
+	case 'delcomment':
+		if($administrator->isAuthorized()){
+			$newsManager->loadComments($_GET['id']);
+			$comment = $newsManager->createComment($_GET['idcomment']);
+			if($newsManager->delComment($comment)){
+				$msg = "Les modifications ont été enregistrées";
+				$msgType = 'success';
+			}
+			else{
+				$msg = "Une erreur est survenue";
+				$msgType = 'error';
+			}
+			header('location:index.php?p=news&action=listcomments&id='.$_GET['id'].'&msg='.urlencode($msg).'&msgType='.$msgType);
+			die();
 		}
-		header('location:index.php?p=news&msg='.urlencode($msg).'&msgType='.$msgType);
-		die();
+		break;
+	case 'updatecomment':
+		if($administrator->isAuthorized()){
+			$newsManager->loadComments($_GET['id']);
+			$comment = $newsManager->createComment($_GET['idcomment']);
+			$newsManager->delComment($comment);
+			$comment->setContent($_POST['content'.$_GET['idcomment']]);
+			if($newsManager->saveComment($comment)){
+				$msg = "Les modifications ont été enregistrées";
+				$msgType = 'success';
+			}
+			else{
+				$msg = "Une erreur est survenue";
+				$msgType = 'error';
+			}
+			header('location:index.php?p=news&action=listcomments&id='.$_GET['id'].'&msg='.urlencode($msg).'&msgType='.$msgType);
+			die();
+		}
 		break;
 	default:
 		$mode = 'list';

@@ -124,6 +124,13 @@ class newsManager{
 		return $this->comments;
 	}
 	
+	public function createComment($id){
+		foreach($this->comments as $obj){
+			if($obj->getId() == $id) return $obj;
+		}
+		return false;
+	}
+	
 	public function loadComments($idNews){
 		if(!file_exists(@mkdir(DATA_PLUGIN.'news/comments/'))) @mkdir(DATA_PLUGIN.'news/comments/');
 		if(!file_exists(DATA_PLUGIN.'news/comments/'.$idNews.'.json')) util::writeJsonFile(DATA_PLUGIN.'news/comments/'.$idNews.'.json', array());
@@ -144,9 +151,12 @@ class newsManager{
 		}
 	}
 	
-	public function saveComment($comment){
-		$comment->setId(time());
-		$this->comments[] = $comment;
+	public function saveComment($comment = null, $idNews = null){
+		if($comment != null){
+			$comment->setId(time());
+			$this->comments[] = $comment;
+			$idNews = $comment->getIdNews();
+		}
 		$data = array();
 		foreach($this->comments as $k=>$v){
 			$data[] = array(
@@ -158,7 +168,17 @@ class newsManager{
 				'authorEmail' => $v->getAuthorEmail(),
 			);
 		}
-		return util::writeJsonFile(DATA_PLUGIN.'news/comments/'.$comment->getIdNews().'.json', $data);
+		if($comment == null && $idNews != null){
+			$idNews = $idNews;
+		}
+		return util::writeJsonFile(DATA_PLUGIN.'news/comments/'.$idNews.'.json', $data);
+	}
+	
+	public function delComment($obj){
+		foreach($this->comments as $k=>$v){
+			if($obj->getId() == $v->getId()) unset($this->comments[$k]);
+		}
+		return $this->saveComment(null, $obj->getIdNews());
 	}
 }
 

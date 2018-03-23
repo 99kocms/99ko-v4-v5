@@ -1,7 +1,7 @@
 <?php
 /*
  * 99ko CMS (since 2010)
- * http://janisjoplin.fr/page/made-with-99ko-cms,28.html
+ * https://github.com/99kocms/
  *
  * Creator / Developper :
  * Jonathan (j.coulet@gmail.com)
@@ -12,7 +12,7 @@
  *
  */
 
-define('VERSION', '4.3');
+define('VERSION', '4.3.1');
 define('COMMON',  ROOT.'common/');
 define('DATA', ROOT.'data/');
 define('UPLOAD', ROOT.'data/upload/');

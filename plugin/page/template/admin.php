@@ -89,11 +89,11 @@ include_once(ROOT.'admin/header.php');
 	  </select>
   </p>
   <p>
-      <label>Classe CSS (menu)</label>
+      <label>Classe CSS</label>
       <input type="text" name="cssClass" value="<?php echo $pageItem->getCssClass(); ?>" />
   </p>
   <p>
-      <label>Position (menu)</label>
+      <label>Position</label>
       <input type="number" name="position" value="<?php echo $pageItem->getPosition(); ?>" />
   </p>
   <p>
@@ -110,11 +110,11 @@ include_once(ROOT.'admin/header.php');
       <input <?php if($pageItem->getNoIndex()){ ?>checked<?php } ?> type="checkbox" name="noIndex" /> Interdire l'indexation
   </p>
   <p>
-      <label>Meta title (optionel)</label>
+      <label>Meta title</label>
       <input type="text" name="metaTitleTag" value="<?php echo $pageItem->getMetaTitleTag(); ?>" />
   </p>
   <p>
-      <label>Meta description (optionel)</label>
+      <label>Meta description</label>
       <input type="text" name="metaDescriptionTag" value="<?php echo $pageItem->getMetaDescriptionTag(); ?>" />
   </p>
 	<h3>Contenu</h3>
@@ -123,11 +123,11 @@ include_once(ROOT.'admin/header.php');
       <input type="text" name="name" value="<?php echo $pageItem->getName(); ?>" required="required" />
   </p>
   <p>
-      <label>Titre de page (optionel)</label><br>
+      <label>Titre de page</label><br>
       <input type="text" name="mainTitle" value="<?php echo $pageItem->getMainTitle(); ?>" />
   </p>
   <p>
-      <label>Inclure un fichier .php au lieu du contenu (doit être présent dans le dossier de votre thème)
+      <label>Inclure un fichier .php au lieu du contenu
 	  <select name="file" class="large-3 columns">
 		  <option value="">--</option>
 		  <?php foreach($page->listTemplates() as $file){ ?>
@@ -185,11 +185,11 @@ include_once(ROOT.'admin/header.php');
 	  </select>
   </p>
   <p>
-      <label>Classe CSS (menu)</label>
+      <label>Classe CSS</label>
       <input type="text" name="cssClass" value="<?php echo $pageItem->getCssClass(); ?>" />
   </p>
   <p>
-      <label>Position (menu)</label>
+      <label>Position</label>
       <input type="number" name="position" value="<?php echo $pageItem->getPosition(); ?>" />
   </p>
   <p>
@@ -212,11 +212,11 @@ include_once(ROOT.'admin/header.php');
       <input type="text" name="name" value="<?php echo $pageItem->getName(); ?>" required="required" />
   </p>
   <p>
-      <label>Classe CSS (menu)</label>
+      <label>Classe CSS</label>
       <input type="text" name="cssClass" value="<?php echo $pageItem->getCssClass(); ?>" />
   </p>
   <p>
-      <label>Position (menu)</label>
+      <label>Position</label>
       <input type="number" name="position" value="<?php echo $pageItem->getPosition(); ?>" />
   </p>
   <p>
