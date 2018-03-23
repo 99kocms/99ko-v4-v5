@@ -2,15 +2,14 @@
 <!doctype html>
 <html lang="fr">
   <head>
-	<?php eval($core->callHook('adminHead')); ?>
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="robots" content="noindex"><meta name="googlebot" content="noindex">
 	<title>99ko - Connexion</title>	
 	<?php show::linkTags(); ?>
 	<link rel="stylesheet" href="styles.css" media="all">
 	<?php show::scriptTags(); ?>
 	<script type="text/javascript" src="scripts.js"></script>
-	<?php eval($core->callHook('endAdminHead')); ?>	
   </head>
   <body class="login">
 		<?php show::msg($msg); ?>
@@ -33,6 +32,5 @@
 	  </p>
 	</form>
   </div>
-  <?php eval($core->callHook('endAdminBody')); ?>
   </body>
 </html>
