@@ -10,6 +10,20 @@ $page = new page();
 switch($action){
 	case 'save':
 		if($administrator->isAuthorized()){
+			$imgId = '';
+			if($pluginsManager->isActivePlugin('galerie')){
+				$galerie = new galerie();
+				$img = ($_REQUEST['imgId']) ? $galerie->createItem($_REQUEST['imgId']) : new galerieItem();
+				if($img){
+					$img->setCategory('');
+					$img->setTitle($_POST['name'].' (image à la une)');
+					$img->setContent('');
+					$img->setDate(date('Y-m-d H:i:s'));
+					$img->setHidden(1);
+					$galerie->saveItem($img);
+					$imgId = $galerie->getLastId();
+				}
+			}
 			if($_POST['id'] != '') $pageItem = $page->create($_POST['id']);
 			else $pageItem = new pageItem();
 			$pageItem->setName($_POST['name']);
@@ -26,6 +40,7 @@ switch($action){
 			$pageItem->setNoIndex((isset($_POST['noIndex'])) ? 1 : 0);
 			$pageItem->setParent((isset($_POST['parent'])) ? $_POST['parent'] : '');
 			$pageItem->setCssClass($_POST['cssClass']);
+			$pageItem->setImg($imgId);
 			if(isset($_POST['_password']) && $_POST['_password'] != '') $pageItem->setPassword($_POST['_password']);
 			if(isset($_POST['resetPassword'])) $pageItem->setPassword('');
 			if($page->save($pageItem)) $msg = "Les modifications ont été enregistrées";

@@ -192,6 +192,12 @@ class show{
 			echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 		}
 	}
-    
+	
+	## Affiche l'URL de l'icon du thème
+	public static function themeIcon(){
+		$core = core::getInstance();
+		$icon = 'theme/'.$core->getConfigVal('theme').'/icon.png';
+		if(file_exists($icon)) echo $icon;
+	}
 }
 ?>

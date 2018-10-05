@@ -92,6 +92,14 @@ class galerie{
 		else return false;
 	}
 	
+	public function getLastId(){
+		$ids = array();
+		foreach($this->items as $k=>$v){
+			$ids[] = $v->getId();
+		}
+		return max($ids);
+	}
+	
 	private function saveItems(){
 		$data = array();
 		foreach($this->items as $k=>$v){

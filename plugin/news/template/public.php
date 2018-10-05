@@ -11,8 +11,10 @@
 			<span class="date"><?php echo $v['date']; ?>
 			<?php if($runPlugin->getConfigVal('comments')){ ?> | <?php echo $newsManager->countComments($v['id']); ?> commentaire(s)<?php } ?></span>
 		</h2>
-		<?php echo $v['content']; ?>
-		<?php } else{ ?>
+		<?php
+		if($pluginsManager->isActivePlugin('galerie') && $v['img'] != '') echo '<img class="featured" src="'.UPLOAD.'galerie/'.$v['img'].'" alt="'.$v['img'].'" />';
+		echo $v['content'];
+		} else{ ?>
 		<a href="<?php echo $v['url']; ?>"><?php echo $v['name']; ?></a> <span class="date"><?php echo $v['date']; ?><?php if($runPlugin->getConfigVal('comments')){ ?> | <?php echo $newsManager->countComments($v['id']); ?> commentaire(s)<?php } ?></span>
 		<?php } ?>
 	</li>
@@ -25,8 +27,10 @@
 </ul>
 <?php } ?>
 
-<?php if($mode == 'read'){ ?>
-<?php echo $item->getContent(); ?>
+<?php if($mode == 'read'){
+if($pluginsManager->isActivePlugin('galerie') && $item->getImg() != '') echo '<img class="featured" src="'.UPLOAD.'galerie/'.$item->getImg().'" alt="'.$item->getName().'" />';
+echo $item->getContent();
+?>
 <p class="date">
 	Posté le <?php echo util::FormatDate($item->getDate(), 'en', 'fr'); ?>
 	<?php if($runPlugin->getConfigVal('comments')){ ?> | <?php echo $newsManager->countComments(); ?> commentaire(s)<?php } ?>

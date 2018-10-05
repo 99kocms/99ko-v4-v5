@@ -29,14 +29,17 @@ include_once(ROOT.'admin/header.php');
 <?php } ?>
 
 <?php if($mode == 'edit'){ ?>
-<form method="post" action="index.php?p=news&action=save">
+<form method="post" action="index.php?p=news&action=save" enctype="multipart/form-data">
   <?php show::adminTokenField(); ?>
   <input type="hidden" name="id" value="<?php echo $news['id']; ?>" />
-  
+  <?php if($pluginsManager->isActivePlugin('galerie')){ ?>
+  <input type="hidden" name="imgId" value="<?php echo $news['img']; ?>" />
+	<?php } ?>
+	<h3>Paramètres</h3>
   <p>
       <input <?php if($news['draft']){ ?>checked<?php } ?> type="checkbox" name="draft" /> Ne pas publier (brouillon)
     </p>
-  
+  <h3>Contenu</h3>
   <p>
       <label>Titre</label><br>
       <input type="text" name="name" value="<?php echo $news['name']; ?>" required="required" />
@@ -52,6 +55,16 @@ include_once(ROOT.'admin/header.php');
       <label>Contenu</label><br>
       <textarea name="content" class="editor"><?php echo $news['content']; ?></textarea>
     </p>
+	
+	<?php if($pluginsManager->isActivePlugin('galerie')){ ?>
+	<h3>Image à la une</h3>
+	<p>
+      <label>Fichier (jpg)</label><br>
+      <input type="file" name="file" />
+      <br>
+      <?php if($news['img'] != ''){ ?><img src="<?php echo UPLOAD; ?>galerie/<?php echo $news['img']; ?>" alt="<?php echo $news['img']; ?>" /><?php } ?>
+    </p>
+	<?php } ?>
   
   <p><button type="submit" class="button">Enregistrer</button></p>
 </form>
