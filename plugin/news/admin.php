@@ -31,7 +31,7 @@ switch($action){
 					$img->setDate(date('Y-m-d H:i:s'));
 					$img->setHidden(1);
 					$galerie->saveItem($img);
-					$imgId = $galerie->getLastId();
+					$imgId = $galerie->getLastId().'.jpg';
 				}
 			}
 			$news = ($_REQUEST['id']) ?  $newsManager->create($_REQUEST['id']) : new news();
