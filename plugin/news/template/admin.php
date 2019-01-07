@@ -62,7 +62,7 @@ include_once(ROOT.'admin/header.php');
       <label>Fichier (jpg)</label><br>
       <input type="file" name="file" />
       <br>
-      <?php if($news['img'] != ''){ ?><img src="<?php echo UPLOAD; ?>galerie/<?php echo $news['img']; ?>" alt="<?php echo $news['img']; ?>" /><?php } ?>
+      <?php if(galerie::searchByfileName($news['img'])){ ?><img src="<?php echo UPLOAD; ?>galerie/<?php echo $news['img']; ?>" alt="<?php echo $news['img']; ?>" /><?php } ?>
     </p>
 	<?php } ?>
   

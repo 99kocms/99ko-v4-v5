@@ -12,7 +12,7 @@
 			<?php if($runPlugin->getConfigVal('comments')){ ?> | <?php echo $newsManager->countComments($v['id']); ?> commentaire(s)<?php } ?></span>
 		</h2>
 		<?php
-		if($pluginsManager->isActivePlugin('galerie') && $v['img'] != '') echo '<img class="featured" src="'.UPLOAD.'galerie/'.$v['img'].'" alt="'.$v['img'].'" />';
+		if($pluginsManager->isActivePlugin('galerie') && galerie::searchByfileName($v['img'])) echo '<img class="featured" src="'.UPLOAD.'galerie/'.$v['img'].'" alt="'.$v['img'].'" />';
 		echo $v['content'];
 		} else{ ?>
 		<a href="<?php echo $v['url']; ?>"><?php echo $v['name']; ?></a> <span class="date"><?php echo $v['date']; ?><?php if($runPlugin->getConfigVal('comments')){ ?> | <?php echo $newsManager->countComments($v['id']); ?> commentaire(s)<?php } ?></span>
@@ -28,7 +28,7 @@
 <?php } ?>
 
 <?php if($mode == 'read'){
-if($pluginsManager->isActivePlugin('galerie') && $item->getImg() != '') echo '<img class="featured" src="'.UPLOAD.'galerie/'.$item->getImg().'" alt="'.$item->getName().'" />';
+if($pluginsManager->isActivePlugin('galerie') && galerie::searchByfileName($item->getImg())) echo '<img class="featured" src="'.UPLOAD.'galerie/'.$item->getImg().'" alt="'.$item->getName().'" />';
 echo $item->getContent();
 ?>
 <p class="date">

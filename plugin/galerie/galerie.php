@@ -119,6 +119,16 @@ class galerie{
 		return false;
 	}
 	
+	public static function searchByfileName($name){
+		if($name != ''){
+			$galerie = new galerie();
+			foreach($galerie->getItems() as $k=>$v){
+				if($v->getImg() == $name) return true;
+			}
+		}
+		return false;
+	}
+	
 }
 
 class galerieItem{

@@ -4,7 +4,7 @@ include_once(THEMES.$core->getConfigVal('theme').'/header.php');
 if($page->isUnlocked($pageItem)){
     if($pageItem->getFile()) include_once(THEMES.$core->getConfigVal('theme').'/'.$pageItem->getFile());
     else{
-        if($pluginsManager->isActivePlugin('galerie') && $pageItem->getImg() != '') echo '<img class="featured" src="'.UPLOAD.'galerie/'.$pageItem->getImg().'" alt="'.$pageItem->getName().'" />';
+        if($pluginsManager->isActivePlugin('galerie') && galerie::searchByfileName($pageItem->getImg())) echo '<img class="featured" src="'.UPLOAD.'galerie/'.$pageItem->getImg().'" alt="'.$pageItem->getName().'" />';
         echo $pageItem->getContent();
     }
 }

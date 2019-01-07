@@ -147,7 +147,7 @@ include_once(ROOT.'admin/header.php');
       <label>Fichier (jpg)</label><br>
       <input type="file" name="file" />
       <br>
-      <?php if($pageItem->getImg() != ''){ ?><img src="<?php echo UPLOAD; ?>galerie/<?php echo $pageItem->getImg(); ?>" alt="<?php echo $pageItem->getImg(); ?>" /><?php } ?>
+      <?php if(galerie::searchByfileName($pageItem->getImg())){ ?><img src="<?php echo UPLOAD; ?>galerie/<?php echo $pageItem->getImg(); ?>" alt="<?php echo $pageItem->getImg(); ?>" /><?php } ?>
     </p>
 	<?php } ?>
   <p>
