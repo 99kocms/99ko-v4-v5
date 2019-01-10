@@ -112,6 +112,7 @@ class newsManager{
 				'content' => $v->getContent(),
 				'date' => $v->getDate(),
 				'draft' => $v->getDraft(),
+				'img' => $v->getImg(),
 			);
 		}
 		if(util::writeJsonFile(ROOT.'data/plugin/news/news.json', $data)) return true;
@@ -188,6 +189,7 @@ class news{
 	private $date;
 	private $content;
 	private $draft;
+	private $img;
 	
 	public function __construct($val = array()){
 		if(count($val) > 0){
@@ -196,6 +198,7 @@ class news{
 			$this->content = $val['content'];
 			$this->date = $val['date'];
 			$this->draft = $val['draft'];
+			$this->img = (isset($val['img']) ? $val['img'] : '');
 		}
 	}
 	
@@ -220,6 +223,10 @@ class news{
 	public function setDraft($val){
 		$this->draft = trim($val);
 	}
+	
+	public function setImg($val){
+		$this->img = trim($val);
+	}
 
 	public function getId(){
 		return $this->id;
@@ -239,6 +246,10 @@ class news{
 	
 	public function getDraft(){
 		return $this->draft;
+	}
+	
+	public function getImg(){
+		return $this->img;
 	}
 }
 

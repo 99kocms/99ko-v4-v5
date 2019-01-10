@@ -20,12 +20,27 @@ switch($action){
 		break;
 	case 'save':
 		if($administrator->isAuthorized()){
+			$imgId = '';
+			if($pluginsManager->isActivePlugin('galerie')){
+				$galerie = new galerie();
+				$img = ($_REQUEST['imgId']) ? $galerie->createItem($_REQUEST['imgId']) : new galerieItem();
+				if($img){
+					$img->setCategory('');
+					$img->setTitle($_POST['name'].' (image à la une)');
+					$img->setContent('');
+					$img->setDate(date('Y-m-d H:i:s'));
+					$img->setHidden(1);
+					$galerie->saveItem($img);
+					$imgId = $galerie->getLastId().'.jpg';
+				}
+			}
 			$news = ($_REQUEST['id']) ?  $newsManager->create($_REQUEST['id']) : new news();
 			$news->setName($_REQUEST['name']);
 			$news->setContent($_REQUEST['content']);
 			$news->setDraft((isset($_POST['draft']) ? 1 : 0));
 			if($_REQUEST['date'] == "") $news->setDate($news->getDate());
 			else $news->setDate($_REQUEST['date']);
+			$news->setImg($imgId);
 			if($newsManager->saveNews($news)){
 				$msg = "Les modifications ont été enregistrées";
 				$msgType = 'success';
@@ -47,6 +62,7 @@ switch($action){
 			'content' => $news->getContent(),
 			'date' => $news->getDate(),
 			'draft' => $news->getDraft(),
+			'img' => $news->getImg(),
 		);
 		$showDate = (isset($_REQUEST['id'])) ?  true : false;
 		break;

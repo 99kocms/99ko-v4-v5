@@ -142,6 +142,7 @@ class page{
 			'parent' => $obj->getParent(),
 			'cssClass' => $obj->getCssClass(),
 			'password' => $obj->getPassword(),
+			'img' => $obj->getImg(),
 		);
 		$update = false;
 		foreach($this->items as $k=>$v){
@@ -284,6 +285,7 @@ class pageItem{
 	private $parent;
 	private $cssClass;
 	private $password;
+	private $img;
 	
 	public function __construct($val = array()){
 		if(count($val) > 0){
@@ -303,6 +305,7 @@ class pageItem{
 			$this->parent = (isset($val['parent']) ? $val['parent'] : 0);
 			$this->cssClass = (isset($val['cssClass']) ? $val['cssClass'] : '');
 			$this->password = (isset($val['password']) ? $val['password'] : '');
+			$this->img = (isset($val['img']) ? $val['img'] : '');
 		}
 	}
 
@@ -370,6 +373,10 @@ class pageItem{
 	public function setPassword($val){
 		$this->password = ($val == '') ? $val : sha1(trim($val));
 	}
+	
+	public function setImg($val){
+		$this->img = trim($val);
+	}
 
 	public function getId(){
 		return $this->id;
@@ -433,6 +440,10 @@ class pageItem{
 	
 	public function getPassword(){
 		return $this->password;
+	}
+	
+	public function getImg(){
+		return $this->img;
 	}
 	
 	public function targetIs(){

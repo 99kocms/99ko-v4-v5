@@ -34,6 +34,7 @@ switch($action){
 				$news[$k]['id'] = $v->getId();
 				$news[$k]['content'] = $v->getContent();
 				$news[$k]['url'] = $core->makeUrl('news', array('action' => 'read', 'name' => util::strToUrl($v->getName()), 'id' => $v->getId()));
+				$news[$k]['img'] = $v->getImg();
 			}
 			$i++;
 		}

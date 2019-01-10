@@ -71,6 +71,7 @@ include_once(ROOT.'admin/header.php');
 		<option <?php if($core->getConfigVal('urlSeparator') == ','){ ?>selected<?php } ?> value=",">virgule</option>
         <option <?php if($core->getConfigVal('urlSeparator') == '.'){ ?>selected<?php } ?> value=".">point</option>
         <option <?php if($core->getConfigVal('urlSeparator') == '/'){ ?>selected<?php } ?> value="/">slash</option>
+				<option <?php if($core->getConfigVal('urlSeparator') == '_'){ ?>selected<?php } ?> value="_">underscore</option>
       </select>
 </p>
   <p>

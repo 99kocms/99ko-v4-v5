@@ -92,6 +92,14 @@ class galerie{
 		else return false;
 	}
 	
+	public function getLastId(){
+		$ids = array();
+		foreach($this->items as $k=>$v){
+			$ids[] = $v->getId();
+		}
+		return max($ids);
+	}
+	
 	private function saveItems(){
 		$data = array();
 		foreach($this->items as $k=>$v){
@@ -107,6 +115,16 @@ class galerie{
 		}
 		if(util::writeJsonFile(DATA_PLUGIN.'galerie/galerie.json', $data)){
 			return true;
+		}
+		return false;
+	}
+	
+	public static function searchByfileName($name){
+		if($name != ''){
+			$galerie = new galerie();
+			foreach($galerie->getItems() as $k=>$v){
+				if($v->getImg() == $name) return true;
+			}
 		}
 		return false;
 	}

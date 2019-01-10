@@ -68,10 +68,12 @@ include_once(ROOT.'admin/header.php');
 <?php } ?>
 
 <?php if($mode == 'edit' && !$isLink && !$isParent && $pageItem->targetIs() != 'plugin'){ ?>
-<form method="post" action="index.php?p=page&amp;action=save">
+<form method="post" action="index.php?p=page&amp;action=save" enctype="multipart/form-data">
   <?php show::adminTokenField(); ?>
   <input type="hidden" name="id" value="<?php echo $pageItem->getId(); ?>" />
-  <!--<input type="hidden" name="position" value="<?php echo $pageItem->getPosition(); ?>" />-->
+	<?php if($pluginsManager->isActivePlugin('galerie')){ ?>
+  <input type="hidden" name="imgId" value="<?php echo $pageItem->getImg(); ?>" />
+	<?php } ?>
 	<h3>Paramètres</h3>
   <p>
       <input <?php if($pageItem->getIsHomepage()){ ?>checked<?php } ?> type="checkbox" name="isHomepage" /> Page d'accueil
@@ -139,6 +141,15 @@ include_once(ROOT.'admin/header.php');
       <label>Contenu</label>
 			<textarea name="content" class="editor"><?php echo $pageItem->getContent(); ?></textarea>
   </p>
+	<?php if($pluginsManager->isActivePlugin('galerie')){ ?>
+	<h3>Image à la une</h3>
+	<p>
+      <label>Fichier (jpg)</label><br>
+      <input type="file" name="file" />
+      <br>
+      <?php if(galerie::searchByfileName($pageItem->getImg())){ ?><img src="<?php echo UPLOAD; ?>galerie/<?php echo $pageItem->getImg(); ?>" alt="<?php echo $pageItem->getImg(); ?>" /><?php } ?>
+    </p>
+	<?php } ?>
   <p>
 	<button type="submit" class="button success radius">Enregistrer</button>
   </p>
