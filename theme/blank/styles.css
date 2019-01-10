@@ -1,0 +1,112 @@
+
+/* BASIC */
+
+*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;outline:none;-webkit-tap-highlight-color:transparent}
+body{}
+a,a:hover,a:active,a:visited{}
+a:hover{}
+h1{}
+h2{}
+h3{}
+ul,ol{}
+hr{}
+img{max-width:100%}
+table{width:100%}
+tr{}
+tr:last-child{}
+tr:nth-child(even){}
+th,td{}
+
+/* FORM */
+
+input{
+}
+
+input[type=text], input[type=email], input[type=password], textarea{
+}
+
+textarea{
+}
+
+input[type=submit], input[type=button]{
+}
+
+/* CODE */
+
+pre{
+}
+
+code{
+}
+
+/* ALERT */
+
+.msg p{
+}
+
+/* STRUCTURE */
+
+#container{
+}
+
+#header{
+}
+
+#header_content{
+}
+
+#body{
+}
+
+#content{
+}
+
+#footer{
+}
+
+#footer_content{
+}
+
+#footer_content a{
+}
+
+/* MENU */
+
+#navigation{
+}
+
+#navigation li{
+}
+
+#navigation a{
+}
+
+#navigation a:hover{
+}
+
+#navigation li ul{
+}
+
+#navigation li:hover ul{
+}
+
+#navigation li ul li{
+}
+
+#siteName{
+}
+
+/* SITE NAME */
+
+#siteName a{
+}
+
+/* MOBILE */
+
+@media only screen and (max-width: 1024px){
+
+}
+
+@media only screen and (max-width: 960px){
+
+}
