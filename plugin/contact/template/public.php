@@ -24,6 +24,9 @@ echo $runPlugin->getConfigVal('content1');
     <textarea required="required" name="message"><?php echo $message; ?></textarea>
   </p>
   <p>
+    <input type="checkbox" required="required" /> <?php echo $runPlugin->getConfigVal('acceptation'); ?>
+  </p>
+  <p>
     <input type="submit" value="Envoyer" />
   </p>
 </form>
