@@ -10,16 +10,7 @@ function pageInstall(){
 		$pageItem->setName('Accueil');
 		$pageItem->setPosition(1);
 		$pageItem->setIsHomepage(1);
-		$pageItem->setContent('<p>Félicitations, l\'installation de 99ko s\'est déroulée avec succès !<br>Par mesure de sécurité, vous devez maintenant supprimer le fichier install.php du répertoire d\'installation.</p><p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- 99ko (2) -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-4122559767697315"
-     data-ad-slot="4101348782"
-     data-ad-format="auto"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script></p>');
+		$pageItem->setContent('<p>Félicitations, l\'installation de 99ko s\'est déroulée avec succès !<br>Par mesure de sécurité, vous devez maintenant supprimer le fichier install.php du répertoire d\'installation.</p><div id="fb-root"></div><script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v3.2&appId=1977129795718995&autoLogAppEvents=1"></script><div class="fb-like" data-href="https://www.facebook.com/99kocms/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>');
 		$pageItem->setIsHidden(0);
 		$page->save($pageItem);
 		$page = new page();
@@ -46,6 +37,9 @@ function pageEndFrontHead(){
 		if($pageItem->getNoIndex()){
 			echo '<meta name="robots" content="noindex"><meta name="googlebot" content="noindex">';
 		}
+		$core = core::getInstance();
+		$pluginsManager = pluginsManager::getInstance();
+		if($pluginsManager->isActivePlugin('galerie') && galerie::searchByfileName($pageItem->getImg())) echo '<meta property="og:image" content="'.$core->getConfigVal('siteUrl').'/'.str_replace('./', '', UPLOAD).'galerie/'.$pageItem->getImg().'" />';
 	}
 }
 

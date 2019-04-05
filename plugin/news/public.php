@@ -7,7 +7,7 @@ $newsManager = new newsManager();
 switch($action){
 	case '':
 		// Mode d'affichage
-		$mode = 'list';
+		$mode = ($newsManager->count() > 0) ? 'list' : 'list_empty';
 		// Détermination de la page courante
 		if($core->getUrlParam(0) == '') $currentPage = 1;
 		else $currentPage = $core->getUrlParam(0);

@@ -14,10 +14,6 @@ include_once(ROOT.'admin/header.php');
       <label>Meta google site verification</label><br>
       <input type="text" name="wt" value="<?php echo $runPlugin->getConfigVal('wt'); ?>" />
   </p>
-	<p>
-      <label>Page Google+</label><br>
-      <input placeholder="" type="text" name="gplus" value="<?php echo $runPlugin->getConfigVal('gplus'); ?>" />
-  </p>
   <p>
       <label>Chaîne YouTube</label><br>
       <input placeholder="" type="text" name="youtube" value="<?php echo $runPlugin->getConfigVal('youtube'); ?>" />

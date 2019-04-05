@@ -8,14 +8,11 @@ switch($action){
             if(isset($_GET['fromparam'])){
                 $runPlugin->setConfigVal('label', $_POST['label']);
                 $runPlugin->setConfigVal('copy', $_POST['copy']);
-                //$runPlugin->getConfigVal('content1');
-                //$runPlugin->getConfigVal('content2');
+                 $runPlugin->setConfigVal('acceptation', $_POST['acceptation']);
             }
             else{
                 $runPlugin->setConfigVal('content1', $_POST['content1']);
                 $runPlugin->setConfigVal('content2', $_POST['content2']);
-                //$runPlugin->getConfigVal('label');
-                //$runPlugin->getConfigVal('copy');
             }
             if($pluginsManager->savePluginConfig($runPlugin)) $msg = "Les modifications ont été enregistrées";
             else $msg = "Une erreur est survenue";

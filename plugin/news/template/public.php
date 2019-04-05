@@ -15,7 +15,9 @@
 		if($pluginsManager->isActivePlugin('galerie') && galerie::searchByfileName($v['img'])) echo '<img class="featured" src="'.UPLOAD.'galerie/'.$v['img'].'" alt="'.$v['img'].'" />';
 		echo $v['content'];
 		} else{ ?>
-		<a href="<?php echo $v['url']; ?>"><?php echo $v['name']; ?></a> <span class="date"><?php echo $v['date']; ?><?php if($runPlugin->getConfigVal('comments')){ ?> | <?php echo $newsManager->countComments($v['id']); ?> commentaire(s)<?php } ?></span>
+		<h2>
+			<a href="<?php echo $v['url']; ?>"><?php echo $v['name']; ?></a> <span class="date"><?php echo $v['date']; ?><?php if($runPlugin->getConfigVal('comments')){ ?> | <?php echo $newsManager->countComments($v['id']); ?> commentaire(s)<?php } ?></span>
+		</h2>
 		<?php } ?>
 	</li>
 	<?php } ?>
@@ -27,15 +29,21 @@
 </ul>
 <?php } ?>
 
-<?php if($mode == 'read'){
-if($pluginsManager->isActivePlugin('galerie') && galerie::searchByfileName($item->getImg())) echo '<img class="featured" src="'.UPLOAD.'galerie/'.$item->getImg().'" alt="'.$item->getName().'" />';
-echo $item->getContent();
-?>
+<?php if($mode == 'list_empty'){ ?>
+<p>Aucun élément n'a été trouvé.</p>
+<?php } ?>
+
+<?php if($mode == 'read'){ ?>
 <p class="date">
 	Posté le <?php echo util::FormatDate($item->getDate(), 'en', 'fr'); ?>
 	<?php if($runPlugin->getConfigVal('comments')){ ?> | <?php echo $newsManager->countComments(); ?> commentaire(s)<?php } ?>
 	| <a href="<?php echo $core->makeUrl('news'); ?>">Retour à la liste</a>
 </p>
+<div class="content">
+<?php if($pluginsManager->isActivePlugin('galerie') && galerie::searchByfileName($item->getImg())) echo '<img class="featured" src="'.UPLOAD.'galerie/'.$item->getImg().'" alt="'.$item->getName().'" />';
+echo $item->getContent();
+?>
+</div>
 <?php if($runPlugin->getConfigVal('comments')){ ?>
 
 <h2>Commentaires</h2>

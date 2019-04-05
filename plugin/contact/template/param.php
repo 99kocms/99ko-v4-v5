@@ -10,6 +10,10 @@
         <label>Titre de page</label><br>
         <input type="text" name="label" value="<?php echo $runPlugin->getConfigVal('label'); ?>" required />
     </p>
+    <p>
+        <label>Texte d'acceptation avant envoi du formulaire</label><br>
+        <textarea name="acceptation"><?php echo $runPlugin->getConfigVal('acceptation'); ?></textarea>
+    </p>
     <p><button type="submit" class="button">Enregistrer</button></p>
     <div class="separator"></div>
     <p>

@@ -6,7 +6,6 @@ switch($action){
 		if($administrator->isAuthorized()){
             $runPlugin->setConfigVal('trackingId', trim($_POST['trackingId']));
 			$runPlugin->setConfigVal('wt', trim($_POST['wt']));
-			$runPlugin->setConfigVal('gplus', trim($_POST['gplus']));
 			$runPlugin->setConfigVal('facebook', trim($_POST['facebook']));
 			$runPlugin->setConfigVal('twitter', trim($_POST['twitter']));
 			$runPlugin->setConfigVal('youtube', trim($_POST['youtube']));

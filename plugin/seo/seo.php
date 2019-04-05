@@ -21,19 +21,16 @@ function seoEndFrontHead(){
 
 </script>";
     $temp.= '<meta name="google-site-verification" content="'.$plugin->getConfigVal('wt').'" />';
-    $temp.= '<link href="'.$plugin->getConfigVal('gplus').'" rel="publisher" />';
     echo $temp;
 }
 
 function seoEndFrontBody(){
     $plugin = pluginsManager::getInstance()->getPlugin('seo');
-    $gplus = $plugin->getConfigVal('gplus');
     $facebook = $plugin->getConfigVal('facebook');
     $twitter = $plugin->getConfigVal('twitter');
     $youtube = $plugin->getConfigVal('youtube');
-    if($gplus.$facebook.$twitter != ''){
+    if($facebook.$twitter != ''){
         echo '<div id="seo_social">';
-        if($gplus != '') echo '<a target="_blank" href="'.$gplus.'">Google+</a>';
         if($facebook != '') echo '<a target="_blank" href="'.$facebook.'">Facebook</a>';
         if($twitter != '') echo '<a target="_blank" href="'.$twitter.'">Twitter</a>';
         if($youtube != '') echo '<a target="_blank" href="'.$youtube.'">YouTube</a>';
