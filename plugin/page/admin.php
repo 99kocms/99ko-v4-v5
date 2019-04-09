@@ -13,7 +13,7 @@ switch($action){
 			$imgId = '';
 			if($pluginsManager->isActivePlugin('galerie')){
 				$galerie = new galerie();
-				$img = ($_REQUEST['imgId']) ? $galerie->createItem($_REQUEST['imgId']) : new galerieItem();
+				$img = ($_REQUEST['imgId']) ? $galerie->createItem($_REQUEST['imgId']) : new galerieItem(array('category' => ''));
 				if($img){
 					$img->setCategory('');
 					$img->setTitle($_POST['name'].' (image à la une)');

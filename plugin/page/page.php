@@ -16,14 +16,9 @@ function pageInstall(){
 		$page = new page();
 		$page = new page();
 		$pageItem = new pageItem();
-		$pageItem->setName('99ko');
-		$pageItem->setPosition(4);
-		$pageItem->setIsHomepage(0);
-		$pageItem->setContent('');
-		$pageItem->setIsHidden(0);
-		$pageItem->setFile('');
-		$pageItem->setTarget('https://github.com/99kocms/');
-		$pageItem->setTargetAttr('_blank');
+		$pageItem->setName('Liens');
+		$pageItem->setPosition(2);
+		$pageItem->setContent('<ul><li><a href="https://github.com/99kocms">https://github.com/99kocms</a> (99ko CMS sur GithHub)</li><li><a href="https://www.facebook.com/99kocms/">https://www.facebook.com/99kocms/</a> (99ko CMS sur Facebook)</li><li><a href="https://www.facebook.com/groups/130444474278984/">https://www.facebook.com/groups/130444474278984/</a> (Groupe Facebook de support de 99ko CMS)</li><li><a href="https://99ko.tuxfamily.org/">https://99ko.tuxfamily.org</a> (99Ko CMS chez Tuwfamily)</li><li><a href="https://phpsources.net/scripts/php/cms/versions/465_99ko-cms-sans-bdd">https://phpsources.net/scripts/php/cms/versions/465_99ko-cms-sans-bdd</a> (99ko CMS sur PHPsources)</li><li><a href="https://framalibre.org/content/99ko">https://framalibre.org/content/99ko</a> (99ko CMS sur Framalibre)</li><li><a href="https://alternativeto.net/software/99ko-cms/">https://alternativeto.net/software/99ko-cms/</a> (99ko CMS sur AlternativeTo)</li></ul>');
 		$page->save($pageItem);
 	}
 }
