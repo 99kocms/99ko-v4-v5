@@ -9,7 +9,7 @@
 		<h2>
 			<a href="<?php echo $v['url']; ?>"><?php echo $v['name']; ?></a>
 			<span class="date"><?php echo $v['date']; ?>
-			<?php if($runPlugin->getConfigVal('comments')){ ?> | <?php echo $newsManager->countComments($v['id']); ?> commentaire(s)<?php } ?></span>
+			<?php if($runPlugin->getConfigVal('comments')){ ?> | <?php echo $newsManager->countComments($v['id']); ?> commentaire<?php if ($newsManager->countComments($article['id']) > 1) echo 's' ?><?php } ?></span>
 		</h2>
 		<?php
 		if($pluginsManager->isActivePlugin('galerie') && galerie::searchByfileName($v['img'])) echo '<img class="featured" src="'.UPLOAD.'galerie/'.$v['img'].'" alt="'.$v['img'].'" />';
@@ -38,7 +38,7 @@ echo $item->getContent();
 </p>
 <?php if($runPlugin->getConfigVal('comments')){ ?>
 
-<h2>Commentaires</h2>
+<h2>Commentaire<?php if ($newsManager->countComments() > 1) echo 's' ?></h2>
 <?php if($newsManager->countComments() == 0){ ?><p>Il n'y a pas de commentaires</p><?php } ?>
 <?php if($newsManager->countComments() > 0){
 	foreach($newsManager->getComments() as $k=>$v){
@@ -59,7 +59,7 @@ echo $item->getContent();
 	</p>
 	<p><label>Email</label><br><input type="text" name="authorEmail" required="required" /></p>
 	<p><label>Commentaire</label><br><textarea name="content" required="required"></textarea></p>
-	<p><input type="submit" value="Enregistrer" /></p>
+	<p><input type="submit" value="Poster" /></p>
 </form>
 <?php } ?>
 <?php } ?>
