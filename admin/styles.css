@@ -1,0 +1,145 @@
+body{
+font-family: arial;
+font-size: 14px;
+color: #928c8c;
+}
+a, a:hover,a:active,a:visited{
+color: #a26f6f;
+}
+h1{
+font-size: 24px;
+color: #fff;
+margin: 0;
+}
+h2{
+font-size: 16px;
+}
+h3{
+font-size: 12px;
+}
+ul{
+padding-left: 0;
+margin-left: 0;
+list-style-position: inside;
+}
+table{
+width: 100%;
+border: 1px solid #ccc;
+background: #f9f9f9;
+}
+th, td{
+text-align: left;
+padding: 5px;
+}
+input[type=text]{
+width: 300px;
+}
+
+#container{
+display: block;
+width: 700px;
+height: 100%;
+margin: 15px auto;
+}
+#header{
+background: #77a2a8;
+padding: 15px;
+}
+#plugins{
+border: 1px solid #ccc;
+border-top: 0;
+padding: 15px;
+background: #f3f3f3;
+}
+#plugins h2{
+background: url(img/plugin.png) no-repeat;
+padding-left: 21px;
+cursor: pointer;
+}
+#plugins #pluginsList{
+display: none;
+}
+#plugins .priority{
+width: 15px;
+}
+#plugins .infos{
+font-size: 12px;
+font-style: italic;
+}
+#config{
+border: 1px solid #ccc;
+border-top: 0;
+padding: 15px;
+background: #f3f3f3;
+}
+#config h2{
+background: url(img/wrench_orange.png) no-repeat;
+padding-left: 21px;
+cursor: pointer;
+}
+#configForm{
+display: none;
+}
+#body{
+margin-bottom: 15px;
+border: 1px solid #ccc;
+background: #f3f3f3;
+padding: 15px;
+border-top: 0;
+}
+#body h2{
+float: left;
+}
+#body .pluginsAccess{
+float: right;
+}
+#footer{
+clear: both;
+font-size: 12px;
+text-align: center;
+margin-bottom: 15px;
+}
+
+.version{
+font-style: italic;
+}
+
+#login{
+border: 1px solid #ccc;
+border-top: 0;
+padding: 15px;
+margin-bottom: 15px;
+background: #f3f3f3;
+}
+
+#msg p{
+padding: 5px;
+}
+#msg.success{
+background: #ccffcc;
+color: #009900;
+}
+#msg.error{
+background: #ffcccc;
+color: #cc3333;
+}
+
+#header a{
+display: block;
+float: right;
+color: #fff;
+text-decoration: none;
+font-size: 12px;
+background: #57a2a8;
+padding: 5px;
+border: 1px solid #27a2a8;
+margin-left: 5px;
+}
+#header a:hover{
+background: #27a2a8;
+border-color: #fff;
+}
+
+.cleared{
+clear: both;
+}
