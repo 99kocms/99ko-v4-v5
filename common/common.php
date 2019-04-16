@@ -1,6 +1,7 @@
 <?php
-//error_reporting(E_ALL);
 if(!defined('ROOT')) die();
+ini_set('display_errors', 1); 
+error_reporting(E_ALL);
 session_start();
 // on check le fichier de configuration
 if(!file_exists(ROOT.'data/config.txt')){
@@ -19,8 +20,6 @@ $coreConf = getCoreConf();
 //constantes
 define('DEFAULT_PLUGIN', $coreConf['defaultPlugin']);
 define('PLUGIN', ((isset($_GET['p'])) ? $_GET['p'] : DEFAULT_PLUGIN)); // voir $runPlugin
-// fix magic quotes
-setMagicQuotesOff();
 // on boucle les plugins pour charger les lib et les installer
 foreach(plugin::listAll() as $plugin){
 	// on inclu la librairie
@@ -35,12 +34,8 @@ foreach($plugins as $plugin) if($plugin->getConfigVal('activate')){
 	// on update le tableau des hooks
 	foreach($plugin->getHooks() as $hookName=>$function) $hooks[$hookName][] = $function;
 }
-// hook
-eval(callHook('startCreatePlugin'));
 // on cree l'instance du plugin solicite
 $runPlugin = plugin::create(PLUGIN);
-// hook
-eval(callHook('endCreatePlugin'));
 // si le plugin solicite est inactif on stop
 if($runPlugin->getConfigVal('activate') < 1) die();
 ?>

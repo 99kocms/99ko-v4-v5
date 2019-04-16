@@ -19,8 +19,6 @@
 			<?php showAdminTokenField(); ?>
 			<p><label>Nom du site</label><br />
 			<input type="text" name="siteName" value="<?php echo $data['configSiteName']; ?>" /></p>
-			<p><label>Description du site</label><br />
-			<input type="text" name="siteDescription" value="<?php echo $data['configSiteDescription']; ?>" /></p>
 			<p><label>Email admin</label><br />
 			<input type="text" name="adminEmail" value="<?php echo $data['configAdminEmail']; ?>" /></p>
 			<p><label>Thème</label><br />

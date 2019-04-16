@@ -1,22 +1,23 @@
 <?php
 if(!defined('ROOT')) die();
 
-###### fonctions necessaires
+###### Fonctions nécessaires
 
 /*
-** fonction chargee de retourner la configuration par defaut du plugin (obligatoire)
-** return : array
+** Fonction chargée de retourner la configuration par defaut du plugin (obligatoire)
 */
+
 function pageConfig(){
 	return array(
-		'priority' => 1,
+		'priority' => 2,
 		'activate' => 1,
 	);
 }
+
 /*
-** fonction chargee de retourner les infos du plugin (obligatoire)
-** return : array
+** Fonction chargée de retourner les infos du plugin (obligatoire)
 */
+
 function pageInfos(){
 	return array(
 		'name' => 'Page',
@@ -27,19 +28,27 @@ function pageInfos(){
 		'version' => '1.4',
 	);
 }
+
 /*
-** fonction chargee de retourner les hooks utilises par le plugin (obligatoire)
-** return : array
+** Fonction chargée de retourner les hooks utilises par le plugin (obligatoire)
 */
+
 function pageHooks(){
 	return array(
 		'startFrontIncludePluginFile' => 'pageHook1',
 	);	
 }
+
 /*
-** fonction chargee de l'installation interne du plugin (facultatif)
+** Fonction chargée de l'installation interne du plugin (facultatif)
 */
+
 function pageInstall(){
+	// Création des règles de réécriture d'URL
+	$htaccess = @file_get_contents(ROOT.'.htaccess');
+	$htaccess.= "\nRewriteRule ^page/([a-zA-Z0-9-_]+)-([a-zA-Z0-9-_]+).html$  index.php?p=page&url=$1&id=$2 [L]";
+	@file_put_contents(ROOT.'.htaccess', $htaccess, 0666);
+	// Création de la première page
 	$page = new page();
 	if(count($page->getItems()) < 1){
 		$pageItem = new pageItem();
@@ -53,24 +62,25 @@ function pageInstall(){
 	}
 }
 
-###### code du plugin
+###### Code interne du plugin
 
 /*
-** prechauffage
+** Configuration
 */
+
 define('PAGE_DATAPATH', ROOT.'data/plugin/page/');
-$page = new page();
 
 /*
-** hooks
+** Hooks
 */
+
 function pageHook1(){
-	global $coreConf, $runPlugin, $page;
+	global $coreConf, $runPlugin;
 	function pageMainNavigation($siteUrl, $defaultPlugin){
-		global $page;
+		$page = new page();
 		$data = '';
 		foreach($page->getItems() as $k=>$pageItem) if(!$pageItem->getIsHidden()){
-			$target = ($defaultPlugin == 'page' && $pageItem->getIsHomepage()) ? $siteUrl : 'index.php?p=page&id='.$pageItem->getId();
+			$target = ($defaultPlugin == 'page' && $pageItem->getIsHomepage()) ? $siteUrl : 'page/'.utilStrToUrl($pageItem->getName()).'-'.$pageItem->getId().'.html';
 			// fix bug (MaxguN)
 			$data.= "\$data['mainNavigation'][".$pageItem->getPosition()."]['target'] = '".$target."';";
 			$data.= "\$data['mainNavigation'][".$pageItem->getPosition()."]['label'] = '".$pageItem->getName()."';";
@@ -81,8 +91,9 @@ function pageHook1(){
 }
 
 /*
-** librairie
+** Classe
 */
+
 class page{
 	private $items;
 	
@@ -113,12 +124,14 @@ class page{
 		}
 		return false;
 	}
+	
 	public function createHomepage(){
 		foreach($this->items as $pageItem){
 			if($pageItem->getIshomepage()) return $pageItem;
 		}
 		return false;
 	}
+	
 	public function save($obj){
 		$id = intval($obj->getId());
 		if($id < 1) $id = $this->makeId();
@@ -132,6 +145,7 @@ class page{
 			'file' => $obj->getFile(),
 			'mainTitle' => $obj->getMainTitle(),
 			'metaDescriptionTag' => $obj->getMetaDescriptionTag(),
+			'metaTitleTag' => $obj->getMetaTitleTag(),
 		);
 		if($obj->getIsHomepage() > 0) $this->initIshomepageVal();
 		if(@file_put_contents(PAGE_DATAPATH.$id.'.txt', json_encode($data), 0666)){
@@ -140,15 +154,18 @@ class page{
 		}
 		return false;
 	}
+	
 	public function del($obj){
 		if($obj->getIsHomepage() < 1 && $this->count() > 1){
 			if(@unlink(PAGE_DATAPATH.$obj->getId().'.txt')) return true;
 		}
 		return false;
 	}
+	
 	public function count(){
 		return count($this->items);
 	}
+	
 	public function listFiles(){
 		$data = array();
 		$items = utilScanDir(ROOT.'theme/'.getConfVal('core', 'theme').'/', array('header.php', 'footer.php', 'style.css'));
@@ -194,6 +211,7 @@ class pageItem{
 	private $file;
 	private $mainTitle;
 	private $metaDescriptionTag;
+	private $metaTitleTag;
 	
 	public function __construct($val = array()){
 		if(count($val) > 0){
@@ -206,6 +224,7 @@ class pageItem{
 			$this->file = $val['file'];
 			$this->mainTitle = $val['mainTitle'];
 			$this->metaDescriptionTag = $val['metaDescriptionTag'];
+			$this->metaTitleTag = $val['metaTitleTag'];
 		}
 	}
 
@@ -214,56 +233,77 @@ class pageItem{
 		if($val == '') $val = "Page sans nom";
 		$this->name = $val;
 	}
+	
 	public function setPosition($val){
 		$this->position = intval($val);
 	}
+	
 	public function setIsHomepage($val){
 		$this->isHomepage = trim($val);
 	}
+	
 	public function setContent($val){
 		$this->content = trim($val);
 	}
+	
 	public function setIsHidden($val){
 		$this->isHidden = intval($val);
 	}
+	
 	public function setFile($val){
 		$this->file = trim($val);
 	}
+	
 	public function setMainTitle($val){
 		$this->mainTitle = trim($val);
 	}
+	
 	public function setMetaDescriptionTag($val){
-		$val = trim($val);
-		if(mb_strlen($val) > 150) $val = mb_strcut($val, 0, 150).'...';
-		$this->metaDescriptionTag = $val;
+		$this->metaDescriptionTag = trim($val);
+	}
+	
+	public function setMetaTitleTag($val){
+		$this->metaTitleTag = trim($val);
 	}
 
 	public function getId(){
 		return $this->id;
 	}
+	
 	public function getName(){
 		return $this->name;
 	}
+	
 	public function getPosition(){
 		return $this->position;
 	}
+	
 	public function getIsHomepage(){
 		return $this->isHomepage;
 	}
+	
 	public function getContent(){
 		return $this->content;
 	}
+	
 	public function getIsHidden(){
 		return $this->isHidden;
 	}
+	
 	public function getFile(){
 		return $this->file;
 	}
+	
 	public function getMainTitle(){
 		return $this->mainTitle;
 	}
+	
 	public function getMetaDescriptionTag(){
 		return $this->metaDescriptionTag;
+	}
+	
+	public function getMetaTitleTag(){
+		return $this->metaTitleTag;
 	}
 }
 ?>

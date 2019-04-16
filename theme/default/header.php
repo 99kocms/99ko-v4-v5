@@ -1,8 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<?php if(!defined('ROOT')) die(); ?>
+<!DOCTYPE html>
+<html lang="fr">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title><?php showTitleTag(); ?></title>
+	<title><?php showMetaTitleTag(); ?></title>
+	<base href="<?php showSiteUrl(); ?>/" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
 	<meta name="description" content="<?php showMetaDescriptionTag(); ?>" />
 	<?php showLinkTags(); ?>
 	<?php showScriptTags(); ?>
@@ -11,7 +14,7 @@
 <body>
 <div id="container">
 	<div id="header">
-		<p id="siteName"><a title="<?php showSiteDescription(); ?>" href="<?php showSiteUrl(); ?>"><?php showSiteName(); ?></a></p>
+		<p id="siteName"><a href="<?php showSiteUrl(); ?>"><?php showSiteName(); ?></a></p>
 	</div>
 	<div id="sidebar">
 		<ul id="navigation">
@@ -19,5 +22,4 @@
 		</ul>
 	</div>
 	<div id="body">
-		<?php showBreadcrumb(); ?>
 		<h1><?php showMainTitle(); ?></h1>

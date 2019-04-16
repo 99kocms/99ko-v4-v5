@@ -15,9 +15,7 @@ function showMsg($msg, $type){
 		'success' => 'success',
 	);
 	$data = '';
-	eval(callHook('startShowMsg'));
 	if($msg != '') $data = '<div id="msg" class="'.$class[$type].'"><p>'.nl2br($msg).'</p></div>';
-	eval(callHook('endShowMsg'));
 	echo $data;
 }
 
@@ -26,10 +24,14 @@ function showMsg($msg, $type){
 ** @param : $format (format)
 */
 function showLinkTags($format = '<link href="[file]" rel="stylesheet" type="text/css" />'){
-	global $data;
-	foreach($data['linkTags'] as $file){
-		echo str_replace('[file]', $file, $format);
+	global $plugins;
+	foreach($plugins as $plugin) if($plugin->getConfigVal('activate')){
+		if($plugin->getCssFile()){
+			echo str_replace('[file]', $plugin->getCssFile(), $format);
+		}
 	}
+	if(ROOT == './') echo str_replace('[file]', ROOT.'theme/'.getConfVal('core', 'theme').'/styles.css', $format);
+	elseif(ROOT == '../') echo str_replace('[file]', ROOT.'admin/styles.css', $format);
 }
 
 /*
@@ -37,10 +39,14 @@ function showLinkTags($format = '<link href="[file]" rel="stylesheet" type="text
 ** @param : $format (format)
 */
 function showScriptTags($format = '<script type="text/javascript" src="[file]"></script>'){
-	global $data;
-	foreach($data['scriptTags'] as $file){
-		echo str_replace('[file]', $file, $format);
+	global $plugins;
+	foreach($plugins as $plugin) if($plugin->getConfigVal('activate')){
+		if($plugin->getJsFile()){
+			echo str_replace('[file]', $plugin->getJsFile(), $format);
+		}
 	}
+	if(ROOT == './') echo str_replace('[file]', ROOT.'theme/'.getConfVal('core', 'theme').'/scripts.js', $format);
+	elseif(ROOT == '../') echo str_replace('[file]', ROOT.'admin/scripts.js', $format);
 }
 
 /*
@@ -53,9 +59,7 @@ function showScriptTags($format = '<script type="text/javascript" src="[file]"><
 ** @return : string HTML
 */
 function showAdminEditor($name, $content, $width, $height, $id = 'editor', $class = 'editor'){
-	eval(callHook('startShowAdminEditor'));
 	$data = '<textarea style="width:'.$width.'px;height:'.$height.'px" name="'.$name.'" id="'.$id.'" class="'.$class.'">'.$content.'</textarea>';
-	eval(callHook('endShowAdminEditor'));
 	echo $data;
 }
 
@@ -65,9 +69,7 @@ function showAdminEditor($name, $content, $width, $height, $id = 'editor', $clas
 */
 function showAdminTokenField(){
 	global $data;
-	eval(callHook('startShowAdminTokenField'));
 	$output = '<input type="hidden" name="token" value="'.$data['token'].'" />';
-	eval(callHook('endShowAdminTokenField'));
 	echo $output;
 }
 
@@ -78,9 +80,9 @@ function showAdminTokenField(){
 /*
 ** Affiche le contenu de la meta title
 */
-function showTitleTag(){
-	global $data, $runPlugin;
-	echo (($data['titleTag'] == '') ? $runPlugin->getTitleTag() : $data['titleTag']);
+function showMetaTitleTag(){
+	global $runPlugin;
+	echo $runPlugin->getMetaTitleTag();
 }
 
 /*
@@ -88,47 +90,31 @@ function showTitleTag(){
 */
 function showMetaDescriptionTag(){
 	global $data, $runPlugin;
-	echo (($data['metaDescriptionTag'] == '') ? $runPlugin->getMetaDescriptionTag() : $data['metaDescriptionTag']);
+	echo $runPlugin->getMetaDescriptionTag();
 }
 
 /*
 ** Affiche le titre H1
 */
 function showMainTitle(){
-	global $data, $runPlugin;
-	echo (($data['mainTitle'] == '') ? $runPlugin->getMainTitle() : $data['mainTitle']);
+	global $runPlugin;
+	echo $runPlugin->getMainTitle();
 }
 
 /*
 ** Affiche le nom du site
 */
 function showSiteName(){
-	global $data;
-	echo $data['siteName'];
-}
-
-/*
-** Affiche la description du site
-*/
-function showSiteDescription(){
-	global $data;
-	echo $data['siteDescription'];
+	global $coreConf;
+	echo $coreConf['siteName'];
 }
 
 /*
 ** Affiche l'url du site
 */
 function showSiteUrl(){
-	global $data;
-	echo $data['siteUrl'];
-}
-
-/*
-** Affiche le temps de génération
-*/
-function showExecTime(){
-	global $time;
-	echo round(microtime(true) - $time, 3);
+	global $coreConf;
+	echo $coreConf['siteUrl'];
 }
 
 /*
@@ -142,20 +128,6 @@ function showMainNavigation($format = '<li><a href="[target]">[label]</a></li>')
 		$output = str_replace('[target]', $item['target'], $output);
 		$output = str_replace('[label]', $item['label'], $output);
 		echo $output;
-	}
-}
-
-/*
-** Affiche le fil d'Ariane
-*/
-function showBreadcrumb(){
-	global $runPlugin, $data;
-	if(count($runPlugin->getBreadcrumb()) > 0){
-		echo '<p id="breadcrumb"><a href="'.$data['siteUrl'].'">Accueil</a>';
-		foreach($runPlugin->getBreadcrumb() as $item){
-			echo ' >> <a href="'.$item['target'].'">'.$item['label'].'</a>';
-		}
-		echo '</p>';
 	}
 }
 ?>

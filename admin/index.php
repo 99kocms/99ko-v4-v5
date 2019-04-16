@@ -20,7 +20,6 @@ $data['scriptTags'] = array();
 $data['pluginName'] = $runPlugin->getInfoVal('name');
 $data['configSiteName'] = $coreConf['siteName'];
 $data['configSiteUrl'] = $coreConf['siteUrl'];
-$data['configSiteDescription'] = $coreConf['siteDescription'];
 $data['configAdminEmail'] = $coreConf['adminEmail'];
 $data['configThemes'] = array();
 $data['plugins'] = array();
@@ -91,7 +90,6 @@ switch(ACTION){
 		$error = false;
 		$config = array(
 			'siteName' => (trim($_POST['siteName']) != '') ? trim($_POST['siteName']) : 'Démo',
-			'siteDescription' => (trim($_POST['siteDescription']) != '') ? trim($_POST['siteDescription']) : 'Un site propulsé par 99Ko',
 			'adminEmail' => (utilIsEmail(trim($_POST['adminEmail']))) ? trim($_POST['adminEmail']) : 'you@domain.com',
 			'siteUrl' => (trim($_POST['siteUrl']) != '') ? trim($_POST['siteUrl']) : getSiteUrl(),
 			'theme' => $_POST['theme'],
@@ -137,12 +135,8 @@ if(!isset($_SESSION['admin']) || $_SESSION['admin'] != $coreConf['adminPwd']){
 	include_once('login.php');
 }
 else{
-	// hook
-	eval(callHook('startAdminIncludePluginFile'));
 	// on inclu le fichier admin du plugin courant
 	if(isset($_GET['p']) && $runPlugin->getAdminFile()) include($runPlugin->getAdminFile());
 	else include_once('home.php');
-	// hook
-	eval(callHook('endAdminIncludePluginFile'));
 }
 ?>

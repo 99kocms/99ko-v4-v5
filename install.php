@@ -2,63 +2,47 @@
 define('ROOT', './');
 include_once(ROOT.'common/core.lib.php');
 if(utilPhpVersion() < '5.1.2') die("Vous devez disposer d'un serveur équipé de PHP 5.1.2 ou plus !");
-setMagicQuotesOff();
 $error = false;
 define('DEFAULT_PLUGIN', 'page');
-if(isset($_GET['updateto'])){
-	$coreConf = getCoreConf();
-	switch($_GET['updateto']){
-		case '1.0.9':
-			$append['defaultPlugin'] = 'page';
-			if(!saveConfig($coreConf, $append)) $error = true;
-			break;
-	}
-	if($error){
-		$data['msg'] = "Problème lors de la mise à jour";
-		$data['msgType'] = "error";
-	}
-	else{
-		$data['msg'] = "Mise à jour effectuée";
-		$data['msgType'] = "success";
+if(file_exists(ROOT.'data/config.txt')){
+	die();
+}
+@unlink(ROOT.'.htaccess');
+$htaccess = 'Options -Indexes
+Options +FollowSymlinks
+RewriteEngine On
+RewriteBase /
+RewriteRule ^admin/$  admin/ [L]';
+if(!@file_put_contents(ROOT.'.htaccess', $htaccess, 0666)) $error = true;
+if(!@mkdir('data/', 0777)) $error = true;
+if(!@chmod('data/', 0777)) $error = true;
+if(!@mkdir('data/plugin/', 0777)) $error = true;
+if(!@chmod('data/plugin/', 0777)) $error = true;
+if(!@mkdir('data/upload/', 0777)) $error = true;
+if(!@chmod('data/upload/', 0777)) $error = true;
+$config = array(
+	'siteName' => "Démo",
+	'adminPwd' => sha1('demo123'),
+	'theme' => 'default',
+	'adminEmail'=> 'you@domain.com',
+	'siteUrl' => getSiteUrl(),
+	'defaultPlugin' => 'page',
+);
+if(!@file_put_contents(ROOT.'data/config.txt', json_encode($config), 0666)) $error = true;
+if(!@chmod('data/config.txt', 0666)) $error = true;
+foreach(plugin::listAll() as $plugin){
+	if($plugin->getLibFile()){
+		include_once($plugin->getLibFile());
+		if(!$plugin->isInstalled()) plugin::install($plugin->getName());
 	}
 }
+if($error){
+	$data['msg'] = "Problème lors de l'installation";
+	$data['msgType'] = "error";
+}
 else{
-	if(file_exists(ROOT.'data/config.txt')){
-		die();
-	}
-	@unlink(ROOT.'.htaccess');
-	if(!@file_put_contents(ROOT.'.htaccess', "Options -Indexes", 0666)) $error = true;
-	if(!@mkdir('data/', 0777)) $error = true;
-	if(!@chmod('data/', 0777)) $error = true;
-	if(!@mkdir('data/plugin/', 0777)) $error = true;
-	if(!@chmod('data/plugin/', 0777)) $error = true;
-	if(!@mkdir('data/upload/', 0777)) $error = true;
-	if(!@chmod('data/upload/', 0777)) $error = true;
-	$config = array(
-		'siteName' => "Démo",
-		'siteDescription' => "Un site propulsé par 99Ko",
-		'adminPwd' => sha1('demo123'),
-		'theme' => 'default',
-		'adminEmail'=> 'you@domain.com',
-		'siteUrl' => getSiteUrl(),
-		'defaultPlugin' => 'page',
-	);
-	if(!@file_put_contents(ROOT.'data/config.txt', json_encode($config), 0666)) $error = true;
-	if(!@chmod('data/config.txt', 0666)) $error = true;
-	foreach(plugin::listAll() as $plugin){
-		if($plugin->getLibFile()){
-			include_once($plugin->getLibFile());
-			if(!$plugin->isInstalled()) plugin::install($plugin->getName());
-		}
-	}
-	if($error){
-		$data['msg'] = "Problème lors de l'installation";
-		$data['msgType'] = "error";
-	}
-	else{
-		$data['msg'] = "99ko est installé\nLe mot de passe admin par défaut est : demo123\nModifiez-le dès votre première connexion\nSupprimez également le fichier install.php";
-		$data['msgType'] = "success";
-	}
+	$data['msg'] = "99ko est installé\nLe mot de passe admin par défaut est : demo123\nModifiez-le dès votre première connexion\nSupprimez également le fichier install.php";
+	$data['msgType'] = "success";
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
