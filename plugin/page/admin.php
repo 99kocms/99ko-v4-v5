@@ -9,6 +9,7 @@ switch(ACTION){
 		if($_POST['id'] != '') $pageItem = $page->create($_POST['id']);
 		else $pageItem = new pageItem();
 		$pageItem->setName($_POST['name']);
+		$pageItem->setUrl($_POST['url']);
 		$pageItem->setIsHomepage((isset($_POST['isHomepage'])) ? 1 : 0);
 		$pageItem->setPosition($_POST['position']);
 		$pageItem->setContent($_POST['content']);
@@ -64,7 +65,7 @@ switch(ACTION){
 		<td><?php if($pageItem->getIshomepage()){ ?><img src="../plugin/page/house.png" alt="icon" title="Page d'accueil" /><?php } ?> <?php if($pageItem->getIsHidden()){ ?><img src="../plugin/page/bullet_orange.png" alt="icon" title="Cette page n'apparait pas dans le menu" /> <?php } ?></td>
 		<td>
 			<a href="index.php?p=page&action=edit&id=<?php echo $pageItem->getId(); ?>">editer</a>
-			<?php if(!$pageItem->getIshomepage()){ ?> <a href="index.php?p=page&action=del&id=<?php echo $pageItem->getId(); ?>&token=<?php echo $_SESSION['token']; ?>" onclick = "if(!confirm('Supprimer cette page ?')) return false;">supprimer</a><?php } ?>
+			<?php if(!$pageItem->getIshomepage()){ ?> <a href="index.php?p=page&action=del&id=<?php echo $pageItem->getId(); ?>&token=<?php echo TOKEN; ?>" onclick = "if(!confirm('Supprimer cette page ?')) return false;">supprimer</a><?php } ?>
 		</td>
 	</tr>
 	<?php } ?>
@@ -75,6 +76,8 @@ switch(ACTION){
 	<input type="hidden" name="id" value="<?php echo $pageItem->getId(); ?>" />
 	<p><label>Nom</label><br />
 	<input type="text" name="name" value="<?php echo $pageItem->getName(); ?>" /></p>
+	<p><label>URL de la page (facultatif)</label><br />
+	<input type="text" name="url" value="<?php echo $pageItem->getUrl(); ?>" /></p>
 	<p><label>Titre de la page (facultatif)</label><br />
 	<input type="text" name="mainTitle" value="<?php echo $pageItem->getMainTitle(); ?>" /></p>
 	<p><label>Balise meta title (facultatif)</label><br />

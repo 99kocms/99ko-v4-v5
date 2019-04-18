@@ -1,7 +1,7 @@
 <?php
 define('ROOT', './');
 include_once(ROOT.'common/core.lib.php');
-if(utilPhpVersion() < '5.1.2') die("Vous devez disposer d'un serveur équipé de PHP 5.1.2 ou plus !");
+if(utilPhpVersion() < '5.6.4') die("Vous devez disposer d'un serveur équipé de PHP 5.6.4 ou plus ! (version actuelle : ".utilPhpVersion().")");
 $error = false;
 define('DEFAULT_PLUGIN', 'page');
 if(file_exists(ROOT.'data/config.txt')){

@@ -20,8 +20,9 @@ class plugin{
 	private $cssFile;
 	private $jsFile;
 	private $dataPath;
+	private $menuItems;
 
-	public function __construct($name, $config = array(), $infos = array(), $hooks = array()){
+	public function __construct($name, $config = array(), $infos = array(), $hooks = array(), $menuItems = array()){
 		$this->name = $name;
 		$this->config = $config;
 		$this->infos = $infos;
@@ -35,7 +36,8 @@ class plugin{
 		$this->adminFile = (file_exists(ROOT.'plugin/'.$this->name.'/admin.php')) ? ROOT.'plugin/'.$this->name.'/admin.php' : false;
 		$this->cssFile = (file_exists(ROOT.'plugin/'.$this->name.'/'.$this->name.'.css')) ? ROOT.'plugin/'.$this->name.'/'.$this->name.'.css' : false;
 		$this->jsFile = (file_exists(ROOT.'plugin/'.$this->name.'/'.$this->name.'.js')) ? ROOT.'plugin/'.$this->name.'/'.$this->name.'.js' : false;
-		$this->dataPath = (is_dir(ROOT.'data/plugin/'.$this->name)) ? ROOT.'data/plugin/'.$this->name.'/' : false; 
+		$this->dataPath = (is_dir(ROOT.'data/plugin/'.$this->name)) ? ROOT.'data/plugin/'.$this->name.'/' : false;
+		$this->menuItems = $menuItems;
 	}
 
 	/*
@@ -100,6 +102,10 @@ class plugin{
 	
 	public function getDataPath(){
 		return $this->dataPath;
+	}
+	
+	public function getMenuItems(){
+		return $this->menuItems;
 	}
 
 	/*
@@ -187,7 +193,8 @@ class plugin{
 		if(file_exists(ROOT.'data/plugin/'.$name.'/config.txt')) $config = json_decode(@file_get_contents(ROOT.'data/plugin/'.$name.'/config.txt'), true);
 		$infos = @call_user_func($name.'Infos');
 		$hooks = @call_user_func($name.'Hooks');
-		return new plugin($name, $config, $infos, $hooks);
+		$menuItems = @call_user_func($name.'MenuItems');
+		return new plugin($name, $config, $infos, $hooks, $menuItems);
 	}
 	
 	/*

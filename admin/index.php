@@ -3,11 +3,9 @@
 define('ROOT', '../');
 // on inclu le fichier common
 include_once(ROOT.'common/common.php');
-// on genere le jeton
-if(!isset($_SESSION['token'])) $_SESSION['token'] = uniqid();
 // on check le jeton
-if(in_array(ACTION, array('save', 'del', 'saveconfig', 'saveplugins', 'login', 'logout')) && $_REQUEST['token'] != $_SESSION['token']){	
-	die();
+if(in_array(ACTION, array('save', 'del', 'saveconfig', 'saveplugins', 'login', 'logout')) && $_REQUEST['token'] != TOKEN){	
+	die('Erreur de sécurité : jeton invalide !');
 }
 // variables de template
 $data['msg'] = '';

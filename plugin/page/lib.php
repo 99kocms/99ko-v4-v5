@@ -30,29 +30,28 @@ function pageInfos(){
 }
 
 /*
-** Fonction chargée de retourner les hooks utilises par le plugin (obligatoire)
+** Fonction chargée de retourner les hooks utilises par le plugin (obligatoire, même si array vide)
 */
 
 function pageHooks(){
-	return array(
-		'startFrontIncludePluginFile' => 'pageHook1',
-	);	
+	return array();	
 }
 
 /*
-** Fonction chargée de l'installation interne du plugin (facultatif)
+** Fonction chargée de l'installation interne du plugin (obligatoire, même si contenu vide)
 */
 
 function pageInstall(){
 	// Création des règles de réécriture d'URL
 	$htaccess = @file_get_contents(ROOT.'.htaccess');
-	$htaccess.= "\nRewriteRule ^page/([a-zA-Z0-9-_]+)-([a-zA-Z0-9-_]+).html$  index.php?p=page&url=$1&id=$2 [L]";
+	$htaccess.= "\nRewriteRule ^([a-zA-Z0-9-_]+).html$  index.php?p=page&url=$1 [L]";
 	@file_put_contents(ROOT.'.htaccess', $htaccess, 0666);
 	// Création de la première page
 	$page = new page();
 	if(count($page->getItems()) < 1){
 		$pageItem = new pageItem();
 		$pageItem->setName('Page 1');
+		$pageItem->setUrl('');
 		$pageItem->setPosition(1);
 		$pageItem->setIsHomepage(1);
 		$pageItem->setContent('<p>Atque, ut Tullius ait, ut etiam ferae fame monitae plerumque ad eum locum ubi aliquando pastae sunt revertuntur, ita homines instar turbinis degressi montibus impeditis et arduis loca petivere mari confinia, per quae viis latebrosis sese convallibusque occultantes cum appeterent noctes luna etiam tum cornuta ideoque nondum solido splendore fulgente nauticos observabant quos cum in somnum sentirent effusos per ancoralia, quadrupedo gradu repentes seseque suspensis passibus iniectantes in scaphas eisdem sensim nihil opinantibus adsistebant et incendente aviditate saevitiam ne cedentium quidem ulli parcendo obtruncatis omnibus merces opimas velut viles nullis repugnantibus avertebant. haecque non diu sunt perpetrata.</p>');
@@ -62,46 +61,30 @@ function pageInstall(){
 	}
 }
 
-###### Code interne du plugin
-
 /*
-** Configuration
+** Fonction chargée d'injecter les items menu (obligatoire, même si array vide)
 */
 
-define('PAGE_DATAPATH', ROOT.'data/plugin/page/');
-
-/*
-** Hooks
-*/
-
-function pageHook1(){
-	global $coreConf, $runPlugin;
-	function pageMainNavigation($siteUrl, $defaultPlugin){
-		$page = new page();
-		$data = '';
-		foreach($page->getItems() as $k=>$pageItem) if(!$pageItem->getIsHidden()){
-			$target = ($defaultPlugin == 'page' && $pageItem->getIsHomepage()) ? $siteUrl : 'page/'.utilStrToUrl($pageItem->getName()).'-'.$pageItem->getId().'.html';
-			// fix bug (MaxguN)
-			$data.= "\$data['mainNavigation'][".$pageItem->getPosition()."]['target'] = '".$target."';";
-			$data.= "\$data['mainNavigation'][".$pageItem->getPosition()."]['label'] = '".$pageItem->getName()."';";
-		}
-		return $data;
+function pageMenuItems(){
+	$menuItems = array();
+	global $coreConf;
+	$page = new page();
+	foreach($page->getItems() as $k=>$pageItem) if(!$pageItem->getIsHidden()){
+		$menuItems[] = array($pageItem->getName(), $pageItem->getUrl());
 	}
-	return pageMainNavigation($coreConf['siteUrl'], $coreConf['defaultPlugin']);
+	return $menuItems;
 }
 
-/*
-** Classe
-*/
+###### Code interne du plugin
 
 class page{
 	private $items;
 	
 	public function __construct(){
 		$data = array();
-		if(is_dir(PAGE_DATAPATH)){
+		if(is_dir(ROOT.'data/plugin/page/')){
 			$dataNotSorted = array();
-			$items = utilScanDir(PAGE_DATAPATH, array('config.txt'));
+			$items = utilScanDir(ROOT.'data/plugin/page/', array('config.txt'));
 			foreach($items['file'] as $k=>$file){
 				$temp = json_decode(@file_get_contents(ROOT.'data/plugin/page/'.$file), true);
 				$dataNotSorted[] = $temp;
@@ -146,9 +129,10 @@ class page{
 			'mainTitle' => $obj->getMainTitle(),
 			'metaDescriptionTag' => $obj->getMetaDescriptionTag(),
 			'metaTitleTag' => $obj->getMetaTitleTag(),
+			'url' => $obj->getUrl(),
 		);
 		if($obj->getIsHomepage() > 0) $this->initIshomepageVal();
-		if(@file_put_contents(PAGE_DATAPATH.$id.'.txt', json_encode($data), 0666)){
+		if(@file_put_contents(ROOT.'data/plugin/page/'.$id.'.txt', json_encode($data), 0666)){
 			$this->repairPositions($obj);
 			return true;
 		}
@@ -157,7 +141,7 @@ class page{
 	
 	public function del($obj){
 		if($obj->getIsHomepage() < 1 && $this->count() > 1){
-			if(@unlink(PAGE_DATAPATH.$obj->getId().'.txt')) return true;
+			if(@unlink(ROOT.'data/plugin/page/'.$obj->getId().'.txt')) return true;
 		}
 		return false;
 	}
@@ -212,6 +196,7 @@ class pageItem{
 	private $mainTitle;
 	private $metaDescriptionTag;
 	private $metaTitleTag;
+	private $url;
 	
 	public function __construct($val = array()){
 		if(count($val) > 0){
@@ -225,6 +210,7 @@ class pageItem{
 			$this->mainTitle = $val['mainTitle'];
 			$this->metaDescriptionTag = $val['metaDescriptionTag'];
 			$this->metaTitleTag = $val['metaTitleTag'];
+			$this->url = $val['url'];
 		}
 	}
 
@@ -265,6 +251,16 @@ class pageItem{
 	public function setMetaTitleTag($val){
 		$this->metaTitleTag = trim($val);
 	}
+	
+	public function setUrl($val){
+		$val = trim($val);
+		if($val == ''){
+			if($val == '' && !$this->isHomepage) $val = utilStrToUrl($this->name).'.html';
+			$url = getConfVal('core', 'siteUrl').'/'.$val;
+		}
+		else $url = $val;
+		$this->url = trim($url);
+	}
 
 	public function getId(){
 		return $this->id;
@@ -304,6 +300,10 @@ class pageItem{
 	
 	public function getMetaTitleTag(){
 		return $this->metaTitleTag;
+	}
+	
+	public function getUrl(){
+		return $this->url;
 	}
 }
 ?>

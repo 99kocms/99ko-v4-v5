@@ -8,6 +8,9 @@ if(!file_exists(ROOT.'data/config.txt')){
 	header('location:'.ROOT.'install.php');
 	die();
 }
+// on genere un jeton
+if(!isset($_SESSION['token'])) $_SESSION['token'] = sha1(uniqid());
+define('TOKEN', $_SESSION['token']);
 // constantes
 define('VERSION', '1.1.1');
 define('ACTION', ((isset($_GET['action'])) ? $_GET['action'] : ''));

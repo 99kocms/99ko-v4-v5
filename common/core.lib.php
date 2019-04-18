@@ -13,6 +13,7 @@ include_once('show.lib.php');
 ** @param : $plugin (nom du plugin), $kConf (clé de configuration)
 ** @return : string (valeur) / false
 */
+
 function getConfVal($plugin, $kConf){
 	global $coreConf;
 	// si on demande une valeur config du core on tente de recuperer la valeur dans $coreConf
@@ -31,6 +32,7 @@ function getConfVal($plugin, $kConf){
 ** Renvoie la configuration du core
 ** @return : array
 */
+
 function getCoreConf(){
 	return json_decode(@file_get_contents(ROOT.'data/config.txt'), true);
 }
@@ -39,6 +41,7 @@ function getCoreConf(){
 ** Enregistre la configuration du core
 ** @param : $val (valeur a updater), $append (tableau de nouvelles valeurs)
 */
+
 function saveConfig($val, $append = array()){
 	$config = json_decode(@file_get_contents(ROOT.'data/config.txt'), true);
 	$config = array_merge($config, $append);
@@ -54,6 +57,7 @@ function saveConfig($val, $append = array()){
 ** @param : $hook
 ** @return : string (PHP)
 */
+
 function callHook($hookName){
 	global $hooks;
 	$return = '';
@@ -67,6 +71,7 @@ function callHook($hookName){
 ** Ajoute un hook
 ** @param : $hookName (nom du hook), $function (fonction a executer)
 */
+
 function addHook($hookName, $function){
 	global $hooks;
 	$hooks[$hookName][] = $function;
@@ -76,6 +81,7 @@ function addHook($hookName, $function){
 ** liste le dossier theme
 ** @return : array
 */
+
 function listThemes(){
 	$data = array();
 	$items = utilScanDir(ROOT.'theme/');
@@ -84,10 +90,12 @@ function listThemes(){
 	}
 	return $data;
 }
+
 /*
 ** Détecte l'url de base
 ** @return : string (URL de base)
 */
+
 function getSiteUrl(){
 	$siteUrl = str_replace(array('install.php', '/admin/index.php'), array('', ''), $_SERVER['SCRIPT_NAME']);
 	$siteUrl = 'http://'.$_SERVER['HTTP_HOST'].$siteUrl;

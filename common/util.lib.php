@@ -8,6 +8,7 @@
 ** Tri un tableau a 2 dimenssions
 ** @param : $data (array), $key (tri), $mode (mode tri)
 */
+
 function utilSort2DimArray($data, $key, $mode){
 	if($mode == 'desc'){ $mode = SORT_DESC; }
 	elseif($mode == 'asc'){ $mode = SORT_ASC; }
@@ -25,6 +26,7 @@ function utilSort2DimArray($data, $key, $mode){
 ** @param : $url (string)
 ** @return : string
 */
+
 function utilStrToUrl($str){
 	$str = str_replace('&', 'et', $str);
 	if($str !== mb_convert_encoding(mb_convert_encoding($str,'UTF-32','UTF-8'),'UTF-8','UTF-32')) $str = mb_convert_encoding($str,'UTF-8');
@@ -39,6 +41,7 @@ function utilStrToUrl($str){
 ** @param : $email (string)
 ** @return : true / false
 **/
+
 function utilIsEmail($email){
 	if(preg_match("/^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,4}$/", $email)) return true;
 	return false;
@@ -48,6 +51,7 @@ function utilIsEmail($email){
 ** Envoie un email
 ** @param : $from (adrese expéditeur), $reply (adresse de réponse), $subjet (sujet), $msg (message)
 */
+
 function utilSendEmail($from, $reply, $to, $subject, $msg){
 	$headers = "From: ".$from."\r\n";
 	$headers.= "Reply-To: ".$reply."\r\n";
@@ -64,6 +68,7 @@ function utilSendEmail($from, $reply, $to, $subject, $msg){
 ** @param : $file (string)
 ** @return : string
 */
+
 function utilGetFileExtension($file){
   return substr(strtolower(strrchr(basename($file), ".")), 1);
 }
@@ -73,6 +78,7 @@ function utilGetFileExtension($file){
 ** @param : $folder (chemin), $not (fichiers a exclure)
 ** @return : array
 */
+
 function utilScanDir($folder, $not = array()){
 	$data['dir'] = array();
 	$data['file'] = array();
@@ -87,6 +93,7 @@ function utilScanDir($folder, $not = array()){
 ** Retourne la version de PHP
 ** @return : string
 */
+
 function utilPhpVersion(){
 	return substr(phpversion(), 0, 5);
 }
