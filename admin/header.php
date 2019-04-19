@@ -7,7 +7,7 @@
 	<?php showScriptTags(); ?>
 	<?php eval(callHook('endAdminHead')); ?>
 </head>
-<body>
+<body class="plugin_<?php showPluginName(); ?>">
 <div id="container">
 	<div id="header">
 		<h1>99Ko <a target="_blank" href="../">Voir le site</a> <a href="index.php?action=logout&token=<?php echo $data['token']; ?>">Se déconnecter</a> <a href="index.php">Accueil administration</a></h1>

@@ -255,8 +255,8 @@ class pageItem{
 	public function setUrl($val){
 		$val = trim($val);
 		if($val == ''){
-			if($val == '' && !$this->isHomepage) $val = utilStrToUrl($this->name).'.html';
-			$url = getConfVal('core', 'siteUrl').'/'.$val;
+			if(!$this->isHomepage) $url = utilStrToUrl($this->name).'.html';
+			else $url = '/';
 		}
 		else $url = $val;
 		$this->url = trim($url);

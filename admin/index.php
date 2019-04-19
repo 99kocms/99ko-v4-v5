@@ -134,7 +134,10 @@ if(!isset($_SESSION['admin']) || $_SESSION['admin'] != $coreConf['adminPwd']){
 }
 else{
 	// on inclu le fichier admin du plugin courant
-	if(isset($_GET['p']) && $runPlugin->getAdminFile()) include($runPlugin->getAdminFile());
+	if(isset($_GET['p']) && $runPlugin->getAdminFile()){
+		include($runPlugin->getAdminFile());
+		if($runPlugin->getAdminTemplate()) include($runPlugin->getAdminTemplate());
+	}
 	else include_once('home.php');
 }
 ?>

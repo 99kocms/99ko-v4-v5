@@ -11,7 +11,7 @@
 	<?php showScriptTags(); ?>
 	<?php eval(callHook('endFrontHead')); ?>
 </head>
-<body>
+<body class="plugin_<?php showPluginName(); ?>">
 <div id="container">
 	<div id="header">
 		<p id="siteName"><a href="<?php showSiteUrl(); ?>"><?php showSiteName(); ?></a></p>

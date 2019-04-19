@@ -17,6 +17,8 @@ class plugin{
 	private $libFile;
 	private $frontFile;
 	private $adminFile;
+	private $frontTemplate;
+	private $adminTemplate;
 	private $cssFile;
 	private $jsFile;
 	private $dataPath;
@@ -31,9 +33,11 @@ class plugin{
 		$this->isDefaultPlugin = ($name == DEFAULT_PLUGIN) ? true : false;
 		$this->setTitleTag($infos['name']);
 		$this->setMainTitle($infos['name']);
-		$this->libFile = (file_exists(ROOT.'plugin/'.$this->name.'/lib.php')) ? ROOT.'plugin/'.$this->name.'/lib.php' : false;
-		$this->frontFile = (file_exists(ROOT.'plugin/'.$this->name.'/front.php')) ? ROOT.'plugin/'.$this->name.'/front.php' : false;
-		$this->adminFile = (file_exists(ROOT.'plugin/'.$this->name.'/admin.php')) ? ROOT.'plugin/'.$this->name.'/admin.php' : false;
+		$this->libFile = (file_exists(ROOT.'plugin/'.$this->name.'/index.php')) ? ROOT.'plugin/'.$this->name.'/index.php' : false;
+		$this->frontFile = (file_exists(ROOT.'plugin/'.$this->name.'/public/index.php')) ? ROOT.'plugin/'.$this->name.'/public/index.php' : false;
+		$this->adminFile = (file_exists(ROOT.'plugin/'.$this->name.'/admin/index.php')) ? ROOT.'plugin/'.$this->name.'/admin/index.php' : false;
+		$this->frontTemplate = (file_exists(ROOT.'plugin/'.$this->name.'/public/template.php')) ? ROOT.'plugin/'.$this->name.'/public/template.php' : false;
+		$this->adminTemplate = (file_exists(ROOT.'plugin/'.$this->name.'/admin/template.php')) ? ROOT.'plugin/'.$this->name.'/admin/template.php' : false;
 		$this->cssFile = (file_exists(ROOT.'plugin/'.$this->name.'/'.$this->name.'.css')) ? ROOT.'plugin/'.$this->name.'/'.$this->name.'.css' : false;
 		$this->jsFile = (file_exists(ROOT.'plugin/'.$this->name.'/'.$this->name.'.js')) ? ROOT.'plugin/'.$this->name.'/'.$this->name.'.js' : false;
 		$this->dataPath = (is_dir(ROOT.'data/plugin/'.$this->name)) ? ROOT.'data/plugin/'.$this->name.'/' : false;
@@ -90,6 +94,14 @@ class plugin{
 	
 	public function getAdminFile(){
 		return $this->adminFile;
+	}
+	
+	public function getFrontTemplate(){
+		return $this->frontTemplate;
+	}
+	
+	public function getAdminTemplate(){
+		return $this->adminTemplate;
 	}
 	
 	public function getCssFile(){

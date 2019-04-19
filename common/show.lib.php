@@ -7,7 +7,6 @@
 /*
 ** Affiche un message (error/success) système
 ** @param : $msg (message), $type (error/success)
-** @return : string HTML
 */
 
 function showMsg($msg, $type){
@@ -59,7 +58,6 @@ function showScriptTags($format = '<script type="text/javascript" src="[file]"><
 /*
 ** Affiche l'editeur HTML
 ** @param : $name (attribut name), $content, $width, $height, $id (attribut id), $class (attribut class)
-** @return : string HTML
 */
 
 function showAdminEditor($name, $content, $width, $height, $id = 'editor', $class = 'editor'){
@@ -69,13 +67,21 @@ function showAdminEditor($name, $content, $width, $height, $id = 'editor', $clas
 
 /*
 ** Affiche un input hidden contenant le token en session (admin)
-** @return : string HTML
 */
 
 function showAdminTokenField(){
 	global $data;
 	$output = '<input type="hidden" name="token" value="'.$data['token'].'" />';
 	echo $output;
+}
+
+/*
+** Affiche l'identifiant du plugin courant
+*/
+
+function showPluginName(){
+	global $runPlugin;
+	echo $runPlugin->getName();
 }
 
 /*
