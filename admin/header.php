@@ -21,30 +21,30 @@
 			  <ul>
 				<li><h1><a class="active" href="javascript:" id="open_nav"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RUI2RDM2N0YyMDRDMTFFNzkzMDFBMTE1Nzk0RUQ5MDciIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RUI2RDM2ODAyMDRDMTFFNzkzMDFBMTE1Nzk0RUQ5MDciPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpFQjZEMzY3RDIwNEMxMUU3OTMwMUExMTU3OTRFRDkwNyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpFQjZEMzY3RTIwNEMxMUU3OTMwMUExMTU3OTRFRDkwNyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PjUVHUcAAABwSURBVHja7NWxEQAwDAKxsP/QZIQUvlTWj6AC0vZsLgAAAAAAAAAAAAAAAAAAAAAAAAAAAJj2WzQAAAAwggAAAAAAwA0CAADACAIAAAAAADcIAAAAIwgAAAAAAAAAAAAAAAAAAAAAAAAAAIBnV4ABAOfFy4HvRdNGAAAAAElFTkSuQmCC" alt=Administration" /></a></h1></li>
 				<li><a target="_blank" href="../">Voir le site</a></li>
-				<li><a href="index.php?action=logout&token=<?php echo administrator::getToken(); ?>">Déconnexion</a></li>
+				<li><a href="index.php?action=logout&token=<?= administrator::getToken() ?>">Déconnexion</a></li>
 			  </ul>
 			</div>
 		</div>
 		<div id="body">
 		  <div id="content_mask">
-			<div id="content" class="<?php echo $runPlugin->getName(); ?>-admin">
+			<div id="content" class="<?= $runPlugin->getName() ?>-admin">
 			<div id="sidebar">
 			<ul id="navigation">
 			  <?php
 				foreach($pluginsManager->getPlugins() as $k=>$v) if($v->getConfigVal('activate') && $v->getAdminFile() && $v->getIsDefaultAdminPlugin()){ ?>
-			  <li><a href="index.php?p=<?php echo $v->getName(); ?>"><?php echo $v->getInfoVal('name'); ?></a></li>
+			  <li><a href="index.php?p=<?= $v->getName() ?>"><?= $v->getInfoVal('name') ?></a></li>
 			  <?php
 				}
 				foreach($pluginsManager->getPlugins() as $k=>$v) if($v->getConfigVal('activate') && $v->getAdminFile() && !$v->getIsDefaultAdminPlugin()){ ?>
-			  <li><a href="index.php?p=<?php echo $v->getName(); ?>"><?php echo $v->getInfoVal('name'); ?></a></li>
+			  <li><a href="index.php?p=<?= $v->getName() ?>"><?= $v->getInfoVal('name') ?></a></li>
 			  <?php
 				}
 				?>
-				<li class="site"><a href="index.php?action=logout&token=<?php echo administrator::getToken(); ?>">Déconnexion</a></li>
+				<li class="site"><a href="index.php?action=logout&token=<?= administrator::getToken() ?>">Déconnexion</a></li>
 				<li class="site"><a target="_blank" href="../">Voir le site</a></li>
 			</ul>
 			<p class="just_using">
-			  <a target="_blank" href="https://github.com/99kocms/">Just using 99ko <?php echo VERSION; ?></a>
+			  <a target="_blank" href="https://github.com/99kocms/">Just using 99ko <?= VERSION ?></a>
 			</p>
 		  </div>
 				<?php if($runPlugin->getParamTemplate()){ ?>
@@ -65,4 +65,4 @@
           </div>
 				</div>
 				<?php } ?>
-			  <h2><?php echo $runPlugin->getInfoVal('name'); ?></h2>
+			  <h2><?= $runPlugin->getInfoVal('name') ?></h2>

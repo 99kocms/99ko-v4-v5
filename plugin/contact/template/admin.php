@@ -7,11 +7,11 @@ include_once(ROOT.'admin/header.php');
     <?php show::adminTokenField(); ?>
     <p>
         <label>Contenu avant le formulaire</label><br>
-        <textarea class="editor" name="content1"><?php echo $runPlugin->getConfigVal('content1'); ?></textarea>
+        <textarea class="editor" name="content1"><?= $runPlugin->getConfigVal('content1') ?></textarea>
     </p>
     <p>
         <label>Contenu après le formulaire</label><br>
-        <textarea class="editor" name="content2"><?php echo $runPlugin->getConfigVal('content2'); ?></textarea>
+        <textarea class="editor" name="content2"><?= $runPlugin->getConfigVal('content2') ?></textarea>
     </p>
     <p><button type="submit" class="button">Enregistrer</button></p>
 </form>

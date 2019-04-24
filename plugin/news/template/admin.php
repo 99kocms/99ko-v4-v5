@@ -6,7 +6,7 @@ include_once(ROOT.'admin/header.php');
 <?php if($mode == 'list'){ ?>
 <ul class="tabs_style">
   <li><a class="button" href="index.php?p=news&action=edit">Ajouter</a></li>
-  <li><a target="_blank" class="button" href="../<?php echo $core->makeUrl('news', array('action' => 'rss')); ?>">Flux RSS</a></li>
+  <li><a target="_blank" class="button" href="../<?= $core->makeUrl('news', array('action' => 'rss')) ?>">Flux RSS</a></li>
 </ul>
 <table>
   <tr>
@@ -16,12 +16,12 @@ include_once(ROOT.'admin/header.php');
   </tr>
   <?php foreach($newsManager->getItems() as $k=>$v){ ?>
   <tr>
-    <td><?php echo $v->getName(); ?></td>
-    <td><?php echo util::formatDate($v->getDate(), 'en', 'fr'); ?></td>
+    <td><?= $v->getName() ?></td>
+    <td><?= util::formatDate($v->getDate(), 'en', 'fr') ?></td>
     <td>
-      <a href="index.php?p=news&action=edit&id=<?php echo $v->getId(); ?>" class="button">Modifier</a>
-      <?php if($newsManager->countComments($v->getId()) > 0){ ?><a href="index.php?p=news&action=listcomments&id=<?php echo $v->getId(); ?>" class="button">Commentaires (<?php echo $newsManager->countComments($v->getId()); ?>)</a><?php } ?>
-			<a href="index.php?p=news&action=del&id=<?php echo $v->getId(); ?>&token=<?php echo administrator::getToken(); ?>" onclick = "if(!confirm('Supprimer cet élément ?')) return false;" class="button alert">Supprimer</a>
+      <a href="index.php?p=news&action=edit&id=<?= $v->getId() ?>" class="button">Modifier</a>
+      <?php if($newsManager->countComments($v->getId()) > 0){ ?><a href="index.php?p=news&action=listcomments&id=<?= $v->getId() ?>" class="button">Commentaires (<?= $newsManager->countComments($v->getId()) ?>)</a><?php } ?>
+			<a href="index.php?p=news&action=del&id=<?= $v->getId() ?>&token=<?= administrator::getToken() ?>" onclick = "if(!confirm('Supprimer cet élément ?')) return false;" class="button alert">Supprimer</a>
     </td>
   </tr>
   <?php } ?>
@@ -31,9 +31,9 @@ include_once(ROOT.'admin/header.php');
 <?php if($mode == 'edit'){ ?>
 <form method="post" action="index.php?p=news&action=save" enctype="multipart/form-data">
   <?php show::adminTokenField(); ?>
-  <input type="hidden" name="id" value="<?php echo $news['id']; ?>" />
+  <input type="hidden" name="id" value="<?= $news['id'] ?>" />
   <?php if($pluginsManager->isActivePlugin('galerie')){ ?>
-  <input type="hidden" name="imgId" value="<?php echo $news['img']; ?>" />
+  <input type="hidden" name="imgId" value="<?= $news['img'] ?>" />
 	<?php } ?>
 	<h3>Paramètres</h3>
   <p>
@@ -42,18 +42,18 @@ include_once(ROOT.'admin/header.php');
   <h3>Contenu</h3>
   <p>
       <label>Titre</label><br>
-      <input type="text" name="name" value="<?php echo $news['name']; ?>" required="required" />
+      <input type="text" name="name" value="<?= $news['name'] ?>" required="required" />
     </p>
   <?php if($showDate){ ?>
     <p>
       <label>Date</label><br>
-      <input placeholder="Exemple : 2017-07-06 12:28:51" type="date" name="date" value="<?php echo $news['date']; ?>" required="required" />
+      <input placeholder="Exemple : 2017-07-06 12:28:51" type="date" name="date" value="<?= $news['date'] ?>" required="required" />
     </p>
   <?php } ?>
   
   <p>
       <label>Contenu</label><br>
-      <textarea name="content" class="editor"><?php echo $news['content']; ?></textarea>
+      <textarea name="content" class="editor"><?= $news['content'] ?></textarea>
     </p>
 	
 	<?php if($pluginsManager->isActivePlugin('galerie')){ ?>
@@ -62,7 +62,7 @@ include_once(ROOT.'admin/header.php');
       <label>Fichier (jpg)</label><br>
       <input type="file" name="file" />
       <br>
-      <?php if(galerie::searchByfileName($news['img'])){ ?><img src="<?php echo UPLOAD; ?>galerie/<?php echo $news['img']; ?>" alt="<?php echo $news['img']; ?>" /><?php } ?>
+      <?php if(galerie::searchByfileName($news['img'])){ ?><img src="<?= UPLOAD ?>galerie/<?= $news['img'] ?>" alt="<?= $news['img'] ?>" /><?php } ?>
     </p>
 	<?php } ?>
   
@@ -82,12 +82,12 @@ include_once(ROOT.'admin/header.php');
   <?php foreach($newsManager->getComments() as $k=>$v){ ?>
   <tr>
     <td>
-      <?php echo $v->getAuthor(); ?> <i><?php echo $v->getAuthorEmail(); ?></i> - <?php echo util::formatDate($v->getDate(), 'en', 'fr'); ?></b> :<br><br>
-      <form id="comment<?php echo $v->getId(); ?>" method="post" action="index.php?p=news&action=updatecomment&id=<?php echo $_GET['id']; ?>&idcomment=<?php echo $v->getId(); ?>&token=<?php echo administrator::getToken(); ?>"><textarea name="content<?php echo $v->getId(); ?>"><?php echo $v->getContent(); ?></textarea></form>
+      <?= $v->getAuthor() ?> <i><?= $v->getAuthorEmail() ?></i> - <?= util::formatDate($v->getDate(), 'en', 'fr') ?></b> :<br><br>
+      <form id="comment<?= $v->getId() ?>" method="post" action="index.php?p=news&action=updatecomment&id=<?= $_GET['id'] ?>&idcomment=<?= $v->getId() ?>&token=<?= administrator::getToken() ?>"><textarea name="content<?= $v->getId() ?>"><?= $v->getContent() ?></textarea></form>
     </td>
     <td>
-      <a onclick="updateComment(<?php echo $v->getId(); ?>);" href="javascript:" class="button">Enregistrer</a>
-			<a href="index.php?p=news&action=delcomment&id=<?php echo $_GET['id']; ?>&idcomment=<?php echo $v->getId(); ?>&token=<?php echo administrator::getToken(); ?>" onclick = "if(!confirm('Supprimer cet élément ?')) return false;" class="button alert">Supprimer</a>
+      <a onclick="updateComment(<?= $v->getId() ?>);" href="javascript:" class="button">Enregistrer</a>
+			<a href="index.php?p=news&action=delcomment&id=<?= $_GET['id'] ?>&idcomment=<?= $v->getId() ?>&token=<?= administrator::getToken() ?>" onclick = "if(!confirm('Supprimer cet élément ?')) return false;" class="button alert">Supprimer</a>
     </td>
   </tr>
   <?php } ?>

@@ -4,20 +4,20 @@
     <?php show::adminTokenField(); ?>
     <p>
         <label>Destinataire en copie</label><br>
-        <input type="email" name="copy" value="<?php echo $runPlugin->getConfigVal('copy'); ?>" />
+        <input type="email" name="copy" value="<?= $runPlugin->getConfigVal('copy') ?>" />
     </p>
     <p>
         <label>Titre de page</label><br>
-        <input type="text" name="label" value="<?php echo $runPlugin->getConfigVal('label'); ?>" required />
+        <input type="text" name="label" value="<?= $runPlugin->getConfigVal('label') ?>" required />
     </p>
     <p>
         <label>Texte d'acceptation avant envoi du formulaire</label><br>
-        <textarea name="acceptation"><?php echo $runPlugin->getConfigVal('acceptation'); ?></textarea>
+        <textarea name="acceptation"><?= $runPlugin->getConfigVal('acceptation') ?></textarea>
     </p>
     <p><button type="submit" class="button">Enregistrer</button></p>
     <div class="separator"></div>
     <p>
         <label>Adresses email récoltées</label><br>
-        <textarea readonly="readonly"><?php echo $emails; ?></textarea>
+        <textarea readonly="readonly"><?= $emails ?></textarea>
     </p>
 </form>

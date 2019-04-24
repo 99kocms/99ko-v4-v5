@@ -9,11 +9,11 @@
     </p>
   <p>
       <label>Titre de page</label><br>
-      <input type="text" name="label" value="<?php echo $runPlugin->getConfigVal('label'); ?>" />
+      <input type="text" name="label" value="<?= $runPlugin->getConfigVal('label') ?>" />
     </p>
     <p
       <label>Nombre d'entrées par page</label><br>
-      <input type="number" name="itemsByPage" value="<?php echo $runPlugin->getConfigVal('itemsByPage'); ?>" />
+      <input type="number" name="itemsByPage" value="<?= $runPlugin->getConfigVal('itemsByPage') ?>" />
     </p>
   
   <p><button type="submit" class="button">Enregistrer</button></p>

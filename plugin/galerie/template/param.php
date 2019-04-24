@@ -9,7 +9,7 @@
   
   <p>
       <label>Titre de page</label><br>
-      <input type="text" name="label" value="<?php echo $runPlugin->getConfigVal('label'); ?>" />
+      <input type="text" name="label" value="<?= $runPlugin->getConfigVal('label') ?>" />
     </p>
     <p>
       <label>Ordre des images</label><br>
@@ -30,7 +30,7 @@
   
   <p>
       <label>Introduction</label><br>
-      <textarea class="editor" name="introduction"><?php echo $runPlugin->getConfigVal('introduction'); ?></textarea>
+      <textarea class="editor" name="introduction"><?= $runPlugin->getConfigVal('introduction') ?></textarea>
     </p>
   
   <p><button type="submit" class="button">Enregistrer</button></p>
