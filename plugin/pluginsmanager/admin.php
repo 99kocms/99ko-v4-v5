@@ -6,6 +6,7 @@ $msg = (isset($_GET['msg'])) ? urldecode($_GET['msg']) : '';
 
 switch($action){
 	case '':
+		// TODO Useless variable ?
 		$priority = array(
 			1 => 1,
 			2 => 2,
@@ -15,7 +16,7 @@ switch($action){
 			6 => 6,
 			7 => 7,
 			8 => 8,
-			9 => 9,
+			9 => 9
 		);
 		$nbPlugins = count($pluginsManager->getPlugins());
 		break;

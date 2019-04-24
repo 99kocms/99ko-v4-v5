@@ -16,12 +16,12 @@ include_once(ROOT.'admin/header.php');
   </tr>
   <?php foreach($galerie->getItems() as $k=>$v){ ?>
   <tr>
-    <td><img width="128" src="<?php echo UPLOAD.'galerie/'.$v->getImg(); ?>" alt="<?php echo $v->getImg(); ?>'" /></td>
-    <td><?php echo $v->getTitle(); ?><br><?php if($v->getCategory() != ''){ echo '<i>'.$v->getCategory().'</i>'; } ?></td>
-		<td><input readonly="readonly" type="text" value="<?php echo $core->getConfigVal('siteUrl').str_replace('..', '', UPLOAD).'galerie/'.$v->getImg(); ?>" /></td>
+    <td><img width="128" src="<?= UPLOAD.'galerie/'.$v->getImg() ?>" alt="<?= $v->getImg() ?>'" /></td>
+    <td><?= $v->getTitle() ?><br><?php if($v->getCategory() != ''){ echo '<i>'.$v->getCategory().'</i>'; } ?></td>
+		<td><input readonly="readonly" type="text" value="<?= $core->getConfigVal('siteUrl').str_replace('..', '', UPLOAD).'galerie/'.$v->getImg() ?>" /></td>
     <td>
       <a href="index.php?p=galerie&action=edit&id=<?php echo $v->getId(); ?>" class="button">Modifier</a>
-			<a href="index.php?p=galerie&action=del&id=<?php echo $v->getId(); ?>&token=<?php echo administrator::getToken(); ?>" onclick = "if(!confirm('Supprimer cet élément ?')) return false;" class="button alert">Supprimer</a>
+			<a href="index.php?p=galerie&action=del&id=<?= $v->getId() ?>&token=<?= administrator::getToken() ?>" onclick = "if(!confirm('Supprimer cet élément ?')) return false;" class="button alert">Supprimer</a>
     </td>
   </tr>
   <?php } ?>
@@ -31,7 +31,7 @@ include_once(ROOT.'admin/header.php');
 <?php if($mode == 'edit'){ ?>
 <form method="post" action="index.php?p=galerie&action=save" enctype="multipart/form-data">
   <?php show::adminTokenField(); ?>
-  <input type="hidden" name="id" value="<?php echo $item->getId(); ?>" />
+  <input type="hidden" name="id" value="<?= $item->getId() ?>" />
 	
 	<p>
       <input <?php if($item->getHidden()){ ?>checked<?php } ?> type="checkbox" name="hidden" /> Rendre invisible
@@ -41,10 +41,10 @@ include_once(ROOT.'admin/header.php');
       <label>
         Catégorie
         <?php foreach($galerie->listCategories() as $k=>$v){ ?>
-        &nbsp;&nbsp;&#8594; <a class="category" href="javascript:"><?php echo $v; ?></a>
+        &nbsp;&nbsp;&#8594; <a class="category" href="javascript:"><?= $v ?></a>
         <?php } ?>
         </label><br>
-      <input type="text" name="category" id="category" value="<?php echo $item->getCategory(); ?>" />
+      <input type="text" name="category" id="category" value="<?= $item->getCategory() ?>" />
     </p>
   <p>
       <label>Titre</label><br>

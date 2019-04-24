@@ -11,7 +11,7 @@ include_once(ROOT.'admin/header.php');
   <li><a class="button" href="index.php?p=page&amp;action=edit&link=1">Ajouter un lien externe</a></li>
 </ul>
 <?php if($lost != ''){ ?>
-<p>Des pages "fantômes" pouvant engendrer des dysfonctionnements ont été trouvées. <a href="index.php?p=page&amp;action=maintenance&id=<?php echo $lost; ?>&token=<?php echo administrator::getToken(); ?>">Cliquez ici</a> pour exécuter le script de maintenance.</p>
+<p>Des pages "fantômes" pouvant engendrer des dysfonctionnements ont été trouvées. <a href="index.php?p=page&amp;action=maintenance&id=<?= $lost ?>&token=<?= administrator::getToken() ?>">Cliquez ici</a> pour exécuter le script de maintenance.</p>
 <?php } ?>
 <table>
   <thead>
@@ -26,40 +26,40 @@ include_once(ROOT.'admin/header.php');
   <tbody>
 	<?php foreach($page->getItems() as $k=>$pageItem) if($pageItem->getParent() == 0 && ($pageItem->targetIs() != 'plugin' || ($pageItem->targetIs() == 'plugin' && $pluginsManager->isActivePlugin($pageItem->getTarget())))){ ?>
 	<tr>
-		<td><?php if($pageItem->getIsHomepage()){ ?><img title="Accueil" src="<?php echo PLUGINS; ?>page/template/house.png" alt="icon" /><?php } ?> 
-		    <?php if($pageItem->getIsHidden()){ ?><img title="N'apparait pas dans le menu" src="<?php echo PLUGINS; ?>page/template/ghost.png" alt="icon" /><?php } ?>
-			<?php if($pageItem->targetIs() == 'url'){ ?><img title="Externe" src="<?php echo PLUGINS; ?>page/template/link.png" alt="icon" /><?php } ?>
-			<?php if($pageItem->targetIs() == 'plugin'){ ?><img title="Plugin" src="<?php echo PLUGINS; ?>page/template/plugin.png" alt="icon" /><?php } ?>
-			<?php if($pageItem->targetIs() == 'parent'){ ?><img title="Parent" src="<?php echo PLUGINS; ?>page/template/star.png" alt="icon" /><?php } ?>
+		<td><?php if($pageItem->getIsHomepage()){ ?><img title="Accueil" src="<?= PLUGINS ?>page/template/house.png" alt="icon" /><?php } ?> 
+		    <?php if($pageItem->getIsHidden()){ ?><img title="N'apparait pas dans le menu" src="<?= PLUGINS ?>page/template/ghost.png" alt="icon" /><?php } ?>
+			<?php if($pageItem->targetIs() == 'url'){ ?><img title="Externe" src="<?= PLUGINS ?>page/template/link.png" alt="icon" /><?php } ?>
+			<?php if($pageItem->targetIs() == 'plugin'){ ?><img title="Plugin" src="<?= PLUGINS ?>page/template/plugin.png" alt="icon" /><?php } ?>
+			<?php if($pageItem->targetIs() == 'parent'){ ?><img title="Parent" src="<?= PLUGINS ?>page/template/star.png" alt="icon" /><?php } ?>
 		</td>
-		<td><?php echo $pageItem->getName(); ?></td>
-		<td><?php if($pageItem->targetIs() != 'parent'){ ?><input readonly="readonly" type="text" value="<?php echo $page->makeUrl($pageItem); ?>" /><?php } ?></td>
+		<td><?= $pageItem->getName() ?></td>
+		<td><?php if($pageItem->targetIs() != 'parent'){ ?><input readonly="readonly" type="text" value="<?= $page->makeUrl($pageItem) ?>" /><?php } ?></td>
 		<td>
-		  <a class="up" href="index.php?p=page&action=up&id=<?php echo $pageItem->getId(); ?>&token=<?php echo administrator::getToken(); ?>"><img src="<?php echo PLUGINS; ?>page/template/up.png" alt="icon" /></a>&nbsp;&nbsp;
-		  <a class="down" href="index.php?p=page&action=down&id=<?php echo $pageItem->getId(); ?>&token=<?php echo administrator::getToken(); ?>"><img src="<?php echo PLUGINS; ?>page/template/down.png" alt="icon" /></a>
+		  <a class="up" href="index.php?p=page&action=up&id=<?= $pageItem->getId() ?>&token=<?= administrator::getToken() ?>"><img src="<?= PLUGINS ?>page/template/up.png" alt="icon" /></a>&nbsp;&nbsp;
+		  <a class="down" href="index.php?p=page&action=down&id=<?= $pageItem->getId() ?>&token=<?= administrator::getToken() ?>"><img src="<?= PLUGINS ?>page/template/down.png" alt="icon" /></a>
 		</td>
 		<td>
-		  <a class="button" href="index.php?p=page&amp;action=edit&amp;id=<?php echo $pageItem->getId(); ?>">Modifier</a> 
-          <?php if(!$pageItem->getIsHomepage() && $pageItem->targetIs() != 'plugin'){ ?><a class="button alert" href="index.php?p=page&amp;action=del&amp;id=<?php echo $pageItem->getId(). '&amp;token=' .administrator::getToken(); ?>" onclick = "if(!confirm('Supprimer cet élément ?')) return false;">Supprimer</a><?php } ?>	
+		  <a class="button" href="index.php?p=page&amp;action=edit&amp;id=<?= $pageItem->getId() ?>">Modifier</a> 
+          <?php if(!$pageItem->getIsHomepage() && $pageItem->targetIs() != 'plugin'){ ?><a class="button alert" href="index.php?p=page&amp;action=del&amp;id=<?= $pageItem->getId(). '&amp;token=' .administrator::getToken() ?>" onclick = "if(!confirm('Supprimer cet élément ?')) return false;">Supprimer</a><?php } ?>	
 		</td>
 	</tr>
 	<?php foreach($page->getItems() as $k=>$pageItemChild) if($pageItemChild->getParent() == $pageItem->getId() && ($pageItemChild->targetIs() != 'plugin' || ($pageItemChild->targetIs() == 'plugin' && $pluginsManager->isActivePlugin($pageItemChild->getTarget())))){ ?>
 	<tr>
-		<td><?php if($pageItemChild->getIsHomepage()){ ?><img title="Accueil" src="<?php echo PLUGINS; ?>page/template/house.png" alt="icon" /><?php } ?> 
-			<?php if($pageItemChild->getIsHidden()){ ?><img title="N'apparait pas dans le menu" src="<?php echo PLUGINS; ?>page/template/ghost.png" alt="icon" /><?php } ?>
-			<?php if($pageItemChild->targetIs() == 'url'){ ?><img title="Externe" src="<?php echo PLUGINS; ?>page/template/link.png" alt="icon" /><?php } ?>
-			<?php if($pageItemChild->targetIs() == 'plugin'){ ?><img title="Plugin" src="<?php echo PLUGINS; ?>page/template/plugin.png" alt="icon" /><?php } ?>
-			<?php if($pageItemChild->targetIs() == 'parent'){ ?><img title="Parent" src="<?php echo PLUGINS; ?>page/template/star.png" alt="icon" /><?php } ?>
+		<td><?php if($pageItemChild->getIsHomepage()){ ?><img title="Accueil" src="<?= PLUGINS ?>page/template/house.png" alt="icon" /><?php } ?> 
+			<?php if($pageItemChild->getIsHidden()){ ?><img title="N'apparait pas dans le menu" src="<?= PLUGINS ?>page/template/ghost.png" alt="icon" /><?php } ?>
+			<?php if($pageItemChild->targetIs() == 'url'){ ?><img title="Externe" src="<?= PLUGINS ?>page/template/link.png" alt="icon" /><?php } ?>
+			<?php if($pageItemChild->targetIs() == 'plugin'){ ?><img title="Plugin" src="<?= PLUGINS ?>page/template/plugin.png" alt="icon" /><?php } ?>
+			<?php if($pageItemChild->targetIs() == 'parent'){ ?><img title="Parent" src="<?= PLUGINS ?>page/template/star.png" alt="icon" /><?php } ?>
 		</td>
-		<td>▸ <?php echo $pageItemChild->getName(); ?></td>
-		<td><input readonly="readonly" type="text" value="<?php echo $page->makeUrl($pageItemChild); ?>" /></td>
+		<td>▸ <?= $pageItemChild->getName() ?></td>
+		<td><input readonly="readonly" type="text" value="<?= $page->makeUrl($pageItemChild) ?>" /></td>
 		<td>
-		  <a class="up" href="index.php?p=page&action=up&id=<?php echo $pageItemChild->getId(); ?>&token=<?php echo administrator::getToken(); ?>"><img src="<?php echo PLUGINS; ?>page/template/up.png" alt="icon" /></a>&nbsp;&nbsp;
-		  <a class="down" href="index.php?p=page&action=down&id=<?php echo $pageItemChild->getId(); ?>&token=<?php echo administrator::getToken(); ?>"><img src="<?php echo PLUGINS; ?>page/template/down.png" alt="icon" /></a>
+		  <a class="up" href="index.php?p=page&action=up&id=<?= $pageItemChild->getId() ?>&token=<?= administrator::getToken() ?>"><img src="<?= PLUGINS ?>page/template/up.png" alt="icon" /></a>&nbsp;&nbsp;
+		  <a class="down" href="index.php?p=page&action=down&id=<?= $pageItemChild->getId() ?>&token=<?= administrator::getToken() ?>"><img src="<?= PLUGINS ?>page/template/down.png" alt="icon" /></a>
 		</td>
 		<td>
-		  <a class="button" href="index.php?p=page&amp;action=edit&amp;id=<?php echo $pageItemChild->getId(); ?>">Modifier</a> 
-		  <?php if(!$pageItemChild->getIsHomepage() && $pageItemChild->targetIs() != 'plugin'){ ?><a class="button alert" href="index.php?p=page&amp;action=del&amp;id=<?php echo $pageItemChild->getId(). '&amp;token=' .administrator::getToken(); ?>" onclick = "if(!confirm('Supprimer cet élément ?')) return false;">Supprimer</a><?php } ?>	
+		  <a class="button" href="index.php?p=page&amp;action=edit&amp;id=<?= $pageItemChild->getId() ?>">Modifier</a> 
+		  <?php if(!$pageItemChild->getIsHomepage() && $pageItemChild->targetIs() != 'plugin'){ ?><a class="button alert" href="index.php?p=page&amp;action=del&amp;id=<?= $pageItemChild->getId(). '&amp;token=' .administrator::getToken() ?>" onclick = "if(!confirm('Supprimer cet élément ?')) return false;">Supprimer</a><?php } ?>	
 		</td>
 	</tr>
 	<?php } } ?>
@@ -70,9 +70,9 @@ include_once(ROOT.'admin/header.php');
 <?php if($mode == 'edit' && !$isLink && !$isParent && $pageItem->targetIs() != 'plugin'){ ?>
 <form method="post" action="index.php?p=page&amp;action=save" enctype="multipart/form-data">
   <?php show::adminTokenField(); ?>
-  <input type="hidden" name="id" value="<?php echo $pageItem->getId(); ?>" />
+  <input type="hidden" name="id" value="<?= $pageItem->getId() ?>" />
 	<?php if($pluginsManager->isActivePlugin('galerie')){ ?>
-  <input type="hidden" name="imgId" value="<?php echo $pageItem->getImg(); ?>" />
+  <input type="hidden" name="imgId" value="<?= $pageItem->getImg() ?>" />
 	<?php } ?>
 	<h3>Paramètres</h3>
   <p>
@@ -86,17 +86,17 @@ include_once(ROOT.'admin/header.php');
 	  <select name="parent">
 	  <option value="">Aucun</option>
 	  <?php foreach($page->getItems() as $k=>$v) if($v->targetIs() == 'parent'){ ?>
-	  <option <?php if($v->getId() == $pageItem->getParent()){ ?>selected<?php } ?> value="<?php echo $v->getId(); ?>"><?php echo $v->getName(); ?></option>
+	  <option <?php if($v->getId() == $pageItem->getParent()){ ?>selected<?php } ?> value="<?= $v->getId() ?>"><?= $v->getName() ?></option>
 	  <?php } ?>
 	  </select>
   </p>
   <p>
       <label>Classe CSS</label>
-      <input type="text" name="cssClass" value="<?php echo $pageItem->getCssClass(); ?>" />
+      <input type="text" name="cssClass" value="<?= $pageItem->getCssClass() ?>" />
   </p>
   <p>
       <label>Position</label>
-      <input type="number" name="position" value="<?php echo $pageItem->getPosition(); ?>" />
+      <input type="number" name="position" value="<?= $pageItem->getPosition() ?>" />
   </p>
   <p>
       <label>Restreindre l'accès avec un mot de passe</label>
@@ -113,33 +113,33 @@ include_once(ROOT.'admin/header.php');
   </p>
   <p>
       <label>Meta title</label>
-      <input type="text" name="metaTitleTag" value="<?php echo $pageItem->getMetaTitleTag(); ?>" />
+      <input type="text" name="metaTitleTag" value="<?= $pageItem->getMetaTitleTag() ?>" />
   </p>
   <p>
       <label>Meta description</label>
-      <input type="text" name="metaDescriptionTag" value="<?php echo $pageItem->getMetaDescriptionTag(); ?>" />
+      <input type="text" name="metaDescriptionTag" value="<?= $pageItem->getMetaDescriptionTag() ?>" />
   </p>
 	<h3>Contenu</h3>
   <p>
       <label>Nom</label><br>
-      <input type="text" name="name" value="<?php echo $pageItem->getName(); ?>" required="required" />
+      <input type="text" name="name" value="<?= $pageItem->getName() ?>" required="required" />
   </p>
   <p>
       <label>Titre de page</label><br>
-      <input type="text" name="mainTitle" value="<?php echo $pageItem->getMainTitle(); ?>" />
+      <input type="text" name="mainTitle" value="<?= $pageItem->getMainTitle() ?>" />
   </p>
   <p>
       <label>Inclure un fichier .php au lieu du contenu
 	  <select name="file" class="large-3 columns">
 		  <option value="">--</option>
 		  <?php foreach($page->listTemplates() as $file){ ?>
-		  <option <?php if($file == $pageItem->getFile()){ ?>selected<?php } ?> value="<?php echo $file; ?>"><?php echo $file; ?></option>
+		  <option <?php if($file == $pageItem->getFile()){ ?>selected<?php } ?> value="<?= $file ?>"><?= $file ?></option>
 		  <?php } ?>
 	  </select>
   </p>
   <p>
       <label>Contenu</label>
-			<textarea name="content" class="editor"><?php echo $pageItem->getContent(); ?></textarea>
+			<textarea name="content" class="editor"><?= $pageItem->getContent() ?></textarea>
   </p>
 	<?php if($pluginsManager->isActivePlugin('galerie')){ ?>
 	<h3>Image à la une</h3>
@@ -147,7 +147,7 @@ include_once(ROOT.'admin/header.php');
       <label>Fichier (jpg)</label><br>
       <input type="file" name="file" />
       <br>
-      <?php if(galerie::searchByfileName($pageItem->getImg())){ ?><img src="<?php echo UPLOAD; ?>galerie/<?php echo $pageItem->getImg(); ?>" alt="<?php echo $pageItem->getImg(); ?>" /><?php } ?>
+      <?php if(galerie::searchByfileName($pageItem->getImg())){ ?><img src="<?= UPLOAD ?>galerie/<?= $pageItem->getImg() ?>" alt="<?= $pageItem->getImg() ?>" /><?php } ?>
     </p>
 	<?php } ?>
   <p>
@@ -159,8 +159,8 @@ include_once(ROOT.'admin/header.php');
 <?php if($mode == 'edit' && ($isLink || $pageItem->targetIs() == 'plugin')){ ?>
 <form method="post" action="index.php?p=page&amp;action=save">
   <?php show::adminTokenField(); ?>
-  <input type="hidden" name="id" value="<?php echo $pageItem->getId(); ?>" />
-  <!--<input type="hidden" name="position" value="<?php echo $pageItem->getPosition(); ?>" />-->
+  <input type="hidden" name="id" value="<?= $pageItem->getId() ?>" />
+  <!--<input type="hidden" name="position" value="<?= $pageItem->getPosition() ?>" />-->
   <p>
       <input <?php if($pageItem->getIsHidden()){ ?>checked<?php } ?> type="checkbox" name="isHidden" /> <label for="isHidden">Ne pas afficher dans le menu</label>
   </p>
@@ -169,23 +169,23 @@ include_once(ROOT.'admin/header.php');
 	  <select name="parent">
 	  <option value="">Aucun</option>
 	  <?php foreach($page->getItems() as $k=>$v) if($v->targetIs() == 'parent'){ ?>
-	  <option <?php if($v->getId() == $pageItem->getParent()){ ?>selected<?php } ?> value="<?php echo $v->getId(); ?>"><?php echo $v->getName(); ?></option>
+	  <option <?php if($v->getId() == $pageItem->getParent()){ ?>selected<?php } ?> value="<?= $v->getId() ?>"><?= $v->getName() ?></option>
 	  <?php } ?>
 	  </select>
   </p>
   <p>
       <label>Nom</label><br>
-      <input type="text" name="name" value="<?php echo $pageItem->getName(); ?>" required="required" />
+      <input type="text" name="name" value="<?= $pageItem->getName() ?>" required="required" />
   </p>
   <?php if($pageItem->targetIs() == 'plugin'){ ?>
   <p>
-      <label>Cible : <?php echo $pageItem->getTarget(); ?></label>
-      <input style="display:none;" type="text" name="target" value="<?php echo $pageItem->getTarget(); ?>" />
+      <label>Cible : <?= $pageItem->getTarget() ?></label>
+      <input style="display:none;" type="text" name="target" value="<?= $pageItem->getTarget() ?>" />
   </p>
   <?php } else{ ?>
   <p>
       <label>Cible</label><br>
-      <input placeholder="Example : http://www.google.com" <?php if($pageItem->targetIs() == 'plugin'){ ?>readonly<?php } ?> type="url" name="target" value="<?php echo $pageItem->getTarget(); ?>" required="required" />
+      <input placeholder="Example : http://www.google.com" <?php if($pageItem->targetIs() == 'plugin'){ ?>readonly<?php } ?> type="url" name="target" value="<?= $pageItem->getTarget() ?>" required="required" />
   </p>
   <?php } ?>
   <p>
@@ -197,11 +197,11 @@ include_once(ROOT.'admin/header.php');
   </p>
   <p>
       <label>Classe CSS</label>
-      <input type="text" name="cssClass" value="<?php echo $pageItem->getCssClass(); ?>" />
+      <input type="text" name="cssClass" value="<?= $pageItem->getCssClass() ?>" />
   </p>
   <p>
       <label>Position</label>
-      <input type="number" name="position" value="<?php echo $pageItem->getPosition(); ?>" />
+      <input type="number" name="position" value="<?= $pageItem->getPosition() ?>" />
   </p>
   <p>
 	<button type="submit" class="button success radius">Enregistrer</button>
@@ -212,23 +212,23 @@ include_once(ROOT.'admin/header.php');
 <?php if($mode == 'edit' && $isParent){ ?>
 <form method="post" action="index.php?p=page&amp;action=save">
   <?php show::adminTokenField(); ?>
-  <input type="hidden" name="id" value="<?php echo $pageItem->getId(); ?>" />
-  <!--<input type="hidden" name="position" value="<?php echo $pageItem->getPosition(); ?>" />-->
+  <input type="hidden" name="id" value="<?= $pageItem->getId() ?>" />
+  <!--<input type="hidden" name="position" value="<?= $pageItem->getPosition() ?>" />-->
   <input type="hidden" name="target" value="javascript:" />
   <p>
       <input <?php if($pageItem->getIsHidden()){ ?>checked<?php } ?> type="checkbox" name="isHidden" /> <label for="isHidden">Ne pas afficher dans le menu</label>
   </p>
   <p>
       <label>Nom</label><br>
-      <input type="text" name="name" value="<?php echo $pageItem->getName(); ?>" required="required" />
+      <input type="text" name="name" value="<?= $pageItem->getName() ?>" required="required" />
   </p>
   <p>
       <label>Classe CSS</label>
-      <input type="text" name="cssClass" value="<?php echo $pageItem->getCssClass(); ?>" />
+      <input type="text" name="cssClass" value="<?= $pageItem->getCssClass() ?>" />
   </p>
   <p>
       <label>Position</label>
-      <input type="number" name="position" value="<?php echo $pageItem->getPosition(); ?>" />
+      <input type="number" name="position" value="<?= $pageItem->getPosition() ?>" />
   </p>
   <p>
 	<button type="submit" class="button success radius">Enregistrer</button>

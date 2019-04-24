@@ -22,6 +22,6 @@
     </head>
     <body>
         <p>La page demandée est introuvable</p>
-        <p><a href="<?php echo $this->getConfigVal('siteUrl'); ?>"><< Retour au site</a></p>
+        <p><a href="<?= $this->getConfigVal('siteUrl') ?>"><< Retour au site</a></p>
     </body>
 </html>

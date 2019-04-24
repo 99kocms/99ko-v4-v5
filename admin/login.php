@@ -25,7 +25,7 @@
 	  <p><label for="adminPwd">Mot de passe</label>
 	  <input type="password" id="adminPwd" name="adminPwd" required></p>
 	  <p>
-		<input type="button" class="button alert" value="Quitter" rel="<?php echo $core->getConfigVal('siteUrl'); ?>" />
+		<input type="button" class="button alert" value="Quitter" rel="<?= $core->getConfigVal('siteUrl') ?>" />
 		<input type="submit" class="button" value="Valider" />
 		</p>
 	  <p class="just_using"><a target="_blank" href="https://github.com/99kocms/">Just using 99ko</a>
