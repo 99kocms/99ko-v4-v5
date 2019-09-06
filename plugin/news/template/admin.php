@@ -59,9 +59,9 @@ include_once(ROOT.'admin/header.php');
 	<?php if($pluginsManager->isActivePlugin('galerie')){ ?>
 	<h3>Image à la une</h3>
 	<p>
-      <label>Fichier (jpg)</label><br>
-      <input type="file" name="file" />
-      <br>
+      <?php if(galerie::searchByfileName($news['img'])){ ?><input type="checkbox" name="delImg" /> Supprimer l'image à la une
+      <?php } else{ ?><label>Fichier (jpg)</label><br><input type="file" name="file" /><?php } ?>
+      <br><br>
       <?php if(galerie::searchByfileName($news['img'])){ ?><img src="<?php echo UPLOAD; ?>galerie/<?php echo $news['img']; ?>" alt="<?php echo $news['img']; ?>" /><?php } ?>
     </p>
 	<?php } ?>

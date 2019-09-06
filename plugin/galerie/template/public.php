@@ -16,6 +16,9 @@ include_once(THEMES .$core->getConfigVal('theme').'/header.php');
 <?php } ?>
 
 <!-- Liste -->
+<?php if(!$galerie->countItems()){ ?>
+<p>Aucun élément n'a été trouvé.</p>
+<?php } else{ ?>
 <ul id="list">
     <?php foreach($galerie->getItems() as $k=>$obj) if(!$obj->getHidden()){ ?>
     <li class="category_<?php echo util::strToUrl($obj->getCategory()); ?> category_all" style="background-image:url(<?php echo UPLOAD; ?>galerie/<?php echo $obj->getImg(); ?>);">
@@ -25,4 +28,6 @@ include_once(THEMES .$core->getConfigVal('theme').'/header.php');
     </li>
     <?php } ?>
 </ul>
+<?php } ?>
+
 <?php include_once(THEMES .$core->getConfigVal('theme').'/footer.php') ?>

@@ -10,29 +10,15 @@ function pageInstall(){
 		$pageItem->setName('Accueil');
 		$pageItem->setPosition(1);
 		$pageItem->setIsHomepage(1);
-		$pageItem->setContent('<p>Félicitations, l\'installation de 99ko s\'est déroulée avec succès !<br>Par mesure de sécurité, vous devez maintenant supprimer le fichier install.php du répertoire d\'installation.</p><p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- 99ko (2) -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-4122559767697315"
-     data-ad-slot="4101348782"
-     data-ad-format="auto"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script></p>');
+		$pageItem->setContent('<p>Félicitations, l\'installation de 99ko s\'est déroulée avec succès !<br>Par mesure de sécurité, vous devez maintenant supprimer le fichier install.php du répertoire d\'installation.</p><div id="fb-root"></div><script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v3.2&appId=1977129795718995&autoLogAppEvents=1"></script><div class="fb-like" data-href="https://www.facebook.com/99kocms/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>');
 		$pageItem->setIsHidden(0);
 		$page->save($pageItem);
 		$page = new page();
 		$page = new page();
 		$pageItem = new pageItem();
-		$pageItem->setName('99ko');
-		$pageItem->setPosition(4);
-		$pageItem->setIsHomepage(0);
-		$pageItem->setContent('');
-		$pageItem->setIsHidden(0);
-		$pageItem->setFile('');
-		$pageItem->setTarget('https://github.com/99kocms/');
-		$pageItem->setTargetAttr('_blank');
+		$pageItem->setName('Liens');
+		$pageItem->setPosition(2);
+		$pageItem->setContent('<ul><li><a href="https://github.com/99kocms">https://github.com/99kocms</a> (99ko CMS sur GithHub)</li><li><a href="https://www.facebook.com/99kocms/">https://www.facebook.com/99kocms/</a> (99ko CMS sur Facebook)</li><li><a href="https://www.facebook.com/groups/130444474278984/">https://www.facebook.com/groups/130444474278984/</a> (Groupe Facebook de support de 99ko CMS)</li><li><a href="https://99ko.tuxfamily.org/">https://99ko.tuxfamily.org</a> (99Ko CMS chez Tuwfamily)</li><li><a href="https://phpsources.net/scripts/php/cms/versions/465_99ko-cms-sans-bdd">https://phpsources.net/scripts/php/cms/versions/465_99ko-cms-sans-bdd</a> (99ko CMS sur PHPsources)</li><li><a href="https://framalibre.org/content/99ko">https://framalibre.org/content/99ko</a> (99ko CMS sur Framalibre)</li><li><a href="https://alternativeto.net/software/99ko-cms/">https://alternativeto.net/software/99ko-cms/</a> (99ko CMS sur AlternativeTo)</li></ul>');
 		$page->save($pageItem);
 	}
 }
@@ -46,6 +32,9 @@ function pageEndFrontHead(){
 		if($pageItem->getNoIndex()){
 			echo '<meta name="robots" content="noindex"><meta name="googlebot" content="noindex">';
 		}
+		$core = core::getInstance();
+		$pluginsManager = pluginsManager::getInstance();
+		if($pluginsManager->isActivePlugin('galerie') && galerie::searchByfileName($pageItem->getImg())) echo '<meta property="og:image" content="'.$core->getConfigVal('siteUrl').'/'.str_replace('./', '', UPLOAD).'galerie/'.$pageItem->getImg().'" />';
 	}
 }
 

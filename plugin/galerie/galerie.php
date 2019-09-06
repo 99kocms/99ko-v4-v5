@@ -100,6 +100,12 @@ class galerie{
 		return max($ids);
 	}
 	
+	public function countItems(){
+		$nb = 0;
+		foreach($this->getItems() as $k=>$obj) if(!$obj->getHidden()) $nb++;
+		return $nb;
+	}
+	
 	private function saveItems(){
 		$data = array();
 		foreach($this->items as $k=>$v){

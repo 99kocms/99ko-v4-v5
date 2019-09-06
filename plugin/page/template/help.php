@@ -11,6 +11,6 @@
 <h3>Titre de page</h3>
 <p>Permet d'afficher un titre de page différent de l'item du menu.</p>
 <h3>Inclure un fichier .php au lieu du contenu</h3>
-<p>Permet de remplaçer le contenu par un fichier dynamique. Celui-ci doit être présent dans le dossier de votre thème.</p>
+<p>Permet de remplaçer le contenu par un fichier. Celui-ci doit être présent dans le dossier de votre thème.</p>
 <h3>Image à la une</h3>
 <p>Permet de mettre en avant une image (le plugin Galerie doit être installé et activé).</p>

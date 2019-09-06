@@ -4,7 +4,7 @@
 
 .news .items li.item{
     overflow: hidden;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #e9e9e9;
     padding-bottom: 15px;
     padding-top: 15px;
 }
@@ -16,6 +16,17 @@
 .news .date{
     font-size: 12px;
     display: block;
+}
+
+.news .items h2{
+    display: block;
+    overflow: hidden;
+}
+
+.news .content{
+    border-bottom: 1px solid #e9e9e9;
+    padding-bottom: 15px;
+    padding-top: 15px;
 }
 
 .news .pagination{

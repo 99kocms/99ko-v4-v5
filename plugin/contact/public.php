@@ -16,6 +16,7 @@ $name = ($sendError) ? $_POST['name'] : '';
 $firstname = ($sendError) ? $_POST['firstname'] : '';
 $email = ($sendError) ? $_POST['email'] : '';
 $message = ($sendError) ? $_POST['message'] : '';
+$acceptation = (trim($runPlugin->getConfigVal('acceptation')) != '') ? true : false;
 $runPlugin->setMainTitle($runPlugin->getConfigVal('label'));
 $runPlugin->setTitleTag($runPlugin->getConfigVal('label'));
 ?>

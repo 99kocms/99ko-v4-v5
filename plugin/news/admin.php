@@ -20,12 +20,11 @@ switch($action){
 		break;
 	case 'save':
 		if($administrator->isAuthorized()){
-			$imgId = '';
-			if($pluginsManager->isActivePlugin('galerie')){
-				$galerie = new galerie();
-				$img = ($_REQUEST['imgId']) ? $galerie->createItem($_REQUEST['imgId']) : new galerieItem();
-				if($img){
-					$img->setCategory('');
+			$imgId = (isset($_POST['delImg'])) ? '' : $_REQUEST['imgId'];
+			if(isset($_FILES['file']['name']) && $_FILES['file']['name'] != ''){
+				if($pluginsManager->isActivePlugin('galerie')){
+					$galerie = new galerie();
+					$img = new galerieItem(array('category' => ''));
 					$img->setTitle($_POST['name'].' (image à la une)');
 					$img->setContent('');
 					$img->setDate(date('Y-m-d H:i:s'));

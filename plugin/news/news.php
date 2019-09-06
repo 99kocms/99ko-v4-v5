@@ -9,9 +9,14 @@ function newsInstall(){
 ## Hooks
 
 function newsEndFrontHead(){
+	global $runPlugin;
 	$core = core::getInstance();
-    $data = '<link rel="alternate" type="application/rss+xml" href="'.$core->makeUrl('news', array('action' => 'rss')).'" title="'.$core->getConfigVal('siteName').'">'."\n";
-    echo $data;
+    echo '<link rel="alternate" type="application/rss+xml" href="'.$core->makeUrl('news', array('action' => 'rss')).'" title="'.$core->getConfigVal('siteName').'">'."\n";
+	if($runPlugin->getName() == 'news' && $core->getUrlParam(0) == 'read'){
+		global $item;
+		$pluginsManager = pluginsManager::getInstance();
+		if($pluginsManager->isActivePlugin('galerie') && galerie::searchByfileName($item->getImg())) echo '<meta property="og:image" content="'.$core->getConfigVal('siteUrl').'/'.str_replace('./', '', UPLOAD).'galerie/'.$item->getImg().'" />';
+	}
 }
 
 ## Code relatif au plugin

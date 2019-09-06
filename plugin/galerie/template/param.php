@@ -22,7 +22,7 @@
     <p>
       <label>Taille des images</label><br>
       <select name="size">
-        <option <?php if($runPlugin->getConfigVal('size') == '800'){ ?>selected<?php } ?> value="800">Normale</option>
+        <option <?php if($runPlugin->getConfigVal('size') == '800'){ ?>selected<?php } ?> value="800">Petite</option>
         <option <?php if($runPlugin->getConfigVal('size') == '1024'){ ?>selected<?php } ?> value="1024">Grande</option>
         <option <?php if($runPlugin->getConfigVal('size') == '1280'){ ?>selected<?php } ?> value="1280">Très grande</option>
       </select>
