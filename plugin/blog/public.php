@@ -43,10 +43,10 @@ switch($action){
 			$i++;
 		}
 		// Traitements divers : métas, fil d'ariane...
-		$runPlugin->setMainTitle($pluginsManager->getPlugin('news')->getConfigVal('label'));
-		$runPlugin->setTitleTag($pluginsManager->getPlugin('news')->getConfigVal('label').' : page '.$currentPage);
+		$runPlugin->setMainTitle($pluginsManager->getPlugin('blog')->getConfigVal('label'));
+		$runPlugin->setTitleTag($pluginsManager->getPlugin('blog')->getConfigVal('label').' : page '.$currentPage);
 		if($runPlugin->getIsDefaultPlugin() && $currentPage == 1){
-			$runPlugin->setTitleTag($pluginsManager->getPlugin('news')->getConfigVal('label'));
+			$runPlugin->setTitleTag($pluginsManager->getPlugin('blog')->getConfigVal('label'));
 			$runPlugin->setMetaDescriptionTag($core->getConfigVal('siteDescription'));
 		}
 		break;

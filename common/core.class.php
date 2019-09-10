@@ -159,12 +159,7 @@ class core{
         @chmod(ROOT.'.htaccess', 0666);
         if(!file_exists(ROOT.'.htaccess')){
             $rewriteBase = str_replace(array('index.php', 'install.php', 'admin/'), '', $_SERVER['PHP_SELF']);
-            $temp = "Options -Indexes
-Options +FollowSymlinks
-RewriteEngine On
-RewriteBase ".$rewriteBase."
-RewriteRule ^admin/$  admin/ [L]
-RewriteRule ^([a-z-0-9_]+)/$  index.php?p=$1 [L]";
+            $temp = "Options -Indexes\nOptions +FollowSymlinks\nRewriteEngine On\nRewriteBase ".$rewriteBase."\nRewriteRule ^admin/$  admin/ [L]\nRewriteRule ^([a-z-0-9_]+)/$  index.php?p=$1 [L]";
             if(!@file_put_contents(ROOT.'.htaccess', $temp, 0666)) $install = false;
         }
         if(!is_dir(DATA) && (!@mkdir(DATA) || !@chmod(DATA, 0777))) $install = false;
@@ -187,13 +182,14 @@ RewriteRule ^([a-z-0-9_]+)/$  index.php?p=$1 [L]";
     ## Retourne le contenu du fichier htaccess
     
     public function getHtaccess(){
-        return htmlspecialchars(@file_get_contents(ROOT.'.htaccess'), ENT_QUOTES, 'UTF-8');
+        return @file_get_contents(ROOT.'.htaccess');
     }
     
     ## Update le contenu du fichier htaccess
     
     public function saveHtaccess($content){
-        @file_put_contents(ROOT.'.htaccess', str_replace('¶m', '&param', $content));
+        $content = str_replace("&amp;", "&", $content);
+        @file_put_contents(ROOT.'.htaccess', $content);
     }
 }
 ?>

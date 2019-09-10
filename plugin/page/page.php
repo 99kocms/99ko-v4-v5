@@ -23,7 +23,7 @@ function pageInstall(){
 	}
 	$core = core::getInstance();
 	$htaccess = $core->getHtaccess();
-	$htaccess.= "\nRewriteRule ^page/([a-z-0-9,./_]+)-([0-9]+).html$  index.php?p=page&url=$1&id=$2 [L]";
+	$htaccess.= "\nRewriteRule ^page/([a-z-0-9]+)-([0-9]+).html$  index.php?p=page&url=$1&id=$2 [L]";
 	$core->saveHtaccess($htaccess);
 }
 

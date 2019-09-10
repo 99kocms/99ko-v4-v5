@@ -14,7 +14,7 @@ switch($action){
 			$runPlugin->setConfigVal('hideContent', (isset($_POST['hideContent']) ? 1 : 0));
 			$runPlugin->setConfigVal('comments', (isset($_POST['comments']) ? 1 : 0));
 			$pluginsManager->savePluginConfig($runPlugin);
-			header('location:index.php?p=news');
+			header('location:index.php?p=blog');
 			die();
 		}
 		break;
@@ -48,7 +48,7 @@ switch($action){
 				$msg = "Une erreur est survenue";
 				$msgType = 'error';
 			}
-			header('location:index.php?p=news&msg='.urlencode($msg).'&msgType='.$msgType);
+			header('location:index.php?p=blog&msg='.urlencode($msg).'&msgType='.$msgType);
 			die();
 		}
 		break;
@@ -76,7 +76,7 @@ switch($action){
 				$msg = "Une erreur est survenue";
 				$msgType = 'error';
 			}
-			header('location:index.php?p=news&msg='.urlencode($msg).'&msgType='.$msgType);
+			header('location:index.php?p=blog&msg='.urlencode($msg).'&msgType='.$msgType);
 			die();
 		}
 		break;
@@ -96,7 +96,7 @@ switch($action){
 				$msg = "Une erreur est survenue";
 				$msgType = 'error';
 			}
-			header('location:index.php?p=news&action=listcomments&id='.$_GET['id'].'&msg='.urlencode($msg).'&msgType='.$msgType);
+			header('location:index.php?p=blog&action=listcomments&id='.$_GET['id'].'&msg='.urlencode($msg).'&msgType='.$msgType);
 			die();
 		}
 		break;
@@ -114,7 +114,7 @@ switch($action){
 				$msg = "Une erreur est survenue";
 				$msgType = 'error';
 			}
-			header('location:index.php?p=news&action=listcomments&id='.$_GET['id'].'&msg='.urlencode($msg).'&msgType='.$msgType);
+			header('location:index.php?p=blog&action=listcomments&id='.$_GET['id'].'&msg='.urlencode($msg).'&msgType='.$msgType);
 			die();
 		}
 		break;

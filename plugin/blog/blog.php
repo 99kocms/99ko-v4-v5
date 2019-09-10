@@ -3,19 +3,19 @@ defined('ROOT') OR exit('No direct script access allowed');
 
 ## Fonction d'installation
 
-function newsInstall(){
+function blogInstall(){
 	$core = core::getInstance();
 	$htaccess = $core->getHtaccess();
-	$htaccess.= "\nRewriteRule ^news/([a-z-0-9,./_]+)-([0-9]+).html$  index.php?p=news&url=$1&id=$2 [L]";
-	$htaccess.= "\nRewriteRule ^news/([0-9]+)/$  index.php?p=news&page=$1 [L]";
-	$htaccess.= "\nRewriteRule ^news/rss.html$  index.php?p=news&rss=1 [L]";
-	$htaccess.= "\nRewriteRule ^news/send.html$  index.php?p=news&send=1 [L]";
+	$htaccess.= "\nRewriteRule ^blog/([a-z-0-9]+)-([0-9]+).html$  index.php?p=blog&url=$1&id=$2 [L]";
+	$htaccess.= "\nRewriteRule ^blog/([0-9]+)/$  index.php?p=blog&page=$1 [L]";
+	$htaccess.= "\nRewriteRule ^blog/rss.html$  index.php?p=blog&rss=1 [L]";
+	$htaccess.= "\nRewriteRule ^blog/send.html$  index.php?p=blog&send=1 [L]";
 	$core->saveHtaccess($htaccess);
 }
 
 ## Hooks
 
-function newsEndFrontHead(){
+function blogEndFrontHead(){
 	global $runPlugin;
 	$core = core::getInstance();
     echo '<link rel="alternate" type="application/rss+xml" href="'.$core->getConfigVal('siteUrl').'/news/rss.html" title="'.$core->getConfigVal('siteName').'">'."\n";
@@ -34,8 +34,8 @@ class newsManager{
 	
 	public function __construct(){
 		$data = array();
-		if(file_exists(ROOT.'data/plugin/news/news.json')){
-			$temp = util::readJsonFile(ROOT.'data/plugin/news/news.json');
+		if(file_exists(ROOT.'data/plugin/blog/blog.json')){
+			$temp = util::readJsonFile(ROOT.'data/plugin/blog/blog.json');
 			$temp = util::sort2DimArray($temp, 'date', 'desc');
 			foreach($temp as $k=>$v){
 				$data[] = new news($v);
@@ -127,7 +127,7 @@ class newsManager{
 				'img' => $v->getImg(),
 			);
 		}
-		if(util::writeJsonFile(ROOT.'data/plugin/news/news.json', $data)) return true;
+		if(util::writeJsonFile(ROOT.'data/plugin/blog/blog.json', $data)) return true;
 		return false;
 	}
 	
