@@ -9,7 +9,8 @@ if($page->isUnlocked($pageItem)){
     }
 }
 else{ ?>
-<form method="post" action="<?php echo $core->makeUrl('page', array('name' => $pageItem->getName(), 'id' => $pageItem->getId(), 'action' => 'unlock')); ?>">
+<form method="post" action="">
+    <input type="hidden" name="unlock" value="<?php echo $pageItem->getId(); ?>" />
   <p>
     <label>Mot de passe</label><br>
     <input style="display:none;" type="text" name="_password" value="" />

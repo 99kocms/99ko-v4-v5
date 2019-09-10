@@ -5,7 +5,7 @@ echo $runPlugin->getConfigVal('content1');
 ?>
 
 <?php show::msg($msg); ?>
-<form method="post" action="<?php echo $core->makeUrl('contact', array('action' => 'send')); ?>">
+<form method="post" action="<?php echo $runPlugin->getPublicUrl(); ?>send.html">
   <p>
     <label>Nom</label><br>
     <input style="display:none;" type="text" name="_name" value="" />

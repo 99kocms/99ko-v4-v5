@@ -39,6 +39,7 @@ class plugin{
 	private $adminJsFile;
 	private $isDefaultAdminPlugin;
 	private $helpTemplate;
+	private $publicUrl;
 	
 	## Constructeur
 	public function __construct($name, $config = array(), $infos = array(), $hooks = array(), $initConfig = array()){
@@ -89,6 +90,8 @@ class plugin{
 		$this->navigation = array();
 		// Template d'aide (en cours d'intégration)
 		$this->helpTemplate = (file_exists(PLUGINS.$this->name.'/template/help.php')) ? PLUGINS.$this->name.'/template/help.php' : false;
+		// URL public
+		$this->publicUrl = $core->getConfigVal('siteUrl').'/'.$this->name.'/';
 	}
 	
 	## Getters
@@ -186,6 +189,10 @@ class plugin{
 	
 	public function getIsDefaultAdminPlugin(){
 		return $this->isDefaultAdminPlugin;
+	}
+	
+	public function getPublicUrl(){
+		return $this->publicUrl;
 	}
 
 	## Permet de modifier une valeur de configuration

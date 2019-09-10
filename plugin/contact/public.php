@@ -3,10 +3,10 @@ if(!defined('ROOT')) die();
 
 $msg = '';
 $sendError = false;
-if($core->getUrlParam(0) == 'send'){
+if(isset($_GET['send'])){
 	// quelques contrôle et temps mort volontaire avant le send...
 	sleep(2);
-	if($_POST['_name'] == '' && $_SERVER['HTTP_REFERER'] == $core->getConfigVal('siteUrl').'/'.$core->makeUrl('contact') && contactSend()) $msg = "Message envoyé.";
+	if($_POST['_name'] == '' && $_SERVER['HTTP_REFERER'] == $runPlugin->getPublicUrl() && contactSend()) $msg = "Message envoyé.";
 	else{
 		$msg = "Champ(s) incomplet(s) ou email invalide";
 		$sendError = true;

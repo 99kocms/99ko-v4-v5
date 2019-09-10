@@ -38,7 +38,7 @@
 <p class="date">
 	Posté le <?php echo util::FormatDate($item->getDate(), 'en', 'fr'); ?>
 	<?php if($runPlugin->getConfigVal('comments')){ ?> | <?php echo $newsManager->countComments(); ?> commentaire<?php if ($newsManager->countComments($item->getId()) > 1) echo 's' ?><?php } ?>
-	| <a href="<?php echo $core->makeUrl('news'); ?>">Retour à la liste</a>
+	| <a href="<?php echo $runPlugin->getPublicUrl(); ?>">Retour à la liste</a>
 </p>
 <div class="content">
 <?php if($pluginsManager->isActivePlugin('galerie') && galerie::searchByfileName($item->getImg())) echo '<img class="featured" src="'.UPLOAD.'galerie/'.$item->getImg().'" alt="'.$item->getName().'" />';
@@ -58,9 +58,9 @@ echo $item->getContent();
 }
 ?>
 <h2>Ajouter un commentaire</h2>
-<form method="post" action="<?php echo $core->makeUrl('news', array('action' => 'send')); ?>">
+<form method="post" action="<?php echo $runPlugin->getPublicUrl(); ?>send.html">
 	<input type="hidden" name="id" value="<?php echo $item->getId(); ?>" />
-	<input type="hidden" name="back" value="<?php echo $core->getConfigVal('siteUrl').'/'.$core->makeUrl('news', array('action' => 'read', 'name' => util::strToUrl($item->getName()), 'id' => $item->getId())); ?>" />
+	<input type="hidden" name="back" value="<?php echo $runPlugin->getPublicUrl().util::strToUrl($item->getName()).'-'.$item->getId().'.html'; ?>" />
 	<p>
 		<label>Pseudo</label><br>
 		<input style="display:none;" type="text" name="_author" value="" />

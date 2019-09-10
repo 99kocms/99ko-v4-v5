@@ -4,6 +4,13 @@ defined('ROOT') OR exit('No direct script access allowed');
 ## Fonction d'installation
 
 function newsInstall(){
+	$core = core::getInstance();
+	$htaccess = $core->getHtaccess();
+	$htaccess.= "\nRewriteRule ^news/([a-z-0-9,./_]+)-([0-9]+).html$  index.php?p=news&url=$1&id=$2 [L]";
+	$htaccess.= "\nRewriteRule ^news/([0-9]+)/$  index.php?p=news&page=$1 [L]";
+	$htaccess.= "\nRewriteRule ^news/rss.html$  index.php?p=news&rss=1 [L]";
+	$htaccess.= "\nRewriteRule ^news/send.html$  index.php?p=news&send=1 [L]";
+	$core->saveHtaccess($htaccess);
 }
 
 ## Hooks
@@ -11,8 +18,8 @@ function newsInstall(){
 function newsEndFrontHead(){
 	global $runPlugin;
 	$core = core::getInstance();
-    echo '<link rel="alternate" type="application/rss+xml" href="'.$core->makeUrl('news', array('action' => 'rss')).'" title="'.$core->getConfigVal('siteName').'">'."\n";
-	if($runPlugin->getName() == 'news' && $core->getUrlParam(0) == 'read'){
+    echo '<link rel="alternate" type="application/rss+xml" href="'.$core->getConfigVal('siteUrl').'/news/rss.html" title="'.$core->getConfigVal('siteName').'">'."\n";
+	if($runPlugin->getName() == 'news' && isset($_GET['read'])){
 		global $item;
 		$pluginsManager = pluginsManager::getInstance();
 		if($pluginsManager->isActivePlugin('galerie') && galerie::searchByfileName($item->getImg())) echo '<meta property="og:image" content="'.$core->getConfigVal('siteUrl').'/'.str_replace('./', '', UPLOAD).'galerie/'.$item->getImg().'" />';
@@ -87,7 +94,7 @@ class newsManager{
 		foreach($this->getItems() as $k=>$v) if(!$v->getDraft()){
 			$xml .= '<item>';
 			$xml .= '<title><![CDATA['.$v->getName().']]></title>';
-			$xml .= '<link>'.$core->getConfigVal('siteUrl').'/'.$core->makeUrl('news', array('action' => 'read', 'name' => util::strToUrl($v->getName()), 'id' => $v->getId())).'</link>';
+			$xml .= '<link>'.$core->getConfigVal('siteUrl').'/news/'.util::strToUrl($v->getName()).'-'.$v->getId().'.html</link>';
 			$xml .= '<pubDate>'.(date("D, d M Y H:i:s O", strtotime($v->getDate()))).'</pubDate>';
 			$xml .= '<description><![CDATA['.$v->getContent().']]></description>';
 			$xml .= '</item>';

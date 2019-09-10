@@ -47,14 +47,11 @@ if(count($_POST) > 0 && $administrator->isAuthorized()){
 		'adminPwd' => $administrator->encrypt($_POST['adminPwd']),
 		'adminEmail' => $_POST['adminEmail'],
 		'siteUrl' => $core->makeSiteUrl(),      
-		'urlRewriting' => '0',
-		'htaccessOptimization' => '0',
 		'theme' => 'default',
 		'hideTitles' => '0',
 		'defaultPlugin' => 'page',
 		'debug' => '0',
 		'defaultAdminPlugin' => 'page',
-		'urlSeparator' => '_',
 	);
 	if(!@file_put_contents(DATA. 'config.json', json_encode($config)) ||	!@chmod(DATA. 'config.json', 0666)){
 		$msg = 'Une erreur est survenue';

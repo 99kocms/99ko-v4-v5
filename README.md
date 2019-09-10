@@ -8,6 +8,8 @@ Twitter : https://twitter.com/99kocms
 
 Support : https://www.facebook.com/groups/130444474278984/
 
+W.I.P version 5.0 !!! : https://docs.google.com/document/d/1iIWQSPoIHLYuaD0voGYu-gG52VfhxfQu83uhmq5oxB8/
+
 This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or

@@ -2,21 +2,18 @@
 defined('ROOT') OR exit('No direct script access allowed');
 $page = new page();
 # Création, de la page
-$id = ($core->getUrlParam(1)) ? $core->getUrlParam(1) : false;
+$id = (isset($_GET['id'])) ? $_GET['id'] : false;
 if(!$id) $pageItem = $page->createHomepage();
 elseif($pageItem = $page->create($id)){}
 else $core->error404();
 if($pageItem->targetIs() != 'page') $core->error404();
-$action = ($core->getUrlParam(2) == 'unlock') ? $core->getUrlParam(2) : '';
+$action = (isset($_POST['unlock'])) ? 'unlock' : '';
 switch($action){
     case 'unlock':
         // quelques contrôle et temps mort volontaire avant le send...
         sleep(2);
-        if($_POST['_password'] == '' && $_SERVER['HTTP_REFERER'] == $core->getConfigVal('siteUrl').'/'.$core->makeUrl('page', array('name' => $pageItem->getName(), 'id' => $pageItem->getId()))){
-            if($page->unlock($pageItem, $_POST['password'])) $redirect = $core->getConfigVal('siteUrl').'/'.$core->makeUrl('page', array('name' => $pageItem->getName(), 'id' => $pageItem->getId(), 'action' => 'unlock'));
-            else $redirect = $core->getConfigVal('siteUrl').'/'.$core->makeUrl('page', array('name' => $pageItem->getName(), 'id' => $pageItem->getId()));
-        }
-        else $redirect = $core->getConfigVal('siteUrl').'/'.$core->makeUrl('page', array('name' => $pageItem->getName(), 'id' => $pageItem->getId()));
+        if($_POST['_password'] == '' && $_SERVER['HTTP_REFERER'] == $runPlugin->getPublicUrl().util::strToUrl($pageItem->getName()).'-'.$pageItem->getId().'.html') $page->unlock($pageItem, $_POST['password']);
+        $redirect = $runPlugin->getPublicUrl().util::strToUrl($pageItem->getName()).'-'.$pageItem->getId().'.html';
         header('location:'.$redirect);
         die();
         break;

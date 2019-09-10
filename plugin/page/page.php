@@ -21,6 +21,10 @@ function pageInstall(){
 		$pageItem->setContent('<ul><li><a href="https://github.com/99kocms">https://github.com/99kocms</a> (99ko CMS sur GithHub)</li><li><a href="https://www.facebook.com/99kocms/">https://www.facebook.com/99kocms/</a> (99ko CMS sur Facebook)</li><li><a href="https://www.facebook.com/groups/130444474278984/">https://www.facebook.com/groups/130444474278984/</a> (Groupe Facebook de support de 99ko CMS)</li><li><a href="https://99ko.tuxfamily.org/">https://99ko.tuxfamily.org</a> (99Ko CMS chez Tuwfamily)</li><li><a href="https://phpsources.net/scripts/php/cms/versions/465_99ko-cms-sans-bdd">https://phpsources.net/scripts/php/cms/versions/465_99ko-cms-sans-bdd</a> (99ko CMS sur PHPsources)</li><li><a href="https://framalibre.org/content/99ko">https://framalibre.org/content/99ko</a> (99ko CMS sur Framalibre)</li><li><a href="https://alternativeto.net/software/99ko-cms/">https://alternativeto.net/software/99ko-cms/</a> (99ko CMS sur AlternativeTo)</li></ul>');
 		$page->save($pageItem);
 	}
+	$core = core::getInstance();
+	$htaccess = $core->getHtaccess();
+	$htaccess.= "\nRewriteRule ^page/([a-z-0-9,./_]+)-([0-9]+).html$  index.php?p=page&url=$1&id=$2 [L]";
+	$core->saveHtaccess($htaccess);
 }
 
 ## Hooks
@@ -201,11 +205,11 @@ class page{
 	public function makeUrl($obj){
 		$core = core::getInstance();
 		// => Page
-		if($obj->targetIs() == 'page') $temp = ($core->getConfigVal('defaultPlugin') == 'page' && $obj->getIsHomepage()) ? $core->getConfigVal('siteUrl') : $core->getConfigVal('siteUrl').'/'.$core->makeUrl('page', array('name' => $obj->getName(), 'id' => $obj->getId()));
+		if($obj->targetIs() == 'page') $temp = ($core->getConfigVal('defaultPlugin') == 'page' && $obj->getIsHomepage()) ? $core->getConfigVal('siteUrl') : $core->getConfigVal('siteUrl').'/page/'.util::strToUrl($obj->getName()).'-'.$obj->getId().'.html';
 		// => URL
 		elseif($obj->targetIs() == 'url') $temp = $obj->getTarget();
 		// => Plugin
-		else $temp = $core->getConfigVal('siteUrl').'/'.$core->makeUrl($obj->getTarget());
+		else $temp = $core->getConfigVal('siteUrl').'/'.$obj->getTarget().'/';
 		return $temp;
 	}
 	

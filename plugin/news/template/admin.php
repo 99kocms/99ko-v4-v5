@@ -6,7 +6,7 @@ include_once(ROOT.'admin/header.php');
 <?php if($mode == 'list'){ ?>
 <ul class="tabs_style">
   <li><a class="button" href="index.php?p=news&action=edit">Ajouter</a></li>
-  <li><a target="_blank" class="button" href="../<?php echo $core->makeUrl('news', array('action' => 'rss')); ?>">Flux RSS</a></li>
+  <li><a target="_blank" class="button" href="<?php echo $runPlugin->getPublicUrl(); ?>rss.html">Flux RSS</a></li>
 </ul>
 <table>
   <tr>
