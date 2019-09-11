@@ -1,10 +1,6 @@
 .pluginsmanager-admin td .description{
-    opacity: 0;
     clear: both;
     margin-top: 10px;
     font-style: italic;
-}
-
-.pluginsmanager-admin td:hover .description{
-    opacity: 1;
+    font-size: 12px;
 }

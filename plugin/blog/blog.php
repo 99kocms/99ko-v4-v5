@@ -19,7 +19,7 @@ function blogEndFrontHead(){
 	global $runPlugin;
 	$core = core::getInstance();
     echo '<link rel="alternate" type="application/rss+xml" href="'.$core->getConfigVal('siteUrl').'/news/rss.html" title="'.$core->getConfigVal('siteName').'">'."\n";
-	if($runPlugin->getName() == 'news' && isset($_GET['read'])){
+	if($runPlugin->getName() == 'blog' && isset($_GET['id'])){
 		global $item;
 		$pluginsManager = pluginsManager::getInstance();
 		if($pluginsManager->isActivePlugin('galerie') && galerie::searchByfileName($item->getImg())) echo '<meta property="og:image" content="'.$core->getConfigVal('siteUrl').'/'.str_replace('./', '', UPLOAD).'galerie/'.$item->getImg().'" />';
@@ -145,9 +145,9 @@ class newsManager{
 	}
 	
 	public function loadComments($idNews){
-		if(!file_exists(@mkdir(DATA_PLUGIN.'news/comments/'))) @mkdir(DATA_PLUGIN.'news/comments/');
-		if(!file_exists(DATA_PLUGIN.'news/comments/'.$idNews.'.json')) util::writeJsonFile(DATA_PLUGIN.'news/comments/'.$idNews.'.json', array());
-		$temp = util::readJsonFile(DATA_PLUGIN.'news/comments/'.$idNews.'.json');
+		if(!file_exists(@mkdir(DATA_PLUGIN.'blog/comments/'))) @mkdir(DATA_PLUGIN.'blog/comments/');
+		if(!file_exists(DATA_PLUGIN.'blog/comments/'.$idNews.'.json')) util::writeJsonFile(DATA_PLUGIN.'blog/comments/'.$idNews.'.json', array());
+		$temp = util::readJsonFile(DATA_PLUGIN.'blog/comments/'.$idNews.'.json');
 		$temp = util::sort2DimArray($temp, 'id', 'asc');
 		$data = array();
 		foreach($temp as $k=>$v){
@@ -184,7 +184,7 @@ class newsManager{
 		if($comment == null && $idNews != null){
 			$idNews = $idNews;
 		}
-		return util::writeJsonFile(DATA_PLUGIN.'news/comments/'.$idNews.'.json', $data);
+		return util::writeJsonFile(DATA_PLUGIN.'blog/comments/'.$idNews.'.json', $data);
 	}
 	
 	public function delComment($obj){

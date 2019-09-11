@@ -15,7 +15,6 @@
         <textarea name="acceptation"><?php echo $runPlugin->getConfigVal('acceptation'); ?></textarea>
     </p>
     <p><button type="submit" class="button">Enregistrer</button></p>
-    <div class="separator"></div>
     <p>
         <label>Adresses email récoltées</label><br>
         <textarea readonly="readonly"><?php echo $emails; ?></textarea>

@@ -5,3 +5,7 @@
 .page-admin tr:last-child .down{
     display: none;
 }
+
+.page-admin .up{
+    margin-right: 5px;
+}

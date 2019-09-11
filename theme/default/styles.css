@@ -10,7 +10,7 @@ h1{font-size:42px;font-weight:normal;margin-top:0;text-transform:uppercase;borde
 h2{font-size:22px;font-weight:normal}
 h3{font-size:18px;font-weight:normal;font-style:italic}
 ul,ol{padding-left:0;margin-left:0;list-style-position:inside}
-hr{background:#ccc;height:1px;border:0;margin:30px 0}
+hr{background:#e9e9e9;height:1px;border:0;margin:30px 0}
 img{max-width:100%}
 table{width:100%}
 tr{border-bottom:1px solid #e9e9e9}
@@ -26,13 +26,7 @@ input{
 }
 
 input[type=text], input[type=email], input[type=password], textarea{
-    background: #fff;
-    background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #EEEEEE), to(#FFFFFF));  
-    background: -moz-linear-gradient(top, #FFFFFF, #EEEEEE 1px, #FFFFFF 25px);  
-    box-shadow: inset rgba(0,0,0, 0.1) 0px 0px 8px;  
-    -moz-box-shadow: inset rgba(0,0,0, 0.1) 0px 0px 8px;  
-    -webkit-box-shadow: inset rgba(0,0,0, 0.1) 0px 0px 8px; 
-    -webkit-box-shadow: inset rgba(0, 0, 0, 0.15) 0px 0px 8px;
+    background: #f7f7f7;
     border: 1px solid #e9e9e9;
     padding: 5px;
     width: 100%;
@@ -117,10 +111,8 @@ code{
     clear: both;
     font-size: 14px;
     text-align: center;
-    color: #999;
-    background: #4986b7;
+    background: #e9e9e9;
     padding: 60px 15px;
-    color: #fff;
 }
 
 #footer_content{
@@ -129,7 +121,7 @@ code{
 }
 
 #footer_content a{
-    color: #fff;
+    color: #333;
 }
 
 /* MENU */
@@ -214,18 +206,6 @@ code{
 
 /* MOBILE */
 
-@media only screen and (max-width: 1024px){
-    
-    #navigation{
-        font-size: 12px;
-    }
-    
-    #siteName{
-        font-size: 12px;
-    }
-
-}
-
 @media only screen and (max-width: 960px){
     
     #header{
@@ -265,6 +245,10 @@ code{
         box-shadow: inherit;
         padding-left: 30px;
     }
+    
+    #banner{
+        height: 250px;
+    }
 
 }
 
@@ -295,7 +279,6 @@ code{
     background-position: center;
     background-size: cover;
     border: 5px solid #fff;
-    box-shadow:inset 0px 0px 0px 1px #ccc;
     position: relative;
 }
 
@@ -353,13 +336,12 @@ code{
     color: #fff;
 }
 
-@media only screen and (max-width: 768px){
+@media only screen and (max-width: 960px){
 
     #content.galerie #list li{
         width: 50%;
         height: 150px;
     }
-    
 
 }
 
@@ -426,6 +408,7 @@ code{
     background: #f7f7f7;
     padding: 15px;
     margin-bottom: 1px;
+    border: 1px solid #e9e9e9;
 }
 
 .blog .comment .infos{
@@ -467,6 +450,7 @@ code{
     font-size: 12px;
     padding: 15px;
     border: 1px solid #e9e9e9;
+    background: #f7f7f7;
 }
 
 .contact .acceptation input{
