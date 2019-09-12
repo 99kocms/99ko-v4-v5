@@ -195,6 +195,7 @@ class show{
 	
 	## Affiche l'URL de l'icon du thème
 	public static function themeIcon(){
+		if(function_exists('themeIcon')) call_user_func('themeIcon');
 		$core = core::getInstance();
 		$icon = 'theme/'.$core->getConfigVal('theme').'/icon.png';
 		if(file_exists($icon)) echo $icon;

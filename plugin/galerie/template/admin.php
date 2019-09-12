@@ -6,6 +6,7 @@ include_once(ROOT.'admin/header.php');
 <?php if($mode == 'list'){ ?>
 <ul class="tabs_style">
   <li><a class="button" href="index.php?p=galerie&action=edit">Ajouter</a></li>
+	<li><a class="button showall" href="javascript:">Afficher / masquer les éléments invisibles</a></li>
 </ul>
 <table>
   <tr>
@@ -15,7 +16,7 @@ include_once(ROOT.'admin/header.php');
     <th></th>
   </tr>
   <?php foreach($galerie->getItems() as $k=>$v){ ?>
-  <tr>
+  <tr class="<?php if($v->getHidden()){ ?>hidden<?php } else{ ?>visible<?php } ?>">
     <td><img width="128" src="<?php echo UPLOAD.'galerie/'.$v->getImg(); ?>" alt="<?php echo $v->getImg(); ?>'" /></td>
     <td><?php echo $v->getTitle(); ?><br><?php if($v->getCategory() != ''){ echo '<i>'.$v->getCategory().'</i>'; } ?></td>
 		<td><input readonly="readonly" type="text" value="<?php echo $core->getConfigVal('siteUrl').str_replace('..', '', UPLOAD).'galerie/'.$v->getImg(); ?>" /></td>

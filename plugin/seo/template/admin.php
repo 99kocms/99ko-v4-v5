@@ -14,19 +14,34 @@ include_once(ROOT.'admin/header.php');
       <label>Meta google site verification</label><br>
       <input type="text" name="wt" value="<?php echo $runPlugin->getConfigVal('wt'); ?>" />
   </p>
-  <p>
-      <label>Chaîne YouTube</label><br>
-      <input placeholder="" type="text" name="youtube" value="<?php echo $runPlugin->getConfigVal('youtube'); ?>" />
-  </p>
-	<h3>Facebook</h3>
+	<h3>Liens sur les réseaux sociaux</h3>
 	<p>
-      <label>Page Facebook</label><br>
+      <label>Facebook</label><br>
       <input placeholder="" type="text" name="facebook" value="<?php echo $runPlugin->getConfigVal('facebook'); ?>" />
   </p>
-	<h3>Twitter</h3>
 	<p>
-      <label>Compte Twitter</label><br>
+      <label>Twitter</label><br>
       <input placeholder="" type="text" name="twitter" value="<?php echo $runPlugin->getConfigVal('twitter'); ?>" />
+  </p>
+	<p>
+      <label>YouTube</label><br>
+      <input placeholder="" type="text" name="youtube" value="<?php echo $runPlugin->getConfigVal('youtube'); ?>" />
+  </p>
+	<p>
+      <label>Instagram</label><br>
+      <input placeholder="" type="text" name="instagram" value="<?php echo $runPlugin->getConfigVal('instagram'); ?>" />
+  </p>
+	<p>
+      <label>Pinterest</label><br>
+      <input placeholder="" type="text" name="pinterest" value="<?php echo $runPlugin->getConfigVal('pinterest'); ?>" />
+  </p>
+	<p>
+      <label>Linkedin</label><br>
+      <input placeholder="" type="text" name="linkedin" value="<?php echo $runPlugin->getConfigVal('linkedin'); ?>" />
+  </p>
+	<p>
+      <label>Viadeo</label><br>
+      <input placeholder="" type="text" name="viadeo" value="<?php echo $runPlugin->getConfigVal('viadeo'); ?>" />
   </p>
 	<p>
       <button type="submit" class="button">Enregistrer</button>

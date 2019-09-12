@@ -439,6 +439,18 @@ code{
     background: #4986b7
 }
 
+@media only screen and (max-width: 960px){
+
+    #seo_social a{
+        display: none;
+    }
+    
+    #seo_social a:nth-child(1), #seo_social a:nth-child(2), #seo_social a:nth-child(3){
+        display: block;
+    }
+
+}
+
 /* Contact */
 
 .contact .acceptation{
