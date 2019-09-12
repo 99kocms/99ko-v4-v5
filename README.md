@@ -2,13 +2,13 @@
 
 99ko est un CMS français, simple, léger et personnalisable, permettant la réalisation de sites vitrines en quelques clics. Il supporte des plugins ainsi que des thèmes.
 
+Site officiel : https://99ko.tuxfamily.org
+
 Facebook : https://www.facebook.com/99ko-CMS-312292362919626/
 
 Twitter : https://twitter.com/99kocms
 
 Support : https://www.facebook.com/groups/130444474278984/
-
-W.I.P version 5.0 !!! : https://docs.google.com/document/d/1iIWQSPoIHLYuaD0voGYu-gG52VfhxfQu83uhmq5oxB8/
 
 This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

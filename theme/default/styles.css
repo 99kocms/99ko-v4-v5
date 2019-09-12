@@ -109,7 +109,7 @@ code{
 
 #footer{
     clear: both;
-    font-size: 14px;
+    font-size: 12px;
     text-align: center;
     background: #e9e9e9;
     padding: 60px 15px;
@@ -142,7 +142,7 @@ code{
     list-style: none;
     margin: 0;
     width: 65%;
-    font-size: 14px;
+    font-size: 12px;
     text-transform: uppercase;
     overflow: hidden;
 }
@@ -186,7 +186,7 @@ code{
     float: left;
     padding: 15px 0;
     text-transform: uppercase;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 /* SITE NAME */
@@ -433,15 +433,10 @@ code{
     color: #fff;
     text-transform: uppercase;
     padding: 15px;
-    font-size: 14px;
+    font-size: 12px;
     float: left;
     margin-left: 1px;
-    background: rgba(0, 0, 0, 0.85);
-    transition: all ease-in-out 0.5s;
-}
-
-#seo_social a:hover{
-    background: rgba(0, 0, 0, 1);
+    background: #4986b7
 }
 
 /* Contact */

@@ -18,7 +18,7 @@ function blogInstall(){
 function blogEndFrontHead(){
 	global $runPlugin;
 	$core = core::getInstance();
-    echo '<link rel="alternate" type="application/rss+xml" href="'.$core->getConfigVal('siteUrl').'/news/rss.html" title="'.$core->getConfigVal('siteName').'">'."\n";
+    echo '<link rel="alternate" type="application/rss+xml" href="'.$core->getConfigVal('siteUrl').'/blog/rss.html" title="'.$core->getConfigVal('siteName').'">'."\n";
 	if($runPlugin->getName() == 'blog' && isset($_GET['id'])){
 		global $item;
 		$pluginsManager = pluginsManager::getInstance();
@@ -87,7 +87,7 @@ class newsManager{
 		$xml = '<?xml version="1.0" encoding="UTF-8"?>';
 		$xml .= '<rss version="2.0">';
 		$xml .= '<channel>';
-		$xml .= ' <title>'.$core->getConfigVal('siteName').' - '.pluginsManager::getPluginConfVal('news', 'label').'</title>';
+		$xml .= ' <title>'.$core->getConfigVal('siteName').' - '.pluginsManager::getPluginConfVal('blog', 'label').'</title>';
 		$xml .= ' <link>'.$core->getConfigVal('siteUrl').'/</link>';
 		$xml .= ' <description>'.$core->getConfigVal('siteDescription').'</description>';
 		$xml .= ' <language>'.$core->getConfigVal('siteLang').'</language>';

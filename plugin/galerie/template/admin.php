@@ -32,7 +32,7 @@ include_once(ROOT.'admin/header.php');
 <form method="post" action="index.php?p=galerie&action=save" enctype="multipart/form-data">
   <?php show::adminTokenField(); ?>
   <input type="hidden" name="id" value="<?php echo $item->getId(); ?>" />
-	
+	<h3>Paramètres</h3>
 	<p>
       <input <?php if($item->getHidden()){ ?>checked<?php } ?> type="checkbox" name="hidden" /> Rendre invisible
 	</p>
@@ -46,6 +46,7 @@ include_once(ROOT.'admin/header.php');
         </label><br>
       <input type="text" name="category" id="category" value="<?php echo $item->getCategory(); ?>" />
     </p>
+	<h3>Contenu</h3>
   <p>
       <label>Titre</label><br>
       <input type="text" name="title" value="<?php echo $item->getTitle(); ?>" required="required" />
@@ -59,6 +60,7 @@ include_once(ROOT.'admin/header.php');
       <label>Contenu</label><br>
       <textarea name="content" class="editor"><?php echo $item->getContent(); ?></textarea>
     </p>
+	<h3>Image</h3>
     <p>
       <label>Fichier (jpg)</label><br>
       <input type="file" name="file" <?php if($item->getImg() == ''){ ?>required="required"<?php } ?> />
