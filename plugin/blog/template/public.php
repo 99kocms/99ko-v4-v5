@@ -9,7 +9,7 @@
 		<h2>
 			<a href="<?php echo $v['url']; ?>"><?php echo $v['name']; ?></a>
 			<p class="date"><?php echo $v['date']; ?>
-			<?php if($runPlugin->getConfigVal('comments')){ ?> | <?php echo $newsManager->countComments($v['id']); ?> commentaire<?php if ($newsManager->countComments($v['id']) > 1) echo 's' ?><?php } ?></p>
+			<?php if($runPlugin->getConfigVal('comments') && !$v['commentsOff']){ ?> | <?php echo $newsManager->countComments($v['id']); ?> commentaire<?php if ($newsManager->countComments($v['id']) > 1) echo 's' ?><?php } ?></p>
 		</h2>
 		<?php
 		if($pluginsManager->isActivePlugin('galerie') && galerie::searchByfileName($v['img'])) echo '<img class="featured" src="'.UPLOAD.'galerie/'.$v['img'].'" alt="'.$v['img'].'" />';
@@ -18,7 +18,7 @@
 		<h2>
 			<a href="<?php echo $v['url']; ?>"><?php echo $v['name']; ?></a>
 		</h2>
-		<p class="date"><?php echo $v['date']; ?><?php if($runPlugin->getConfigVal('comments')){ ?> | <?php echo $newsManager->countComments($v['id']); ?> commentaire<?php if ($newsManager->countComments($v['id']) > 1) echo 's' ?><?php } ?></p>
+		<p class="date"><?php echo $v['date']; ?><?php if($runPlugin->getConfigVal('comments') && !$v->getCommentsOff()){ ?> | <?php echo $newsManager->countComments($v['id']); ?> commentaire<?php if ($newsManager->countComments($v['id']) > 1) echo 's' ?><?php } ?></p>
 		<?php } ?>
 	</li>
 	<?php } ?>
@@ -37,7 +37,7 @@
 <?php if($mode == 'read'){ ?>
 <p class="date">
 	Posté le <?php echo util::FormatDate($item->getDate(), 'en', 'fr'); ?>
-	<?php if($runPlugin->getConfigVal('comments')){ ?> | <?php echo $newsManager->countComments(); ?> commentaire<?php if ($newsManager->countComments($item->getId()) > 1) echo 's' ?><?php } ?>
+	<?php if($runPlugin->getConfigVal('comments') && !$item->getCommentsOff()){ ?> | <?php echo $newsManager->countComments(); ?> commentaire<?php if ($newsManager->countComments($item->getId()) > 1) echo 's' ?><?php } ?>
 	| <a href="<?php echo $runPlugin->getPublicUrl(); ?>">Retour à la liste</a>
 </p>
 <div class="content">
@@ -45,7 +45,7 @@
 echo $item->getContent();
 ?>
 </div>
-<?php if($runPlugin->getConfigVal('comments')){ ?>
+<?php if($runPlugin->getConfigVal('comments') && !$item->getCommentsOff()){ ?>
 
 <h2>Commentaires</h2>
 <?php if($newsManager->countComments() == 0){ ?><p>Il n'y a pas de commentaires</p><?php } ?>

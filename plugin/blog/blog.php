@@ -125,6 +125,7 @@ class newsManager{
 				'date' => $v->getDate(),
 				'draft' => $v->getDraft(),
 				'img' => $v->getImg(),
+				'commentsOff' => $v->getCommentsOff(),
 			);
 		}
 		if(util::writeJsonFile(ROOT.'data/plugin/blog/blog.json', $data)) return true;
@@ -202,6 +203,7 @@ class news{
 	private $content;
 	private $draft;
 	private $img;
+	private $commentsOff;
 	
 	public function __construct($val = array()){
 		if(count($val) > 0){
@@ -211,6 +213,7 @@ class news{
 			$this->date = $val['date'];
 			$this->draft = $val['draft'];
 			$this->img = (isset($val['img']) ? $val['img'] : '');
+			$this->commentsOff = (isset($val['commentsOff']) ? $val['commentsOff'] : 0);
 		}
 	}
 	
@@ -239,6 +242,10 @@ class news{
 	public function setImg($val){
 		$this->img = trim($val);
 	}
+	
+	public function setCommentsOff($val){
+		$this->commentsOff = trim($val);
+	}
 
 	public function getId(){
 		return $this->id;
@@ -262,6 +269,10 @@ class news{
 	
 	public function getImg(){
 		return $this->img;
+	}
+	
+	public function getCommentsOff(){
+		return $this->commentsOff;
 	}
 }
 

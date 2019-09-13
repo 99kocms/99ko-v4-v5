@@ -39,6 +39,7 @@ switch($action){
 				$news[$k]['content'] = $v->getContent();
 				$news[$k]['url'] = $runPlugin->getPublicUrl().util::strToUrl($v->getName()).'-'.$v->getId().'.html';
 				$news[$k]['img'] = $v->getImg();
+				$news[$k]['commentsOff'] = $v->getcommentsOff();
 			}
 			$i++;
 		}

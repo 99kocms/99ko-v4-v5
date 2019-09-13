@@ -37,9 +37,10 @@ switch($action){
 			$news->setName($_REQUEST['name']);
 			$news->setContent($_REQUEST['content']);
 			$news->setDraft((isset($_POST['draft']) ? 1 : 0));
-			if($_REQUEST['date'] == "") $news->setDate($news->getDate());
+			if(!isset($_REQUEST['date']) || $_REQUEST['date'] == "") $news->setDate($news->getDate());
 			else $news->setDate($_REQUEST['date']);
 			$news->setImg($imgId);
+			$news->setCommentsOff((isset($_POST['commentsOff']) ? 1 : 0));
 			if($newsManager->saveNews($news)){
 				$msg = "Les modifications ont été enregistrées";
 				$msgType = 'success';
@@ -55,14 +56,6 @@ switch($action){
 	case 'edit':
 		$mode = 'edit';
 		$news = (isset($_REQUEST['id'])) ?  $newsManager->create($_GET['id']) : new news();
-		$news = array(
-			'id' => $news->getId(),
-			'name' => $news->getName(),
-			'content' => $news->getContent(),
-			'date' => $news->getDate(),
-			'draft' => $news->getDraft(),
-			'img' => $news->getImg(),
-		);
 		$showDate = (isset($_REQUEST['id'])) ?  true : false;
 		break;
 	case 'del':

@@ -31,38 +31,43 @@ include_once(ROOT.'admin/header.php');
 <?php if($mode == 'edit'){ ?>
 <form method="post" action="index.php?p=blog&action=save" enctype="multipart/form-data">
   <?php show::adminTokenField(); ?>
-  <input type="hidden" name="id" value="<?php echo $news['id']; ?>" />
+  <input type="hidden" name="id" value="<?php echo $news->getId(); ?>" />
   <?php if($pluginsManager->isActivePlugin('galerie')){ ?>
-  <input type="hidden" name="imgId" value="<?php echo $news['img']; ?>" />
+  <input type="hidden" name="imgId" value="<?php echo $news->getImg(); ?>" />
 	<?php } ?>
 	<h3>Paramètres</h3>
   <p>
-      <input <?php if($news['draft']){ ?>checked<?php } ?> type="checkbox" name="draft" /> Ne pas publier (brouillon)
+      <input <?php if($news->getdraft()){ ?>checked<?php } ?> type="checkbox" name="draft" /> Ne pas publier (brouillon)
     </p>
+	<?php if($runPlugin->getConfigVal('comments')){ ?>
+	<p>
+      <input <?php if($news->getCommentsOff()){ ?>checked<?php } ?> type="checkbox" name="commentsOff" /> Désactiver les commentaires pour cet article
+    </p>
+	<?php } ?>
   <h3>Contenu</h3>
   <p>
       <label>Titre</label><br>
-      <input type="text" name="name" value="<?php echo $news['name']; ?>" required="required" />
+      <input type="text" name="name" value="<?php echo $news->getName(); ?>" required="required" />
     </p>
   <?php if($showDate){ ?>
     <p>
       <label>Date</label><br>
-      <input placeholder="Exemple : 2017-07-06 12:28:51" type="date" name="date" value="<?php echo $news['date']; ?>" required="required" />
+      <input placeholder="Exemple : 2017-07-06 12:28:51" type="date" name="date" value="<?php echo $news->getDate(); ?>" required="required" />
     </p>
   <?php } ?>
   
   <p>
       <label>Contenu</label><br>
-      <textarea name="content" class="editor"><?php echo $news['content']; ?></textarea>
+      <textarea name="content" class="editor"><?php echo $news->getContent(); ?></textarea>
     </p>
 	
 	<?php if($pluginsManager->isActivePlugin('galerie')){ ?>
 	<h3>Image à la une</h3>
 	<p>
-      <?php if(galerie::searchByfileName($news['img'])){ ?><input type="checkbox" name="delImg" /> Supprimer l'image à la une
+      <?php if(galerie::searchByfileName($news->getImg())){ ?><input type="checkbox" name="delImg" /> Supprimer l'image à la une
       <?php } else{ ?><label>Fichier (jpg)</label><br><input type="file" name="file" /><?php } ?>
       <br><br>
-      <?php if(galerie::searchByfileName($news['img'])){ ?><img src="<?php echo UPLOAD; ?>galerie/<?php echo $news['img']; ?>" alt="<?php echo $news['img']; ?>" /><?php } ?>
+      <?php if(galerie::searchByfileName($news->getImg())){ ?><img src="<?php echo UPLOAD; ?>galerie/<?php echo $news->getImg(); ?>" alt="<?php echo $news->getImg(); ?>" /><?php } ?>
     </p>
 	<?php } ?>
   
