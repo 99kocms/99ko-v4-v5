@@ -5,7 +5,7 @@ if(isset($_GET['id'])) $action = 'read';
 elseif(isset($_GET['rss'])) $action = 'rss';
 elseif(isset($_GET['send'])) $action = 'send';
 else $action = '';
-
+$antispam = ($pluginsManager->isActivePlugin('antispam')) ? new antispam() : false;
 $newsManager = new newsManager();
 
 switch($action){
@@ -58,6 +58,7 @@ switch($action){
 		$item = $newsManager->create($_GET['id']);
 		if(!$item) $core->error404();
 		$newsManager->loadComments($item->getId());
+		$antispamField = ($antispam) ? $antispam->show() : '';
 		// Traitements divers : métas, fil d'ariane...
 		$runPlugin->setMainTitle($item->getName());
 		$runPlugin->setTitleTag($item->getName());
@@ -69,15 +70,21 @@ switch($action){
 		// quelques contrôle et temps mort volontaire avant le send...
 		sleep(2);
 		if($runPlugin->getConfigVal('comments') && $_POST['_author'] == ''){
-			$comments = $newsManager->loadComments($_POST['id']);
-			$comment = new newsComment();
-			$comment->setIdNews($_POST['id']);
-			$comment->setAuthor($_POST['author']);
-			$comment->setAuthorEmail($_POST['authorEmail']);
-			$comment->setDate('');
-			$comment->setContent($_POST['content']);
-			if($newsManager->saveComment($comment)){
-				header('location:'.$_POST['back'].'#comment'.$comment->getId());
+			if(($antispam && $antispam->isValid()) || !$antispam){
+				$comments = $newsManager->loadComments($_POST['id']);
+				$comment = new newsComment();
+				$comment->setIdNews($_POST['id']);
+				$comment->setAuthor($_POST['author']);
+				$comment->setAuthorEmail($_POST['authorEmail']);
+				$comment->setDate('');
+				$comment->setContent($_POST['content']);
+				if($newsManager->saveComment($comment)){
+					header('location:'.$_POST['back'].'#comment'.$comment->getId());
+					die();
+				}
+			}
+			else{
+				header('location:'.$_POST['back']);
 				die();
 			}
 		}

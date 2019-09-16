@@ -28,6 +28,7 @@ echo $runPlugin->getConfigVal('content1');
     <input type="checkbox" required="required" /> <?php echo $runPlugin->getConfigVal('acceptation'); ?>
   </p>
   <?php } ?>
+  <?php echo $antispamField; ?>
   <p>
     <input type="submit" value="Envoyer" />
   </p>

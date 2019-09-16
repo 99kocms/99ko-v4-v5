@@ -68,6 +68,7 @@ echo $item->getContent();
 	</p>
 	<p><label>Email</label><br><input type="text" name="authorEmail" required="required" /></p>
 	<p><label>Commentaire</label><br><textarea name="content" required="required"></textarea></p>
+	<?php echo $antispamField; ?>
 	<p><input type="submit" value="Enregistrer" /></p>
 </form>
 <?php } ?>
