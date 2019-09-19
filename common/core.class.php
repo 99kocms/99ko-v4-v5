@@ -60,6 +60,11 @@ class core{
         return $this->themes;
     }
     
+    ## Retourne la configuration complète
+    public function getconfig(){
+        return $this->config;
+    }
+    
     ## Retourne une valeur de configuration
     public function getConfigVal($k){
         if(isset($this->config[$k])) return $this->config[$k];
@@ -127,6 +132,7 @@ class core{
         $mode = '';
         if(isset($_GET['action']) && $_GET['action'] == 'login') return 'login';
         elseif(isset($_GET['action']) && $_GET['action'] == 'logout') return 'logout';
+        elseif(isset($_GET['action']) && $_GET['action'] == 'lostpwd') return 'lostpwd';
         elseif(!isset($_GET['p'])) return 'plugin';
         elseif(isset($_GET['p'])) return 'plugin';
     }
