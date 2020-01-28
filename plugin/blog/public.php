@@ -1,7 +1,11 @@
 <?php
 if(!defined('ROOT')) die();
 
-$action = (!is_numeric($core->getUrlParam(0))) ? $core->getUrlParam(0) : '';
+if(isset($_GET['id'])) $action = 'read';
+elseif(isset($_GET['rss'])) $action = 'rss';
+elseif(isset($_GET['send'])) $action = 'send';
+else $action = '';
+$antispam = ($pluginsManager->isActivePlugin('antispam')) ? new antispam() : false;
 $newsManager = new newsManager();
 
 switch($action){
@@ -9,8 +13,8 @@ switch($action){
 		// Mode d'affichage
 		$mode = ($newsManager->count() > 0) ? 'list' : 'list_empty';
 		// Détermination de la page courante
-		if($core->getUrlParam(0) == '') $currentPage = 1;
-		else $currentPage = $core->getUrlParam(0);
+		if(!isset($_GET['page'])) $currentPage = 1;
+		else $currentPage = $_GET['page'];
 		// Contruction de la pagination
 		$nbNews = count($newsManager->getItems()); 
 		$newsByPage = $runPlugin->getConfigVal('itemsByPage');
@@ -19,8 +23,8 @@ switch($action){
 		$end = $start+$newsByPage-1;
 		$pagination = array();
 		for($i=0;$i!=$nbPages;$i++){
-			if($i != 0) $pagination[$i]['url'] = $core->makeUrl('news', array('page' => $i+1));
-			else $pagination[$i]['url'] = $core->makeUrl('news');
+			if($i != 0) $pagination[$i]['url'] = $runPlugin->getPublicUrl().($i+1).'/';
+			else $pagination[$i]['url'] = $runPlugin->getPublicUrl();
 			$pagination[$i]['num'] = $i+1;
 		}
 		// Récupération des news
@@ -33,16 +37,17 @@ switch($action){
 				$news[$k]['date'] = util::FormatDate($date, 'en', 'fr');
 				$news[$k]['id'] = $v->getId();
 				$news[$k]['content'] = $v->getContent();
-				$news[$k]['url'] = $core->makeUrl('news', array('action' => 'read', 'name' => util::strToUrl($v->getName()), 'id' => $v->getId()));
+				$news[$k]['url'] = $runPlugin->getPublicUrl().util::strToUrl($v->getName()).'-'.$v->getId().'.html';
 				$news[$k]['img'] = $v->getImg();
+				$news[$k]['commentsOff'] = $v->getcommentsOff();
 			}
 			$i++;
 		}
 		// Traitements divers : métas, fil d'ariane...
-		$runPlugin->setMainTitle($pluginsManager->getPlugin('news')->getConfigVal('label'));
-		$runPlugin->setTitleTag($pluginsManager->getPlugin('news')->getConfigVal('label').' : page '.$currentPage);
+		$runPlugin->setMainTitle($pluginsManager->getPlugin('blog')->getConfigVal('label'));
+		$runPlugin->setTitleTag($pluginsManager->getPlugin('blog')->getConfigVal('label').' : page '.$currentPage);
 		if($runPlugin->getIsDefaultPlugin() && $currentPage == 1){
-			$runPlugin->setTitleTag($pluginsManager->getPlugin('news')->getConfigVal('label'));
+			$runPlugin->setTitleTag($pluginsManager->getPlugin('blog')->getConfigVal('label'));
 			$runPlugin->setMetaDescriptionTag($core->getConfigVal('siteDescription'));
 		}
 		break;
@@ -50,9 +55,10 @@ switch($action){
 		// Mode d'affichage
 		$mode = 'read';
 		// Récupération de la news
-		$item = $newsManager->create($core->getUrlParam(2));
+		$item = $newsManager->create($_GET['id']);
 		if(!$item) $core->error404();
 		$newsManager->loadComments($item->getId());
+		$antispamField = ($antispam) ? $antispam->show() : '';
 		// Traitements divers : métas, fil d'ariane...
 		$runPlugin->setMainTitle($item->getName());
 		$runPlugin->setTitleTag($item->getName());
@@ -64,15 +70,21 @@ switch($action){
 		// quelques contrôle et temps mort volontaire avant le send...
 		sleep(2);
 		if($runPlugin->getConfigVal('comments') && $_POST['_author'] == ''){
-			$comments = $newsManager->loadComments($_POST['id']);
-			$comment = new newsComment();
-			$comment->setIdNews($_POST['id']);
-			$comment->setAuthor($_POST['author']);
-			$comment->setAuthorEmail($_POST['authorEmail']);
-			$comment->setDate('');
-			$comment->setContent($_POST['content']);
-			if($newsManager->saveComment($comment)){
-				header('location:'.$_POST['back'].'#comment'.$comment->getId());
+			if(($antispam && $antispam->isValid()) || !$antispam){
+				$comments = $newsManager->loadComments($_POST['id']);
+				$comment = new newsComment();
+				$comment->setIdNews($_POST['id']);
+				$comment->setAuthor($_POST['author']);
+				$comment->setAuthorEmail($_POST['authorEmail']);
+				$comment->setDate('');
+				$comment->setContent($_POST['content']);
+				if($newsManager->saveComment($comment)){
+					header('location:'.$_POST['back'].'#comment'.$comment->getId());
+					die();
+				}
+			}
+			else{
+				header('location:'.$_POST['back']);
 				die();
 			}
 		}

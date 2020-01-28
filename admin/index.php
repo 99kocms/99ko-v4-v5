@@ -37,7 +37,23 @@ elseif($administrator->isAuthorized() && $core->detectAdminMode() == 'logout'){
 	header('location:index.php');
 	die();
 }
-if(!$administrator->isLogged()) include_once('login.php');
+elseif($administrator->isAuthorized() && $core->detectAdminMode() == 'lostpwd'){
+	$step = (isset($_GET['step']) ? $_GET['step'] : 'form');
+	if($step == 'send' && $administrator->isAuthorized() && $administrator->getEmail() == $_POST['adminEmail']){
+		// quelques contrôle et temps mort volontaire avant le login...
+		sleep(2);
+		$administrator->makePwd();
+	}
+	elseif($step == 'confirm' && $administrator->isAuthorized()){
+		// quelques contrôle et temps mort volontaire avant le login...
+		sleep(2);
+		$config = $core->getConfig();
+		$config['adminPwd'] = $administrator->encrypt($administrator->getNewPwd());
+		$core->saveConfig($config);
+	}
+	include_once('lostpwd.php');
+}
+if(!$administrator->isLogged() && $core->detectAdminMode() != 'lostpwd') include_once('login.php');
 elseif($core->detectAdminMode() == 'plugin'){
 	include($runPlugin->getAdminFile());
 	if(!is_array($runPlugin->getAdminTemplate())) include($runPlugin->getAdminTemplate());

@@ -3,16 +3,23 @@ defined('ROOT') OR exit('No direct script access allowed');
 
 ## Fonction d'installation
 
-function newsInstall(){
+function blogInstall(){
+	$core = core::getInstance();
+	$htaccess = $core->getHtaccess();
+	$htaccess.= "\nRewriteRule ^blog/([a-z-0-9]+)-([0-9]+).html$  index.php?p=blog&url=$1&id=$2 [L]";
+	$htaccess.= "\nRewriteRule ^blog/([0-9]+)/$  index.php?p=blog&page=$1 [L]";
+	$htaccess.= "\nRewriteRule ^blog/rss.html$  index.php?p=blog&rss=1 [L]";
+	$htaccess.= "\nRewriteRule ^blog/send.html$  index.php?p=blog&send=1 [L]";
+	$core->saveHtaccess($htaccess);
 }
 
 ## Hooks
 
-function newsEndFrontHead(){
+function blogEndFrontHead(){
 	global $runPlugin;
 	$core = core::getInstance();
-    echo '<link rel="alternate" type="application/rss+xml" href="'.$core->makeUrl('news', array('action' => 'rss')).'" title="'.$core->getConfigVal('siteName').'">'."\n";
-	if($runPlugin->getName() == 'news' && $core->getUrlParam(0) == 'read'){
+    echo '<link rel="alternate" type="application/rss+xml" href="'.$core->getConfigVal('siteUrl').'/blog/rss.html" title="'.$core->getConfigVal('siteName').'">'."\n";
+	if($runPlugin->getName() == 'blog' && isset($_GET['id'])){
 		global $item;
 		$pluginsManager = pluginsManager::getInstance();
 		if($pluginsManager->isActivePlugin('galerie') && galerie::searchByfileName($item->getImg())) echo '<meta property="og:image" content="'.$core->getConfigVal('siteUrl').'/'.str_replace('./', '', UPLOAD).'galerie/'.$item->getImg().'" />';
@@ -27,8 +34,8 @@ class newsManager{
 	
 	public function __construct(){
 		$data = array();
-		if(file_exists(ROOT.'data/plugin/news/news.json')){
-			$temp = util::readJsonFile(ROOT.'data/plugin/news/news.json');
+		if(file_exists(ROOT.'data/plugin/blog/blog.json')){
+			$temp = util::readJsonFile(ROOT.'data/plugin/blog/blog.json');
 			$temp = util::sort2DimArray($temp, 'date', 'desc');
 			foreach($temp as $k=>$v){
 				$data[] = new news($v);
@@ -80,14 +87,14 @@ class newsManager{
 		$xml = '<?xml version="1.0" encoding="UTF-8"?>';
 		$xml .= '<rss version="2.0">';
 		$xml .= '<channel>';
-		$xml .= ' <title>'.$core->getConfigVal('siteName').' - '.pluginsManager::getPluginConfVal('news', 'label').'</title>';
+		$xml .= ' <title>'.$core->getConfigVal('siteName').' - '.pluginsManager::getPluginConfVal('blog', 'label').'</title>';
 		$xml .= ' <link>'.$core->getConfigVal('siteUrl').'/</link>';
 		$xml .= ' <description>'.$core->getConfigVal('siteDescription').'</description>';
 		$xml .= ' <language>'.$core->getConfigVal('siteLang').'</language>';
 		foreach($this->getItems() as $k=>$v) if(!$v->getDraft()){
 			$xml .= '<item>';
 			$xml .= '<title><![CDATA['.$v->getName().']]></title>';
-			$xml .= '<link>'.$core->getConfigVal('siteUrl').'/'.$core->makeUrl('news', array('action' => 'read', 'name' => util::strToUrl($v->getName()), 'id' => $v->getId())).'</link>';
+			$xml .= '<link>'.$core->getConfigVal('siteUrl').'/news/'.util::strToUrl($v->getName()).'-'.$v->getId().'.html</link>';
 			$xml .= '<pubDate>'.(date("D, d M Y H:i:s O", strtotime($v->getDate()))).'</pubDate>';
 			$xml .= '<description><![CDATA['.$v->getContent().']]></description>';
 			$xml .= '</item>';
@@ -118,9 +125,10 @@ class newsManager{
 				'date' => $v->getDate(),
 				'draft' => $v->getDraft(),
 				'img' => $v->getImg(),
+				'commentsOff' => $v->getCommentsOff(),
 			);
 		}
-		if(util::writeJsonFile(ROOT.'data/plugin/news/news.json', $data)) return true;
+		if(util::writeJsonFile(ROOT.'data/plugin/blog/blog.json', $data)) return true;
 		return false;
 	}
 	
@@ -138,9 +146,9 @@ class newsManager{
 	}
 	
 	public function loadComments($idNews){
-		if(!file_exists(@mkdir(DATA_PLUGIN.'news/comments/'))) @mkdir(DATA_PLUGIN.'news/comments/');
-		if(!file_exists(DATA_PLUGIN.'news/comments/'.$idNews.'.json')) util::writeJsonFile(DATA_PLUGIN.'news/comments/'.$idNews.'.json', array());
-		$temp = util::readJsonFile(DATA_PLUGIN.'news/comments/'.$idNews.'.json');
+		if(!file_exists(@mkdir(DATA_PLUGIN.'blog/comments/'))) @mkdir(DATA_PLUGIN.'blog/comments/');
+		if(!file_exists(DATA_PLUGIN.'blog/comments/'.$idNews.'.json')) util::writeJsonFile(DATA_PLUGIN.'blog/comments/'.$idNews.'.json', array());
+		$temp = util::readJsonFile(DATA_PLUGIN.'blog/comments/'.$idNews.'.json');
 		$temp = util::sort2DimArray($temp, 'id', 'asc');
 		$data = array();
 		foreach($temp as $k=>$v){
@@ -177,7 +185,7 @@ class newsManager{
 		if($comment == null && $idNews != null){
 			$idNews = $idNews;
 		}
-		return util::writeJsonFile(DATA_PLUGIN.'news/comments/'.$idNews.'.json', $data);
+		return util::writeJsonFile(DATA_PLUGIN.'blog/comments/'.$idNews.'.json', $data);
 	}
 	
 	public function delComment($obj){
@@ -195,6 +203,7 @@ class news{
 	private $content;
 	private $draft;
 	private $img;
+	private $commentsOff;
 	
 	public function __construct($val = array()){
 		if(count($val) > 0){
@@ -204,6 +213,7 @@ class news{
 			$this->date = $val['date'];
 			$this->draft = $val['draft'];
 			$this->img = (isset($val['img']) ? $val['img'] : '');
+			$this->commentsOff = (isset($val['commentsOff']) ? $val['commentsOff'] : 0);
 		}
 	}
 	
@@ -232,6 +242,10 @@ class news{
 	public function setImg($val){
 		$this->img = trim($val);
 	}
+	
+	public function setCommentsOff($val){
+		$this->commentsOff = trim($val);
+	}
 
 	public function getId(){
 		return $this->id;
@@ -255,6 +269,10 @@ class news{
 	
 	public function getImg(){
 		return $this->img;
+	}
+	
+	public function getCommentsOff(){
+		return $this->commentsOff;
 	}
 }
 

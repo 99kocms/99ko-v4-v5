@@ -19,6 +19,7 @@ class administrator{
     private $email;
     private $pwd;
     private $token;
+    private $newPwd;
     
     ## Constructeur
     public function __construct($email = '', $pwd = ''){
@@ -26,6 +27,20 @@ class administrator{
         $this->pwd = ($pwd != '') ? $pwd : @$_SESSION['adminPwd'];
         $this->token = (isset($_SESSION['adminToken'])) ? $_SESSION['adminToken'] : sha1(uniqid(mt_rand(), true));
         $_SESSION['adminToken'] = $this->token;
+        $this->newPwd = (isset($_SESSION['newPwd'])) ? $_SESSION['newPwd'] : '';
+        $_SESSION['newPwd'] = $this->newPwd;
+    }
+    
+    ## Retourne l'email
+    
+    public function getEmail(){
+        return $this->email;
+    }
+    
+    ## Retourne le nouveau mot de passe
+    
+    public function getNewPwd(){
+        return $this->newPwd;
     }
     
     ## Retourne l'instance de l'objet administrator
@@ -72,6 +87,30 @@ class administrator{
     ## Fonction de cryptage
     public function encrypt($data){
         return hash_hmac('sha1', $data, KEY);
+    }
+    
+    ## Regeneration / envoi pwd
+    public function makePwd($size = 8){
+        $core = core::getInstance();
+        $password = '';
+        $characters = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z");
+        for($i=0; $i<$size ;$i++){
+            $password .= ($i%2) ? strtoupper($characters[array_rand($characters)]) : $characters[array_rand($characters)];
+        }
+        $this->newPwd = $password;
+        $_SESSION['newPwd'] = $this->newPwd;
+        $to = $this->email;
+        $from = '99ko@'.$_SERVER['SERVER_NAME'];
+        $reply = $from;
+        $subject = 'Demande de mot de passe administrateur pour le site '.$core->getConfigVal('siteName');
+        $msg = "Vous venez de faire une demande de changement de mot de passe administrateur.
+        
+Si vous n'êtes pas l'auteur de cette demande, veuillez ignorer l'étape ci-dessous et supprimer cet email !
+Si vous êtes l'auteur de cette demande, veuillez confirmer le changement de mot de passe en cliquant sur le lien ci-dessous :
+        
+Votre nouveau mot de passe : ".$password."
+Lien de confirmation : ".$core->getConfigVal('siteUrl')."/admin/index.php?action=lostpwd&step=confirm&token=".$this->token;
+        util::sendEmail($from, $reply, $to, $subject, $msg);
     }
 
 }

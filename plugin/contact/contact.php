@@ -5,6 +5,10 @@ defined('ROOT') OR exit('No pagesFileect script access allowed');
 
 function contactInstall(){
 	util::writeJsonFile(DATA_PLUGIN.'contact/emails.json', array());
+	$core = core::getInstance();
+	$htaccess = $core->getHtaccess();
+	$htaccess.= "\nRewriteRule ^contact/send.html$  index.php?p=contact&send=1 [L]";
+	$core->saveHtaccess($htaccess);
 }
 
 ## Hooks

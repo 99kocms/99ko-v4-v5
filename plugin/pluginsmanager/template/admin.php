@@ -18,11 +18,8 @@ include_once(ROOT.'admin/header.php');
 		<tr>
 			<td>
 				<?php echo $plugin->getInfoVal('name'); ?>
-				<?php if($plugin->getInfoVal('version') != 'none'){ ?> (version <?php echo $plugin->getInfoVal('version'); ?>)<?php } ?>
-				<?php if($plugin->getConfigVal('activate') && !$plugin->isInstalled()){ ?>&nbsp;&nbsp;<a class="button" href="index.php?p=pluginsmanager&action=maintenance&plugin=<?php echo $plugin->getName(); ?>&token=<?php echo administrator::getToken(); ?>">Maintenance requise</a><?php } ?>
-				<div class="description">
-					<?php echo $plugin->getInfoVal('description'); ?>
-				</div>
+				<?php if($plugin->getInfoVal('version') != 'none'){ ?> (version <?php echo $plugin->getInfoVal('version'); ?>)<?php } ?> : <?php echo $plugin->getInfoVal('description'); ?>
+				<?php if($plugin->getConfigVal('activate') && !$plugin->isInstalled()){ ?><p><a class="button" href="index.php?p=pluginsmanager&action=maintenance&plugin=<?php echo $plugin->getName(); ?>&token=<?php echo administrator::getToken(); ?>">Maintenance requise</a><?php } ?></p>
 			</td>
 			<td>
 				<select name="priority[<?php echo $plugin->getName(); ?>]" onchange="document.getElementById('pluginsmanagerForm').submit();">

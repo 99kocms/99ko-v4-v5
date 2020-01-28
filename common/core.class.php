@@ -18,7 +18,6 @@ class core{
     private static $instance = null;
     private $config;
     private $hooks;
-    private $urlParams;
     private $themes;
     private $pluginToCall;
     private $js;
@@ -37,16 +36,6 @@ class core{
             error_reporting(E_ALL);
         }
         else error_reporting(E_ERROR | E_PARSE);
-        // Construction du tableau des paramètres de l'URL
-        // Exemple : array(0 => 'val', 1 => 'val2')
-        if($this->getConfigVal('urlRewriting') == 1){
-            if(isset($_GET['param'])) $this->urlParams = explode($this->getConfigVal('urlSeparator'), $_GET['param']);
-        }
-        else{
-            foreach($_GET as $k=>$v) if($k != 'p'){
-                $this->urlParams[] = $v;
-            }
-        }
         // Liste des thèmes
         $temp = util::scanDir(THEMES);
         foreach($temp['dir'] as $k=>$v){
@@ -66,16 +55,14 @@ class core{
         return self::$instance;
     }
     
-    ## Retourne un paramètre d'URL
-    ## $k doit être un entier (index du tableau urlParams)
-    public function getUrlParam($k){
-        if(isset($this->urlParams[$k])) return $this->urlParams[$k];
-        else return false;
-    }
-    
     ## Retourne la liste des thèmes
     public function getThemes(){
         return $this->themes;
+    }
+    
+    ## Retourne la configuration complète
+    public function getconfig(){
+        return $this->config;
     }
     
     ## Retourne une valeur de configuration
@@ -124,26 +111,6 @@ class core{
         return $siteUrl;
     }
     
-    ## Génère une URL réécrite ou retourne l'URL standard suivant l'état du paramètre de configuration urlRewriting
-    ## Exemple d'utilisation : $core->makeUrl('monplugin', array('mode' => 'article', 'id' => 3))) => "monplugin/article,3.html" ou "index.php?p=monplugin&mode=article&id=3"
-    public function makeUrl($plugin, $params = array()){
-        if($this->getConfigVal('urlRewriting') == 1){
-            $url = $plugin.'/';
-            if(count($params) > 0){
-                foreach($params as $k=>$v) $url.= util::strToUrl($v).$this->getConfigVal('urlSeparator');
-                $url = trim($url, $this->getConfigVal('urlSeparator'));
-                $url.= '.html';
-            }
-        }
-        else{
-            $url = 'index.php?p='.$plugin;
-            foreach($params as $k=>$v){
-                $url.= '&amp;'.$k.'='.util::strToUrl($v);
-            }
-        }
-        return $url;
-    }
-    
     ## Alimente le tableau des hooks
     public function addHook($name, $function){
         $this->hooks[$name][] = $function;
@@ -165,6 +132,7 @@ class core{
         $mode = '';
         if(isset($_GET['action']) && $_GET['action'] == 'login') return 'login';
         elseif(isset($_GET['action']) && $_GET['action'] == 'logout') return 'logout';
+        elseif(isset($_GET['action']) && $_GET['action'] == 'lostpwd') return 'lostpwd';
         elseif(!isset($_GET['p'])) return 'plugin';
         elseif(isset($_GET['p'])) return 'plugin';
     }
@@ -196,7 +164,9 @@ class core{
         $install = true;
         @chmod(ROOT.'.htaccess', 0666);
         if(!file_exists(ROOT.'.htaccess')){
-            if(!@file_put_contents(ROOT.'.htaccess', "Options -Indexes", 0666)) $install = false;
+            $rewriteBase = str_replace(array('index.php', 'install.php', 'admin/'), '', $_SERVER['PHP_SELF']);
+            $temp = "Options -Indexes\nOptions +FollowSymlinks\nRewriteEngine On\nRewriteBase ".$rewriteBase."\nRewriteRule ^admin/$  admin/ [L]\nRewriteRule ^([a-z-0-9_]+)/$  index.php?p=$1 [L]";
+            if(!@file_put_contents(ROOT.'.htaccess', $temp, 0666)) $install = false;
         }
         if(!is_dir(DATA) && (!@mkdir(DATA) || !@chmod(DATA, 0777))) $install = false;
         if($install){
@@ -218,13 +188,14 @@ class core{
     ## Retourne le contenu du fichier htaccess
     
     public function getHtaccess(){
-        return htmlspecialchars(@file_get_contents(ROOT.'.htaccess'), ENT_QUOTES, 'UTF-8');
+        return @file_get_contents(ROOT.'.htaccess');
     }
     
     ## Update le contenu du fichier htaccess
     
     public function saveHtaccess($content){
-        @file_put_contents(ROOT.'.htaccess', str_replace('¶m', '&param', $content));
+        $content = str_replace("&amp;", "&", $content);
+        @file_put_contents(ROOT.'.htaccess', $content);
     }
 }
 ?>

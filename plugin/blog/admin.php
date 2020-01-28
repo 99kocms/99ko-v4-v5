@@ -14,7 +14,7 @@ switch($action){
 			$runPlugin->setConfigVal('hideContent', (isset($_POST['hideContent']) ? 1 : 0));
 			$runPlugin->setConfigVal('comments', (isset($_POST['comments']) ? 1 : 0));
 			$pluginsManager->savePluginConfig($runPlugin);
-			header('location:index.php?p=news');
+			header('location:index.php?p=blog');
 			die();
 		}
 		break;
@@ -37,9 +37,10 @@ switch($action){
 			$news->setName($_REQUEST['name']);
 			$news->setContent($_REQUEST['content']);
 			$news->setDraft((isset($_POST['draft']) ? 1 : 0));
-			if($_REQUEST['date'] == "") $news->setDate($news->getDate());
+			if(!isset($_REQUEST['date']) || $_REQUEST['date'] == "") $news->setDate($news->getDate());
 			else $news->setDate($_REQUEST['date']);
 			$news->setImg($imgId);
+			$news->setCommentsOff((isset($_POST['commentsOff']) ? 1 : 0));
 			if($newsManager->saveNews($news)){
 				$msg = "Les modifications ont été enregistrées";
 				$msgType = 'success';
@@ -48,21 +49,13 @@ switch($action){
 				$msg = "Une erreur est survenue";
 				$msgType = 'error';
 			}
-			header('location:index.php?p=news&msg='.urlencode($msg).'&msgType='.$msgType);
+			header('location:index.php?p=blog&msg='.urlencode($msg).'&msgType='.$msgType);
 			die();
 		}
 		break;
 	case 'edit':
 		$mode = 'edit';
 		$news = (isset($_REQUEST['id'])) ?  $newsManager->create($_GET['id']) : new news();
-		$news = array(
-			'id' => $news->getId(),
-			'name' => $news->getName(),
-			'content' => $news->getContent(),
-			'date' => $news->getDate(),
-			'draft' => $news->getDraft(),
-			'img' => $news->getImg(),
-		);
 		$showDate = (isset($_REQUEST['id'])) ?  true : false;
 		break;
 	case 'del':
@@ -76,7 +69,7 @@ switch($action){
 				$msg = "Une erreur est survenue";
 				$msgType = 'error';
 			}
-			header('location:index.php?p=news&msg='.urlencode($msg).'&msgType='.$msgType);
+			header('location:index.php?p=blog&msg='.urlencode($msg).'&msgType='.$msgType);
 			die();
 		}
 		break;
@@ -96,7 +89,7 @@ switch($action){
 				$msg = "Une erreur est survenue";
 				$msgType = 'error';
 			}
-			header('location:index.php?p=news&action=listcomments&id='.$_GET['id'].'&msg='.urlencode($msg).'&msgType='.$msgType);
+			header('location:index.php?p=blog&action=listcomments&id='.$_GET['id'].'&msg='.urlencode($msg).'&msgType='.$msgType);
 			die();
 		}
 		break;
@@ -114,7 +107,7 @@ switch($action){
 				$msg = "Une erreur est survenue";
 				$msgType = 'error';
 			}
-			header('location:index.php?p=news&action=listcomments&id='.$_GET['id'].'&msg='.urlencode($msg).'&msgType='.$msgType);
+			header('location:index.php?p=blog&action=listcomments&id='.$_GET['id'].'&msg='.urlencode($msg).'&msgType='.$msgType);
 			die();
 		}
 		break;

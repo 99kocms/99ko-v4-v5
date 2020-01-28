@@ -16,7 +16,6 @@ include_once(ROOT.'admin/header.php');
 <table>
   <thead>
 	<tr>
-		<th></th>
 		<th>Nom</th>
 		<th>Adresse</th>
 		<th>Position</th>
@@ -26,16 +25,10 @@ include_once(ROOT.'admin/header.php');
   <tbody>
 	<?php foreach($page->getItems() as $k=>$pageItem) if($pageItem->getParent() == 0 && ($pageItem->targetIs() != 'plugin' || ($pageItem->targetIs() == 'plugin' && $pluginsManager->isActivePlugin($pageItem->getTarget())))){ ?>
 	<tr>
-		<td><?php if($pageItem->getIsHomepage()){ ?><img title="Accueil" src="<?php echo PLUGINS; ?>page/template/house.png" alt="icon" /><?php } ?> 
-		    <?php if($pageItem->getIsHidden()){ ?><img title="N'apparait pas dans le menu" src="<?php echo PLUGINS; ?>page/template/ghost.png" alt="icon" /><?php } ?>
-			<?php if($pageItem->targetIs() == 'url'){ ?><img title="Externe" src="<?php echo PLUGINS; ?>page/template/link.png" alt="icon" /><?php } ?>
-			<?php if($pageItem->targetIs() == 'plugin'){ ?><img title="Plugin" src="<?php echo PLUGINS; ?>page/template/plugin.png" alt="icon" /><?php } ?>
-			<?php if($pageItem->targetIs() == 'parent'){ ?><img title="Parent" src="<?php echo PLUGINS; ?>page/template/star.png" alt="icon" /><?php } ?>
-		</td>
 		<td><?php echo $pageItem->getName(); ?></td>
 		<td><?php if($pageItem->targetIs() != 'parent'){ ?><input readonly="readonly" type="text" value="<?php echo $page->makeUrl($pageItem); ?>" /><?php } ?></td>
 		<td>
-		  <a class="up" href="index.php?p=page&action=up&id=<?php echo $pageItem->getId(); ?>&token=<?php echo administrator::getToken(); ?>"><img src="<?php echo PLUGINS; ?>page/template/up.png" alt="icon" /></a>&nbsp;&nbsp;
+		  <a class="up" href="index.php?p=page&action=up&id=<?php echo $pageItem->getId(); ?>&token=<?php echo administrator::getToken(); ?>"><img src="<?php echo PLUGINS; ?>page/template/up.png" alt="icon" /></a>&nbsp;
 		  <a class="down" href="index.php?p=page&action=down&id=<?php echo $pageItem->getId(); ?>&token=<?php echo administrator::getToken(); ?>"><img src="<?php echo PLUGINS; ?>page/template/down.png" alt="icon" /></a>
 		</td>
 		<td>
@@ -45,16 +38,10 @@ include_once(ROOT.'admin/header.php');
 	</tr>
 	<?php foreach($page->getItems() as $k=>$pageItemChild) if($pageItemChild->getParent() == $pageItem->getId() && ($pageItemChild->targetIs() != 'plugin' || ($pageItemChild->targetIs() == 'plugin' && $pluginsManager->isActivePlugin($pageItemChild->getTarget())))){ ?>
 	<tr>
-		<td><?php if($pageItemChild->getIsHomepage()){ ?><img title="Accueil" src="<?php echo PLUGINS; ?>page/template/house.png" alt="icon" /><?php } ?> 
-			<?php if($pageItemChild->getIsHidden()){ ?><img title="N'apparait pas dans le menu" src="<?php echo PLUGINS; ?>page/template/ghost.png" alt="icon" /><?php } ?>
-			<?php if($pageItemChild->targetIs() == 'url'){ ?><img title="Externe" src="<?php echo PLUGINS; ?>page/template/link.png" alt="icon" /><?php } ?>
-			<?php if($pageItemChild->targetIs() == 'plugin'){ ?><img title="Plugin" src="<?php echo PLUGINS; ?>page/template/plugin.png" alt="icon" /><?php } ?>
-			<?php if($pageItemChild->targetIs() == 'parent'){ ?><img title="Parent" src="<?php echo PLUGINS; ?>page/template/star.png" alt="icon" /><?php } ?>
-		</td>
 		<td>▸ <?php echo $pageItemChild->getName(); ?></td>
 		<td><input readonly="readonly" type="text" value="<?php echo $page->makeUrl($pageItemChild); ?>" /></td>
 		<td>
-		  <a class="up" href="index.php?p=page&action=up&id=<?php echo $pageItemChild->getId(); ?>&token=<?php echo administrator::getToken(); ?>"><img src="<?php echo PLUGINS; ?>page/template/up.png" alt="icon" /></a>&nbsp;&nbsp;
+		  <a class="up" href="index.php?p=page&action=up&id=<?php echo $pageItemChild->getId(); ?>&token=<?php echo administrator::getToken(); ?>"><img src="<?php echo PLUGINS; ?>page/template/up.png" alt="icon" /></a>&nbsp;
 		  <a class="down" href="index.php?p=page&action=down&id=<?php echo $pageItemChild->getId(); ?>&token=<?php echo administrator::getToken(); ?>"><img src="<?php echo PLUGINS; ?>page/template/down.png" alt="icon" /></a>
 		</td>
 		<td>

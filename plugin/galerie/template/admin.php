@@ -6,6 +6,7 @@ include_once(ROOT.'admin/header.php');
 <?php if($mode == 'list'){ ?>
 <ul class="tabs_style">
   <li><a class="button" href="index.php?p=galerie&action=edit">Ajouter</a></li>
+	<li><a class="button showall" href="javascript:">Afficher / masquer les éléments invisibles</a></li>
 </ul>
 <table>
   <tr>
@@ -15,7 +16,7 @@ include_once(ROOT.'admin/header.php');
     <th></th>
   </tr>
   <?php foreach($galerie->getItems() as $k=>$v){ ?>
-  <tr>
+  <tr class="<?php if($v->getHidden()){ ?>hidden<?php } else{ ?>visible<?php } ?>">
     <td><img width="128" src="<?php echo UPLOAD.'galerie/'.$v->getImg(); ?>" alt="<?php echo $v->getImg(); ?>'" /></td>
     <td><?php echo $v->getTitle(); ?><br><?php if($v->getCategory() != ''){ echo '<i>'.$v->getCategory().'</i>'; } ?></td>
 		<td><input readonly="readonly" type="text" value="<?php echo $core->getConfigVal('siteUrl').str_replace('..', '', UPLOAD).'galerie/'.$v->getImg(); ?>" /></td>
@@ -32,7 +33,7 @@ include_once(ROOT.'admin/header.php');
 <form method="post" action="index.php?p=galerie&action=save" enctype="multipart/form-data">
   <?php show::adminTokenField(); ?>
   <input type="hidden" name="id" value="<?php echo $item->getId(); ?>" />
-	
+	<h3>Paramètres</h3>
 	<p>
       <input <?php if($item->getHidden()){ ?>checked<?php } ?> type="checkbox" name="hidden" /> Rendre invisible
 	</p>
@@ -46,6 +47,7 @@ include_once(ROOT.'admin/header.php');
         </label><br>
       <input type="text" name="category" id="category" value="<?php echo $item->getCategory(); ?>" />
     </p>
+	<h3>Contenu</h3>
   <p>
       <label>Titre</label><br>
       <input type="text" name="title" value="<?php echo $item->getTitle(); ?>" required="required" />
@@ -59,6 +61,7 @@ include_once(ROOT.'admin/header.php');
       <label>Contenu</label><br>
       <textarea name="content" class="editor"><?php echo $item->getContent(); ?></textarea>
     </p>
+	<h3>Image</h3>
     <p>
       <label>Fichier (jpg)</label><br>
       <input type="file" name="file" <?php if($item->getImg() == ''){ ?>required="required"<?php } ?> />

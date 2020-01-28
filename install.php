@@ -25,7 +25,9 @@ if(file_exists(DATA. 'config.json')) die('Un fichier de configuration existe dé
 $core = core::getInstance();
 $administrator = new administrator();
 $pluginsManager = pluginsManager::getInstance();
-$msg = "Après l'installation, vous serez redirigé vers la page d'identification afin de paramétrer votre site.";
+$msg = "La version minimale de PHP requise est la 5.6, vous disposez de la ".substr(phpversion(), 0, 3)." !
+Le module Apache mod_rewrite doit être présent et actif, veuillez vérifier ce point avant de poursuivre l'installation.
+Après l'installation, vous serez redirigé vers la page d'identification afin de paramétrer votre site.";
 if($core->install()){
 	$plugins = $pluginsManager->getPlugins();
 	if($plugins != false){
@@ -47,14 +49,11 @@ if(count($_POST) > 0 && $administrator->isAuthorized()){
 		'adminPwd' => $administrator->encrypt($_POST['adminPwd']),
 		'adminEmail' => $_POST['adminEmail'],
 		'siteUrl' => $core->makeSiteUrl(),      
-		'urlRewriting' => '0',
-		'htaccessOptimization' => '0',
 		'theme' => 'default',
 		'hideTitles' => '0',
 		'defaultPlugin' => 'page',
 		'debug' => '0',
 		'defaultAdminPlugin' => 'page',
-		'urlSeparator' => '_',
 	);
 	if(!@file_put_contents(DATA. 'config.json', json_encode($config)) ||	!@chmod(DATA. 'config.json', 0666)){
 		$msg = 'Une erreur est survenue';

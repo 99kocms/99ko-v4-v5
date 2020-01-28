@@ -9,6 +9,10 @@ switch($action){
 			$runPlugin->setConfigVal('facebook', trim($_POST['facebook']));
 			$runPlugin->setConfigVal('twitter', trim($_POST['twitter']));
 			$runPlugin->setConfigVal('youtube', trim($_POST['youtube']));
+			$runPlugin->setConfigVal('instagram', trim($_POST['instagram']));
+			$runPlugin->setConfigVal('pinterest', trim($_POST['pinterest']));
+			$runPlugin->setConfigVal('linkedin', trim($_POST['linkedin']));
+			$runPlugin->setConfigVal('viadeo', trim($_POST['viadeo']));
             if($pluginsManager->savePluginConfig($runPlugin)){
                 $msg = "Les modifications ont été enregistrées";
 				$msgType = 'success';

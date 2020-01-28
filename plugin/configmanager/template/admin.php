@@ -56,23 +56,8 @@ include_once(ROOT.'admin/header.php');
       <input <?php if($core->getConfigVal('debug')){ ?>checked<?php } ?> type="checkbox" name="debug" /> <label for="debug">Mode débogage</label> 
 </p>
   <p>
-      <input id="urlRewriting" type="checkbox" onclick="updateHtaccess('<?php echo $rewriteBase; ?>');" <?php if($core->getConfigVal('urlRewriting')){ ?>checked<?php } ?> name="urlRewriting" /> <label for="urlRewriting">Réécriture d'URL</label>
-</p>
-  <p>
-      <input id="htaccessOptimization" type="checkbox" onclick="updateHtaccess('<?php echo $rewriteBase; ?>');" <?php if($core->getConfigVal('htaccessOptimization')){ ?>checked<?php } ?> name="htaccessOptimization" /> <label for="htaccessOptimization">Optimisations .htaccess</label>
-</p>
-  <p>
       <label>URL du site (sans slash final)</label><br>
       <input type="text" name="siteUrl" value="<?php echo $core->getConfigVal('siteUrl'); ?>" />
-</p>
-  <p>
-      <label>Séparateur d'URL</label><br>
-      <select name="urlSeparator">
-		<option <?php if($core->getConfigVal('urlSeparator') == ','){ ?>selected<?php } ?> value=",">virgule</option>
-        <option <?php if($core->getConfigVal('urlSeparator') == '.'){ ?>selected<?php } ?> value=".">point</option>
-        <option <?php if($core->getConfigVal('urlSeparator') == '/'){ ?>selected<?php } ?> value="/">slash</option>
-				<option <?php if($core->getConfigVal('urlSeparator') == '_'){ ?>selected<?php } ?> value="_">underscore</option>
-      </select>
 </p>
   <p>
       <label>.htaccess</label><br>

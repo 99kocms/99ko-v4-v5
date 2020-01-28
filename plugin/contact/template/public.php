@@ -5,7 +5,7 @@ echo $runPlugin->getConfigVal('content1');
 ?>
 
 <?php show::msg($msg); ?>
-<form method="post" action="<?php echo $core->makeUrl('contact', array('action' => 'send')); ?>">
+<form method="post" action="<?php echo $runPlugin->getPublicUrl(); ?>send.html">
   <p>
     <label>Nom</label><br>
     <input style="display:none;" type="text" name="_name" value="" />
@@ -28,6 +28,7 @@ echo $runPlugin->getConfigVal('content1');
     <input type="checkbox" required="required" /> <?php echo $runPlugin->getConfigVal('acceptation'); ?>
   </p>
   <?php } ?>
+  <?php echo $antispamField; ?>
   <p>
     <input type="submit" value="Envoyer" />
   </p>

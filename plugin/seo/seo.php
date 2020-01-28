@@ -29,11 +29,19 @@ function seoEndFrontBody(){
     $facebook = $plugin->getConfigVal('facebook');
     $twitter = $plugin->getConfigVal('twitter');
     $youtube = $plugin->getConfigVal('youtube');
+    $instagram = $plugin->getConfigVal('instagram');
+    $pinterest = $plugin->getConfigVal('pinterest');
+    $linkedin = $plugin->getConfigVal('linkedin');
+    $viadeo = $plugin->getConfigVal('viadeo');
     if($facebook.$twitter != ''){
         echo '<div id="seo_social">';
         if($facebook != '') echo '<a target="_blank" href="'.$facebook.'">Facebook</a>';
         if($twitter != '') echo '<a target="_blank" href="'.$twitter.'">Twitter</a>';
         if($youtube != '') echo '<a target="_blank" href="'.$youtube.'">YouTube</a>';
+        if($instagram != '') echo '<a target="_blank" href="'.$instagram.'">Instagram</a>';
+        if($pinterest != '') echo '<a target="_blank" href="'.$pinterest.'">Pinterest</a>';
+        if($linkedin != '') echo '<a target="_blank" href="'.$linkedin.'">Linkedin</a>';
+        if($viadeo != '') echo '<a target="_blank" href="'.$viadeo.'">Viadeo</a>';
         echo '</div>';
     }
 }
