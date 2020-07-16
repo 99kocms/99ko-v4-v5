@@ -51,7 +51,7 @@ include_once(ROOT.'admin/header.php');
         <label>Confirmation</label><br>
         <input type="password" name="_adminPwd2" value="" autocomplete="off" />
   </p>
-    <h3>Configuration avançée</h3>
+    <h3>Configuration avancée</h3>
     <p>
       <input <?php if($core->getConfigVal('debug')){ ?>checked<?php } ?> type="checkbox" name="debug" /> <label for="debug">Mode débogage</label> 
 </p>

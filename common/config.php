@@ -12,7 +12,7 @@
  *
  */
 
-define('VERSION', '5.0');
+define('VERSION', '5.0.1');
 define('COMMON',  ROOT.'common/');
 define('DATA', ROOT.'data/');
 define('UPLOAD', ROOT.'data/upload/');

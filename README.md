@@ -8,7 +8,7 @@ Facebook : https://www.facebook.com/99ko-CMS-312292362919626/
 
 Twitter : https://twitter.com/99kocms
 
-Support : https://www.facebook.com/groups/130444474278984/
+Support : https://99ko.tuxfamily.org/forum/
 
 This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
