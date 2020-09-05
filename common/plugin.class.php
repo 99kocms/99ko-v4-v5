@@ -77,7 +77,7 @@ class plugin{
 		// Répertoir de sauvegarde des données internes du plugin
 		$this->dataPath = (is_dir(DATA_PLUGIN .$this->name)) ? DATA_PLUGIN .$this->name.'/' : false;
 		// Template public (peut etre le template par defaut ou un template présent dans le dossier du theme portant le nom du plugin)
-		if(file_exists('theme/'.$core->getConfigVal('theme').'/'.$this->name.'.php')) $this->publicTemplate = 'theme/'.$core->getConfigVal('theme').'/'.$this->name.'.php';
+		if(file_exists(THEMES.$core->getConfigVal('theme').'/'.$this->name.'.php')) $this->publicTemplate = THEMES.$core->getConfigVal('theme').'/'.$this->name.'.php';
 		elseif(file_exists(PLUGINS .$this->name.'/template/public.php')) $this->publicTemplate = PLUGINS .$this->name.'/template/public.php';
 		else $this->publicTemplate = false;
 		// Template admin
