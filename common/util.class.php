@@ -45,12 +45,13 @@ class util {
      * @param  string $add      Text to add after the content if truncated
      * @return string
      */
-    public static function cutStr($str, $length, $add = '...') {
+    public static function cutStr($str, $length, $add='...') {
+        $str = str_replace("<br />", "<br>", $str);
         $no_tags_content = strip_tags($str, '<p><br>');
         $no_tags_content = str_replace("<p>", "<br>", $no_tags_content);
         $no_tags_content = str_replace("</p>", "", $no_tags_content);
         if (strlen($no_tags_content) > $length) {
-            return substr($no_tags_content, 0, strpos($no_tags_content, ' ', $length)) . $add;
+            return substr($no_tags_content, 0, strpos($no_tags_content, ' ',$length)) . $add;
         } else {
             return $no_tags_content;
         }
