@@ -76,7 +76,8 @@ class show{
 		else{
 			$core = core::getInstance();
 			global $runPlugin;
-			echo $runPlugin->getTitleTag().' - '.$core->getConfigVal('siteName');
+			if(!$runPlugin) echo '404';
+			else echo $runPlugin->getTitleTag().' - '.$core->getConfigVal('siteName');
 		}
      }
 
@@ -86,7 +87,8 @@ class show{
 		else{
 			$core = core::getInstance();
 			global $runPlugin;
-			echo $runPlugin->getMetaDescriptionTag();
+			if(!$runPlugin) echo '404';
+			else echo $runPlugin->getMetaDescriptionTag();
 		}
      }
 
@@ -96,11 +98,15 @@ class show{
 		else{
 			$core = core::getInstance();
 			global $runPlugin;
-			if($core->getConfigVal('hideTitles') == 0 && $runPlugin->getMainTitle() != ''){
-				$data = $format;
-				$data = str_replace('[mainTitle]', $runPlugin->getMainTitle(), $data);
+			$data = $format;
+			if(!$runPlugin) $data = str_replace('[mainTitle]', '404', $data);
+			else{
+				if($core->getConfigVal('hideTitles') == 0 && $runPlugin->getMainTitle() != ''){
+					$data = $format;
+					$data = str_replace('[mainTitle]', $runPlugin->getMainTitle(), $data);
+				}
+				else $data = '';
 			}
-			else $data = '';
 			echo $data;
 		}
      }
@@ -180,7 +186,8 @@ class show{
 		else{
 			$core = core::getInstance();
 			global $runPlugin;
-			echo $runPlugin->getName();
+			if(!$runPlugin) echo '';
+			else echo $runPlugin->getName();
 		}
      }
 	

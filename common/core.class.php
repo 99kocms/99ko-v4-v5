@@ -138,10 +138,15 @@ class core{
     }
     
     ## Renvoi une page 404
-    public function error404(){
+    public function error404($mainTitle = '404'){
+            $core = $this;
+            global $runPlugin;
+            if($runPlugin) $runPlugin->setMainTitle('404');
             header("HTTP/1.1 404 Not Found");
             header("Status: 404 Not Found");
-            include_once(THEMES.$this->getConfigVal('theme').'/404.php');	
+            include_once(THEMES.$this->getConfigVal('theme').'/header.php');	
+            include_once(THEMES.$this->getConfigVal('theme').'/404.php');
+            include_once(THEMES.$this->getConfigVal('theme').'/footer.php');
             die();
     }
     
