@@ -1,4 +1,7 @@
 {
     "priority" : "2",
-    "label" : "Antspam"
+    "label" : "Antispam",
+    "type" : "useText",
+    "recaptchaPublicKey" : "",
+    "recaptchaSecretKey" : ""
 }
