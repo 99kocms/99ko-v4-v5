@@ -63,16 +63,16 @@ class textCaptcha {
         $sign = rand(0, 1);
         if ($second <= $first && $sign == 1) {
             $r = $numbers[$first] - $numbers[$second];
-            $o = "combien font " . $letters[$first] . " retranché(s) de " . $letters[$second] . " ?";
+            $o = "Combien font " . $letters[$first] . " retranché(s) de " . $letters[$second] . " ?";
         } elseif ($second <= $first && $sign == 0) {
             $r = $numbers[$first] - $numbers[$second];
-            $o = "combien font " . $letters[$first] . " moins " . $letters[$second] . " ?";
+            $o = "Combien font " . $letters[$first] . " moins " . $letters[$second] . " ?";
         } elseif ($second > $first && $sign == 1) {
             $r = $numbers[$first] + $numbers[$second];
-            $o = "combien font " . $letters[$first] . " ajouté(s) à " . $letters[$second] . " ?";
+            $o = "Combien font " . $letters[$first] . " ajouté(s) à " . $letters[$second] . " ?";
         } else {
             $r = $numbers[$first] + $numbers[$second];
-            $o = "combien font " . $letters[$first] . " plus " . $letters[$second] . " ?";
+            $o = "Combien font " . $letters[$first] . " plus " . $letters[$second] . " ?";
         }
         $this->operation = $o;
         $this->result = $r;
