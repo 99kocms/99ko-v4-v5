@@ -116,15 +116,33 @@ class core{
         $this->hooks[$name][] = $function;
     }
     
-    ## Appelle un hook
-    public function callHook($name){
-        $return = '';
-        if(isset($this->hooks[$name])){
-            foreach($this->hooks[$name] as $function){
-                $return.= call_user_func($function);
+    /**
+     * Permet d'appeler un hook
+     * Si un paramètre est fourni, celui-ci sera passé de fonction en fonction Hook de filtre).
+     * Sinon, la valeur de retour sera concaténé à chaque fonction (Hook d'action).
+     * 
+     * @param   string  Nom du hook
+     * @param   mixed   Paramètres
+     * @return  mixed
+     */
+    public function callHook($name, $params = null) {
+        if ($params === null) {
+            // Action
+            $return = '';
+            if (isset($this->hooks[$name])) {
+                foreach ($this->hooks[$name] as $function) {
+                    $return .= call_user_func($function);
+                }
+            }
+            return $return;
+        }
+        // Filter
+        if (isset($this->hooks[$name])) {
+            foreach ($this->hooks[$name] as $function) {
+                $params = call_user_func($function, $params);
             }
         }
-        return $return;
+        return $params;
     }
     
     ## Detecte le mode de l'administration
