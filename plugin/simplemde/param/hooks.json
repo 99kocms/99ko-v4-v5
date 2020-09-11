@@ -1,0 +1,6 @@
+{
+    "adminHead": "simplemdeAdminHead",
+    "endAdminBody": "simplemdeEndAdminBody",
+    "beforeGetPostContent" : "simplemdeBlogBeforeSaveContent",
+    "beforeDisplayEditor" : "simplemdeBlogBeforeEditContent"
+}

@@ -1,0 +1,11 @@
+.editor-toolbar.fullscreen {
+    z-index:15000;
+}
+
+#header {
+    z-index:9 !important;
+}
+
+#help_panel {
+    z-index: 8 !important;
+}
