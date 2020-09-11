@@ -20,6 +20,8 @@ include_once(COMMON.'core.class.php');
 include_once(COMMON.'pluginsManager.class.php');
 include_once(COMMON.'plugin.class.php');
 include_once(COMMON.'show.class.php');
+include_once(COMMON.'editor.class.php');
+
 $core = core::getInstance();
 if(!$core->isInstalled()){
 	header('location:' .ROOT. 'install.php');
