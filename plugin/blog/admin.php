@@ -5,6 +5,7 @@ $action = (isset($_GET['action'])) ? $_GET['action'] : '';
 $msg = (isset($_GET['msg'])) ? urldecode($_GET['msg']) : '';
 $msgType = (isset($_GET['msgType'])) ? $_GET['msgType'] : '';
 $newsManager = new newsManager();
+$editor = new editor('content', '', 'Contenu');
 
 switch($action){
 	case 'saveconf':
@@ -35,7 +36,8 @@ switch($action){
 			}
 			$news = ($_REQUEST['id']) ?  $newsManager->create($_REQUEST['id']) : new news();
 			$news->setName($_REQUEST['name']);
-			$news->setContent($_REQUEST['content']);
+                        $content = $editor->getPostContent();
+			$news->setContent($content);
 			$news->setDraft((isset($_POST['draft']) ? 1 : 0));
 			if(!isset($_REQUEST['date']) || $_REQUEST['date'] == "") $news->setDate($news->getDate());
 			else $news->setDate($_REQUEST['date']);
@@ -55,7 +57,12 @@ switch($action){
 		break;
 	case 'edit':
 		$mode = 'edit';
-		$news = (isset($_REQUEST['id'])) ?  $newsManager->create($_GET['id']) : new news();
+                if (isset($_REQUEST['id'])) {
+                    $news = $newsManager->create($_GET['id']);
+                    $editor->setContent($news->getContent());
+                } else {
+                    $news = new news();
+                }
 		$showDate = (isset($_REQUEST['id'])) ?  true : false;
 		break;
 	case 'del':

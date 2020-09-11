@@ -56,9 +56,8 @@ include_once(ROOT.'admin/header.php');
     </p>
   <?php } ?>
   
-  <p>
-      <label>Contenu</label><br>
-      <textarea name="content" class="editor"><?php echo $news->getContent(); ?></textarea>
+    <p>
+    <?php echo $editor; ?>
     </p>
 	
 	<?php if($pluginsManager->isActivePlugin('galerie')){ ?>
