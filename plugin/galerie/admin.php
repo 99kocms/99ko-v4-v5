@@ -67,4 +67,3 @@ switch($action){
 	default:
 		$mode = 'list';
 }
-?>

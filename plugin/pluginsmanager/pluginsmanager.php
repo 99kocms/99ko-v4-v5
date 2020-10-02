@@ -8,4 +8,3 @@ function pluginsmanagerInstall(){
 
 ## Hooks
 ## Code relatif au plugin
-?>

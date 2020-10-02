@@ -19,4 +19,3 @@ elseif($runPlugin->getPublicFile()){
 	include($runPlugin->getPublicFile());
 	include($runPlugin->getPublicTemplate());
 }
-?>

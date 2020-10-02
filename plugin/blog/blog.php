@@ -345,4 +345,3 @@ class newsComment{
 		return $this->content;
 	}
 }
-?>

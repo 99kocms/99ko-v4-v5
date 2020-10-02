@@ -201,4 +201,3 @@ class show{
 		if(file_exists($icon)) echo $icon;
 	}
 }
-?>

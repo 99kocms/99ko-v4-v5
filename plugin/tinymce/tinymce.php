@@ -25,4 +25,3 @@ function tinymceAdminHead(){
 }
 
 ## Code relatif au plugin
-?>

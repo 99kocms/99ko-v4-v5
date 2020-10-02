@@ -248,4 +248,3 @@ class plugin{
 		return false;
 	}
 }
-?>

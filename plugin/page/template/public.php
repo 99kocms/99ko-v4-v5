@@ -22,4 +22,3 @@ else{ ?>
 </form>
 <?php }
 include_once(THEMES.$core->getConfigVal('theme').'/footer.php');
-?>

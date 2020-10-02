@@ -334,4 +334,3 @@ function galerieResize($Wmax, $Hmax, $rep_Dst, $img_Dst, $rep_Src, $img_Src){
  if ($condition == 1 && file_exists($rep_Dst.$img_Dst)) { return true; }
  else { return false; }
 }
-?>

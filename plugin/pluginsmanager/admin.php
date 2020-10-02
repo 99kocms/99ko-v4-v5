@@ -49,4 +49,3 @@ switch($action){
 		die();
 		break;
 }
-?>

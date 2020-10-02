@@ -114,4 +114,3 @@ Lien de confirmation : ".$core->getConfigVal('siteUrl')."/admin/index.php?action
     }
 
 }
-?>

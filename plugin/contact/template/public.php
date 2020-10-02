@@ -37,4 +37,3 @@ echo $runPlugin->getConfigVal('content1');
 <?php
 echo $runPlugin->getConfigVal('content2');
 include_once(ROOT.'theme/'.$core->getConfigVal('theme').'/footer.php');
-?>
