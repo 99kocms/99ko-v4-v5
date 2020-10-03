@@ -29,4 +29,3 @@ $acceptation = (trim($runPlugin->getConfigVal('acceptation')) != '') ? true : fa
 $runPlugin->setMainTitle($runPlugin->getConfigVal('label'));
 $runPlugin->setTitleTag($runPlugin->getConfigVal('label'));
 $antispamField = ($antispam) ? $antispam->show() : '';
-?>

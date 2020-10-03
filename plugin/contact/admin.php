@@ -24,4 +24,3 @@ switch($action){
         $emails = implode("\n", util::readJsonFile(DATA_PLUGIN.'contact/emails.json'));
         break;
 }
-?>

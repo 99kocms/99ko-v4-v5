@@ -45,4 +45,3 @@ function seoEndFrontBody(){
         echo '</div>';
     }
 }
-?>

@@ -34,4 +34,3 @@ switch($action){
             $runPlugin->setMainTitle('Accès restreint');
         }
 }
-?>

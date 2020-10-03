@@ -58,4 +58,3 @@ elseif($core->detectAdminMode() == 'plugin'){
 	include($runPlugin->getAdminFile());
 	if(!is_array($runPlugin->getAdminTemplate())) include($runPlugin->getAdminTemplate());
 }
-?>

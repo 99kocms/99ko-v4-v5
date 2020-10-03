@@ -446,4 +446,3 @@ class pageItem{
 		else return 'plugin';
 	}
 }
-?>

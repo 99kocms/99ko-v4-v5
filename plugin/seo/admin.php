@@ -27,4 +27,3 @@ switch($action){
 		break;
 	default:
 }
-?>

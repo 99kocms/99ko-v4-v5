@@ -107,4 +107,3 @@ switch($action){
 		if(!$page->createHomepage()) $msg = "Aucune page d'accueil définie";
 		$mode = 'list';
 }
-?>

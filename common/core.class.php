@@ -198,4 +198,3 @@ class core{
         @file_put_contents(ROOT.'.htaccess', $content);
     }
 }
-?>

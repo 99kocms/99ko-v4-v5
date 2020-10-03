@@ -37,4 +37,3 @@ function contactSend(){
 	if(util::isEmail($runPlugin->getConfigVal('copy'))) util::sendEmail($from, $reply, $runPlugin->getConfigVal('copy'), $subject, $msg);
 	return util::sendEmail($from, $reply, $to, $subject, $msg);
 }
-?>

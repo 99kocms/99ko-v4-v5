@@ -36,4 +36,3 @@ foreach($pluginsManager->getPlugins() as $plugin){
 }
 ## $runPLugin représente le plugin en cours d'execution et s'utilise avec la classe plugin & pluginsManager
 $runPlugin = $pluginsManager->getPlugin($core->getPluginToCall());
-?>

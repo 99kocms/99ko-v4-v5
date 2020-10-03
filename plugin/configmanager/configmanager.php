@@ -8,4 +8,3 @@ function configmanagerInstall(){
 
 ## Hooks
 ## Code relatif au plugin
-?>

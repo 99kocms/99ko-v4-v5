@@ -92,4 +92,3 @@ switch($action){
 	default:
 		$core->error404();
 }
-?>
