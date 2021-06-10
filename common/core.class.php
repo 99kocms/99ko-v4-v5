@@ -7,6 +7,7 @@
  * Jonathan (j.coulet@gmail.com)
  * 
  * Contributors :
+ * Maxence Cauderlier (mx.koder@gmail.com)
  * Frédéric Kaplon (frederic.kaplon@me.com)
  * Florent Fortat (florent.fortat@maxgun.fr)
  *
@@ -159,7 +160,7 @@ class core{
     public function error404($mainTitle = '404'){
             $core = $this;
             global $runPlugin;
-            if($runPlugin) $runPlugin->setMainTitle('404');
+            if($runPlugin) $runPlugin->setMainTitle('Oups...');
             header("HTTP/1.1 404 Not Found");
             header("Status: 404 Not Found");
             include_once(THEMES.$this->getConfigVal('theme').'/header.php');	

@@ -28,9 +28,10 @@ include_once(ROOT . 'admin/header.php');
         <input <?php if ($runPlugin->getConfigVal('type') === 'useText') { ?>checked<?php } ?> type="radio" name="captcha" value="useText" id="radioText"/> Utiliser un captcha texte
     </p>
     <p>
-        <input <?php if ($runPlugin->getConfigVal('type') === 'useRecaptcha') { ?>checked<?php } ?> type="radio" name="captcha" id="radioRecaptcha" value="useRecaptcha" /> Utiliser ReCaptcha de Google
+        <input <?php if ($runPlugin->getConfigVal('type') === 'useRecaptcha') { ?>checked<?php } ?> type="radio" name="captcha" id="radioRecaptcha" value="useRecaptcha" /> Utiliser ReCaptcha de Google (<a href="https://www.google.com/recaptcha/admin/create" target="_blank">inscription</a>)
     </p>
     <div id="useRecaptcha">
+        <h3>Configuration</h3>
         <p>
             <label>Clé du site (clé publique)</label><br>
             <input type="text" required="required" name="recaptchaPublicKey" value="<?php echo $runPlugin->getConfigVal('recaptchaPublicKey'); ?>" />
@@ -40,7 +41,9 @@ include_once(ROOT . 'admin/header.php');
             <input type="text" required="required" name="recaptchaSecretKey" value="<?php echo $runPlugin->getConfigVal('recaptchaSecretKey'); ?>" />
         </p>
     </div>
-    <p><button type="submit" class="button">Enregistrer</button></p>
+    <p> 
+        <button type="submit" class="button">Enregistrer</button>
+    </p>
 </form>
 
 <?php include_once(ROOT . 'admin/footer.php'); ?>

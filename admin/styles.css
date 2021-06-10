@@ -292,11 +292,11 @@ ul.tabs a, ul.tabs_style a{
 /* MOBILE */
 
 @media only screen and (max-width: 960px){
-    
+
     body, input[type=text], input[type=email], input[type=password], input[type=url], input[type=number], input[type=date], textarea, input[type=submit], input[type=button], button, .button{
         font-size: 12px !important;
     }
-    
+
     input[type=submit], input[type=button], button, .button{
         clear: both;
         display: block;
@@ -304,21 +304,25 @@ ul.tabs a, ul.tabs_style a{
         width: 100%;
         text-align: center;
     }
-    
+
     #header li{
         display: none;
     }
-    
+
     #header li:first-child{
         display: block;
     }
-    
+
     #navigation li.site{
         display: block;
     }
-    
+
     #param_panel, #help_panel{
         max-width: 400px;
+    }
+
+    body.login {
+        margin: 40px 0;
     }
 
 }
