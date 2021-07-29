@@ -160,7 +160,7 @@ class core{
     public function error404($mainTitle = '404'){
             $core = $this;
             global $runPlugin;
-            if($runPlugin) $runPlugin->setMainTitle('Oups...');
+            if($runPlugin) $runPlugin->setMainTitle('Error 404 :(');
             header("HTTP/1.1 404 Not Found");
             header("Status: 404 Not Found");
             include_once(THEMES.$this->getConfigVal('theme').'/header.php');	
