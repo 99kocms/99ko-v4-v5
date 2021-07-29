@@ -1,6 +1,6 @@
 <?php
 defined('ROOT') OR exit('No direct script access allowed');
-include_once(ROOT . 'admin/header.php');
+include_once(ROOT.'admin/header.php');
 ?>
 
 <form method="post" action="index.php?p=contact&action=save">
@@ -19,9 +19,6 @@ include_once(ROOT . 'admin/header.php');
     <p>
         <textarea readonly="readonly"><?php echo $emails; ?></textarea>
     </p>
-
-    <a href="index.php?p=contact&action=emptymails&token=<?php echo administrator::getToken(); ?>" class="button alert"
-       onclick="return(confirm('Êtes-vous sûr de vouloir vider la base des adresses mail collectées ?'));">Supprimer la base</a> 
 </form>
 
-<?php include_once(ROOT . 'admin/footer.php'); ?>
+<?php include_once(ROOT.'admin/footer.php'); ?>

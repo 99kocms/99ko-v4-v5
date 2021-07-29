@@ -20,14 +20,6 @@ switch($action){
             die();
         }
         break;
-    case 'emptymails':
-        if($administrator->isAuthorized()){
-            util::writeJsonFile(DATA_PLUGIN.'contact/emails.json', []);
-            $msg = "La base des emails a été vidée";
-            header('location:index.php?p=contact&msg='.urlencode($msg));
-            die();
-        }
-        break;
     default;
         $emails = implode("\n", util::readJsonFile(DATA_PLUGIN.'contact/emails.json'));
         break;

@@ -44,10 +44,6 @@ include_once(ROOT.'admin/header.php');
       <input placeholder="" type="text" name="viadeo" value="<?php echo $runPlugin->getConfigVal('viadeo'); ?>" />
   </p>
 	<p>
-      <label>GitHub</label><br>
-      <input placeholder="" type="text" name="github" value="<?php echo $runPlugin->getConfigVal('github'); ?>" />
-  </p>
-	<p>
       <button type="submit" class="button">Enregistrer</button>
   </p>
 </form>

@@ -14,10 +14,6 @@ $(document).ready(function () {
 	$('#open_nav').click(function(){
 		if($('#sidebar').css('display') == 'none'){
 			$('#sidebar').fadeIn();
-			$('#param_link').removeClass('active');
-			$('#param_panel').hide();
-			$('#help_link').removeClass('active');
-			$('#help_panel').hide();
 		}
 		else{
 			$('#sidebar').hide();
@@ -26,11 +22,9 @@ $(document).ready(function () {
 	// param
 	$('#param_link').click(function(){
 		if($('#param_panel').css('display') == 'none'){
-			$('#help_link').removeClass('active');
 			$('#param_link').addClass('active');
 			$('#help_panel').hide();
 			$('#param_panel').fadeIn();
-			$('#sidebar').hide();
 		}
 		else{
 			$('#param_link').removeClass('active');
@@ -40,11 +34,9 @@ $(document).ready(function () {
 	// help
 	$('#help_link').click(function(){
 		if($('#help_panel').css('display') == 'none'){
-			$('#param_link').removeClass('active');
 			$('#help_link').addClass('active');
 			$('#param_panel').hide();
 			$('#help_panel').fadeIn();
-			$('#sidebar').hide();
 		}
 		else{
 			$('#help_link').removeClass('active');

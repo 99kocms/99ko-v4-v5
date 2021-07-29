@@ -7,7 +7,6 @@
  * Jonathan (j.coulet@gmail.com)
  * 
  * Contributors :
- * Maxence Cauderlier (mx.koder@gmail.com)
  * Frédéric Kaplon (frederic.kaplon@me.com)
  * Florent Fortat (florent.fortat@maxgun.fr)
  *

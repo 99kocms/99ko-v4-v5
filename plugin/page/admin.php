@@ -104,7 +104,7 @@ switch($action){
 			if(!in_array($v->getParent(), $parents)) $lost.= $v->getId().',';
 		}
 		// Suite...
-		if(!$page->createHomepage() && $pluginsManager->getPlugin('page')->getIsDefaultPlugin()) $msg = "Aucune page d'accueil définie";
+		if(!$page->createHomepage()) $msg = "Aucune page d'accueil définie";
 		$mode = 'list';
 }
 ?>

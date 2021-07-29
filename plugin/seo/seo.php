@@ -33,7 +33,6 @@ function seoEndFrontBody(){
     $pinterest = $plugin->getConfigVal('pinterest');
     $linkedin = $plugin->getConfigVal('linkedin');
     $viadeo = $plugin->getConfigVal('viadeo');
-    $github = $plugin->getConfigVal('github');
     if($facebook.$twitter != ''){
         echo '<div id="seo_social">';
         if($facebook != '') echo '<a target="_blank" href="'.$facebook.'">Facebook</a>';
@@ -43,7 +42,6 @@ function seoEndFrontBody(){
         if($pinterest != '') echo '<a target="_blank" href="'.$pinterest.'">Pinterest</a>';
         if($linkedin != '') echo '<a target="_blank" href="'.$linkedin.'">Linkedin</a>';
         if($viadeo != '') echo '<a target="_blank" href="'.$viadeo.'">Viadeo</a>';
-        if($github != '') echo '<a target="_blank" href="'.$github.'">GitHub</a>';
         echo '</div>';
     }
 }

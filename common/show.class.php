@@ -7,7 +7,6 @@
  * Jonathan (j.coulet@gmail.com)
  * 
  * Contributors :
- * Maxence Cauderlier (mx.koder@gmail.com)
  * Frédéric Kaplon (frederic.kaplon@me.com)
  * Florent Fortat (florent.fortat@maxgun.fr)
  *
@@ -19,7 +18,7 @@ class show{
     
      ## Affiche un message d'alerte (admin + theme)
      public static function msg($msg){
-		if(function_exists('msg')) call_user_func('msg', $msg);
+		if(function_exists('msg')) call_user_func('msg');
 		else{
 			$core = core::getInstance();
 			if(ROOT == './'){
@@ -77,8 +76,7 @@ class show{
 		else{
 			$core = core::getInstance();
 			global $runPlugin;
-			if(!$runPlugin) echo '404';
-			else echo $runPlugin->getTitleTag().' - '.$core->getConfigVal('siteName');
+			echo $runPlugin->getTitleTag().' - '.$core->getConfigVal('siteName');
 		}
      }
 
@@ -88,26 +86,21 @@ class show{
 		else{
 			$core = core::getInstance();
 			global $runPlugin;
-			if(!$runPlugin) echo '404';
-			else echo $runPlugin->getMetaDescriptionTag();
+			echo $runPlugin->getMetaDescriptionTag();
 		}
      }
 
      ## Affiche le titre de page (theme)
      public static function mainTitle($format = '<h1>[mainTitle]</h1>'){
-		if(function_exists('mainTitle')) call_user_func('mainTitle', $format);
+		if(function_exists('mainTitle')) call_user_func('mainTitle');
 		else{
 			$core = core::getInstance();
 			global $runPlugin;
-			$data = $format;
-			if(!$runPlugin) $data = str_replace('[mainTitle]', '404', $data);
-			else{
-				if($core->getConfigVal('hideTitles') == 0 && $runPlugin->getMainTitle() != ''){
-					$data = $format;
-					$data = str_replace('[mainTitle]', $runPlugin->getMainTitle(), $data);
-				}
-				else $data = '';
+			if($core->getConfigVal('hideTitles') == 0 && $runPlugin->getMainTitle() != ''){
+				$data = $format;
+				$data = str_replace('[mainTitle]', $runPlugin->getMainTitle(), $data);
 			}
+			else $data = '';
 			echo $data;
 		}
      }
@@ -132,7 +125,7 @@ class show{
 
      ## Affiche la navigation principale (theme)
      public static function mainNavigation($format = '<li><a class="[cssClass]" href="[target]" target="[targetAttribut]">[label]</a>[childrens]</li>'){
-		if(function_exists('mainNavigation')) call_user_func('mainNavigation', $format);
+		if(function_exists('mainNavigation')) call_user_func('mainNavigation');
 		else{
 			$pluginsManager = pluginsManager::getInstance();
 			$core = core::getInstance();
@@ -164,13 +157,13 @@ class show{
 					}
 				}
 			}
-			echo $data;
 		}
+     	echo $data;
      }
 
      ## Affiche le theme courant (theme)
      public static function theme($format = '<a target="_blank" href="[authorWebsite]">[name]</a>'){
-		if(function_exists('theme')) call_user_func('theme', $format);
+		if(function_exists('theme')) call_user_func('theme');
 		else{
 			$core = core::getInstance();
 			$data = $format;
@@ -187,8 +180,7 @@ class show{
 		else{
 			$core = core::getInstance();
 			global $runPlugin;
-			if(!$runPlugin) echo '';
-			else echo $runPlugin->getName();
+			echo $runPlugin->getName();
 		}
      }
 	

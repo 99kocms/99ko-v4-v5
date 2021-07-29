@@ -1,7 +1,7 @@
 <h3>Ne pas afficher dans le menu</h3>
 <p>Permet de ne pas afficher d'item dans le menu, pour créer une page profonde ou ne pas la publier tout de suite, par exemple.</p>
 <h3>Item parent</h3>
-<p>Permet de placer l'item actuel dans un parent en tant que sous menu de ce parent.</p>
+<p>Permet de placer l'item dans un tant que sous menu de son parent.</p>
 <h3>Classe CSS</h3>
 <p>Ajoute la classe CSS spécifiée à l'item du menu.</p>
 <h3>Position</h3>

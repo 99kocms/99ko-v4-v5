@@ -31,14 +31,14 @@ function pageInstall(){
 
 function pageEndFrontHead(){
 	global $runPlugin;
-	if($runPlugin && $runPlugin->getName() == 'page'){
+	if($runPlugin->getName() == 'page'){
 		global $pageItem;
-		if($pageItem && $pageItem->getNoIndex()){
+		if($pageItem->getNoIndex()){
 			echo '<meta name="robots" content="noindex"><meta name="googlebot" content="noindex">';
 		}
 		$core = core::getInstance();
 		$pluginsManager = pluginsManager::getInstance();
-		if($pageItem && $pluginsManager->isActivePlugin('galerie') && galerie::searchByfileName($pageItem->getImg())) echo '<meta property="og:image" content="'.$core->getConfigVal('siteUrl').'/'.str_replace('./', '', UPLOAD).'galerie/'.$pageItem->getImg().'" />';
+		if($pluginsManager->isActivePlugin('galerie') && galerie::searchByfileName($pageItem->getImg())) echo '<meta property="og:image" content="'.$core->getConfigVal('siteUrl').'/'.str_replace('./', '', UPLOAD).'galerie/'.$pageItem->getImg().'" />';
 	}
 }
 

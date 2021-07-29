@@ -13,7 +13,6 @@ switch($action){
 			$runPlugin->setConfigVal('pinterest', trim($_POST['pinterest']));
 			$runPlugin->setConfigVal('linkedin', trim($_POST['linkedin']));
 			$runPlugin->setConfigVal('viadeo', trim($_POST['viadeo']));
-			$runPlugin->setConfigVal('github', trim($_POST['github']));
             if($pluginsManager->savePluginConfig($runPlugin)){
                 $msg = "Les modifications ont été enregistrées";
 				$msgType = 'success';

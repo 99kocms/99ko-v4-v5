@@ -18,7 +18,7 @@
 		<h2>
 			<a href="<?php echo $v['url']; ?>"><?php echo $v['name']; ?></a>
 		</h2>
-		<p class="date"><?php echo $v['date']; ?><?php if($runPlugin->getConfigVal('comments') && !$v['commentsOff']){ ?> | <?php echo $newsManager->countComments($v['id']); ?> commentaire<?php if ($newsManager->countComments($v['id']) > 1) echo 's' ?><?php } ?></p>
+		<p class="date"><?php echo $v['date']; ?><?php if($runPlugin->getConfigVal('comments') && !$v->getCommentsOff()){ ?> | <?php echo $newsManager->countComments($v['id']); ?> commentaire<?php if ($newsManager->countComments($v['id']) > 1) echo 's' ?><?php } ?></p>
 		<?php } ?>
 	</li>
 	<?php } ?>

@@ -45,7 +45,7 @@ include_once(ROOT.'admin/header.php');
     <p>
         <label>Mot de passe admin</label><br>
         <input type="password" name="adminPwd" value="" autocomplete="off" style="display: none;" />
-        <input type="password" name="_adminPwd" value="" autocomplete="new-password" />
+        <input type="password" name="_adminPwd" value="" autocomplete="off" />
   </p>
     <p>
         <label>Confirmation</label><br>

@@ -1,137 +1,35 @@
 <?php
-defined('ROOT') OR exit('No direct script access allowed');
+defined('ROOT') OR exit('No pagesFileect script access allowed');
 
 ## Fonction d'installation
 
-function antispamInstall() {
-    
+function antispamInstall(){
 }
 
 ## Hooks
 
 ## Code relatif au plugin
 
-class antispam {
-
-    protected $captcha;
-
-    public function __construct() {
-        $pluginManager = pluginsManager::getInstance();
-        $typeCaptcha = $pluginManager->getPluginConfVal('antispam', 'type');
-        if ($typeCaptcha === 'useText') {
-            // UseText lib
-            $this->captcha = new textCaptcha();
-        } elseif ($typeCaptcha === 'useRecaptcha') {
-            // ReCaptcha lib
-            $public = $pluginManager->getPluginConfVal('antispam', 'recaptchaPublicKey');
-            $secret = $pluginManager->getPluginConfVal('antispam', 'recaptchaSecretKey');
-            $this->captcha = new reCaptcha($public, $secret);
-        }
+class antispam{
+    private $operation;
+    private $result;
+    
+    public function __construct(){
+        $a = rand(1, 9);
+        $b = rand(1, 9);
+        //$op = '+';
+        $this->result = $a + $b;
+        $this->operation = $a." + ".$b." ?";
     }
-
-    public function show() {
-        return $this->captcha->getText();
-    }
-
-    public function isValid() {
-        return $this->captcha->isValid();
-    }
-
-}
-
-class textCaptcha {
-
-    protected $operation;
-    protected $result;
-
-    public function getText() {
-        if (!isset($this->operation)) {
-            $this->generate();
-        }
-        return '<p><label>' . $this->operation . ' (en chiffres)</label><br><input required="required" type="text" name="antispam" value="" /></p>';
-    }
-
-    public function isValid() {
-        return (isset($_SESSION['antispam_result']) && isset($_POST['antispam']) && $_SESSION['antispam_result'] === sha1($_POST['antispam']));
-    }
-
-    protected function generate() {
-        $numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-        $letters = ["zéro", "un", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf", "dix", "onze", "douze"];
-        $first = rand(0, count($numbers) - 1);
-        $second = rand(0, count($numbers) - 1);
-        $sign = rand(0, 1);
-        if ($second <= $first && $sign == 1) {
-            $r = $numbers[$first] - $numbers[$second];
-            $o = "Combien font " . $letters[$first] . " retranché(s) de " . $letters[$second] . " ?";
-        } elseif ($second <= $first && $sign == 0) {
-            $r = $numbers[$first] - $numbers[$second];
-            $o = "Combien font " . $letters[$first] . " moins " . $letters[$second] . " ?";
-        } elseif ($second > $first && $sign == 1) {
-            $r = $numbers[$first] + $numbers[$second];
-            $o = "Combien font " . $letters[$first] . " ajouté(s) à " . $letters[$second] . " ?";
-        } else {
-            $r = $numbers[$first] + $numbers[$second];
-            $o = "Combien font " . $letters[$first] . " plus " . $letters[$second] . " ?";
-        }
-        $this->operation = $o;
-        $this->result = $r;
+    
+    public function show(){
         $_SESSION['antispam_result'] = sha1($this->result);
+        return '<p><label>'.$this->operation.'</label><br><input required="required" type="text" name="antispam" value="" /></p>';
     }
-
-}
-
-class reCaptcha {
-
-    protected $publicKey;
-    protected $secretKey;
-
-    public function __construct($publicKey, $secretKey) {
-        $this->publicKey = $publicKey;
-        $this->secretKey = $secretKey;
-    }
-
-    public function getText() {
-        $input = '<input type="hidden" id="recaptchaResponse" name="recaptcha-response">';
-        $script = '<script src="https://www.google.com/recaptcha/api.js?render=' . $this->publicKey . '"></script>';
-        $script .= '<script>grecaptcha.ready(function() {';
-        $script .= "grecaptcha.execute('" . $this->publicKey . "', {action: 'homepage'}).then(function(token) {";
-        $script .= "document.getElementById('recaptchaResponse').value = token;";
-        $script .= "});});</script>";
-        $infos = '<p>Protection par ReCaptcha. <a href="https://www.google.com/intl/fr/policies/privacy/">Confidentialité</a>'
-                . ' - <a href="https://www.google.com/intl/fr/policies/terms/">Conditions</a></p>';
-        return $input . $infos . $script;
-    }
-
-    public function isValid() {
-        if (!isset($_POST['recaptcha-response']) || empty($_POST['recaptcha-response'])) {
-            // Captcha not set or empty
-            return false;
-        }
-        $url = "https://www.google.com/recaptcha/api/siteverify?secret="
-                . $this->secretKey . "&response=" . $_POST['recaptcha-response'];
-        // Verify that CURL is available
-        if (function_exists('curl_version')) {
-            $curl = curl_init($url);
-            curl_setopt($curl, CURLOPT_HEADER, false);
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($curl, CURLOPT_TIMEOUT, 1);
-            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-            $response = curl_exec($curl);
-        } else {
-            // Use file_get_contents
-            $response = file_get_contents($url);
-        }
-        if (empty($response) || is_null($response)) {
-            // Bad config or no response by API
-            return false;
-        }
-        $data = json_decode($response);
-        if ($data->success) {
-            // Captcha is OK
-            return true;
-        }
+    
+    public function isValid(){
+        if($_SESSION['antispam_result'] == sha1($_POST['antispam'])) return true;
         return false;
     }
-
 }
+?>
