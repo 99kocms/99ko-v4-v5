@@ -7,6 +7,7 @@
  * Jonathan (j.coulet@gmail.com)
  * 
  * Contributors :
+ * Maxence Cauderlier (mx.koder@gmail.com)
  * Frédéric Kaplon (frederic.kaplon@me.com)
  * Florent Fortat (florent.fortat@maxgun.fr)
  *
@@ -116,15 +117,33 @@ class core{
         $this->hooks[$name][] = $function;
     }
     
-    ## Appelle un hook
-    public function callHook($name){
-        $return = '';
-        if(isset($this->hooks[$name])){
-            foreach($this->hooks[$name] as $function){
-                $return.= call_user_func($function);
+    /**
+     * Permet d'appeler un hook
+     * Si un paramètre est fourni, celui-ci sera passé de fonction en fonction Hook de filtre).
+     * Sinon, la valeur de retour sera concaténé à chaque fonction (Hook d'action).
+     * 
+     * @param   string  Nom du hook
+     * @param   mixed   Paramètres
+     * @return  mixed
+     */
+    public function callHook($name, $params = null) {
+        if ($params === null) {
+            // Action
+            $return = '';
+            if (isset($this->hooks[$name])) {
+                foreach ($this->hooks[$name] as $function) {
+                    $return .= call_user_func($function);
+                }
+            }
+            return $return;
+        }
+        // Filter
+        if (isset($this->hooks[$name])) {
+            foreach ($this->hooks[$name] as $function) {
+                $params = call_user_func($function, $params);
             }
         }
-        return $return;
+        return $params;
     }
     
     ## Detecte le mode de l'administration
@@ -138,10 +157,15 @@ class core{
     }
     
     ## Renvoi une page 404
-    public function error404(){
+    public function error404($mainTitle = '404'){
+            $core = $this;
+            global $runPlugin;
+            if($runPlugin) $runPlugin->setMainTitle('Error 404 :(');
             header("HTTP/1.1 404 Not Found");
             header("Status: 404 Not Found");
-            include_once(THEMES.$this->getConfigVal('theme').'/404.php');	
+            include_once(THEMES.$this->getConfigVal('theme').'/header.php');	
+            include_once(THEMES.$this->getConfigVal('theme').'/404.php');
+            include_once(THEMES.$this->getConfigVal('theme').'/footer.php');
             die();
     }
     
@@ -165,7 +189,7 @@ class core{
         @chmod(ROOT.'.htaccess', 0666);
         if(!file_exists(ROOT.'.htaccess')){
             $rewriteBase = str_replace(array('index.php', 'install.php', 'admin/'), '', $_SERVER['PHP_SELF']);
-            $temp = "Options -Indexes\nOptions +FollowSymlinks\nRewriteEngine On\nRewriteBase ".$rewriteBase."\nRewriteRule ^admin/$  admin/ [L]\nRewriteRule ^([a-z-0-9_]+)/$  index.php?p=$1 [L]";
+            $temp = "Options -Indexes\nOptions +FollowSymlinks\nRewriteEngine On\nRewriteBase ".$rewriteBase."\nRewriteRule ^admin/$  admin/ [L]\nRewriteRule ^([a-z-0-9_]+)/$  index.php?p=$1 [L]\nErrorDocument 404 /index.php?p=404";
             if(!@file_put_contents(ROOT.'.htaccess', $temp, 0666)) $install = false;
         }
         if(!is_dir(DATA) && (!@mkdir(DATA) || !@chmod(DATA, 0777))) $install = false;

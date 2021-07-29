@@ -19,10 +19,10 @@ function blogEndFrontHead(){
 	global $runPlugin;
 	$core = core::getInstance();
     echo '<link rel="alternate" type="application/rss+xml" href="'.$core->getConfigVal('siteUrl').'/blog/rss.html" title="'.$core->getConfigVal('siteName').'">'."\n";
-	if($runPlugin->getName() == 'blog' && isset($_GET['id'])){
+	if($runPlugin && $runPlugin->getName() == 'blog' && isset($_GET['id'])){
 		global $item;
 		$pluginsManager = pluginsManager::getInstance();
-		if($pluginsManager->isActivePlugin('galerie') && galerie::searchByfileName($item->getImg())) echo '<meta property="og:image" content="'.$core->getConfigVal('siteUrl').'/'.str_replace('./', '', UPLOAD).'galerie/'.$item->getImg().'" />';
+		if($item && $pluginsManager->isActivePlugin('galerie') && galerie::searchByfileName($item->getImg())) echo '<meta property="og:image" content="'.$core->getConfigVal('siteUrl').'/'.str_replace('./', '', UPLOAD).'galerie/'.$item->getImg().'" />';
 	}
 }
 

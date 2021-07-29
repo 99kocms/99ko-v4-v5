@@ -7,6 +7,7 @@
  * Jonathan (j.coulet@gmail.com)
  * 
  * Contributors :
+ * Maxence Cauderlier (mx.koder@gmail.com)
  * Frédéric Kaplon (frederic.kaplon@me.com)
  * Florent Fortat (florent.fortat@maxgun.fr)
  *
@@ -26,8 +27,7 @@ $core = core::getInstance();
 $administrator = new administrator();
 $pluginsManager = pluginsManager::getInstance();
 $msg = "La version minimale de PHP requise est la 5.6, vous disposez de la ".substr(phpversion(), 0, 3)." !
-Le module Apache mod_rewrite doit être présent et actif, veuillez vérifier ce point avant de poursuivre l'installation.
-Après l'installation, vous serez redirigé vers la page d'identification afin de paramétrer votre site.";
+Le module Apache mod_rewrite doit être présent et actif, veuillez vérifier ce point avant de poursuivre l'installation.";
 if($core->install()){
 	$plugins = $pluginsManager->getPlugins();
 	if($plugins != false){
