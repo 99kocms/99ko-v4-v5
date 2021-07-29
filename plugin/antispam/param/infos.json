@@ -1,0 +1,7 @@
+{
+    "name" : "Antispam",
+    "description" : "Protège vos formulaires des robots spammeurs",
+    "authorEmail" : "mx.koder@gmail.com",
+    "authorWebsite" : "https://maxkoder.fr",
+    "version" : "2.0"
+}
