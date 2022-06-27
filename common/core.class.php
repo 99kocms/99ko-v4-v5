@@ -32,7 +32,7 @@ class core{
         // Exemple : array('siteName' => 'val', 'siteUrl' => 'val2')
         $this->config = util::readJsonFile(DATA.'config.json', true);
         // Réglage de l'error reporting suivant le paramètre debug
-        if($this->config['debug']){
+        if ($this->config && $this->config['debug']){
             ini_set('display_errors', 1); 
             error_reporting(E_ALL);
         }
