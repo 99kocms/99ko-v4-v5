@@ -48,8 +48,8 @@ class pluginsManager{
 	## Installe un plugin ciblé
 	public function installPlugin($name, $activate = false){
 		// Création du dossier data
-		@mkdir(DATA_PLUGIN .$name.'/', 0777);
-		@chmod(DATA_PLUGIN .$name.'/', 0777);
+		@mkdir(DATA_PLUGIN .$name.'/', 0644);
+		@chmod(DATA_PLUGIN .$name.'/', 0644);
 		// Lecture du fichier config usine
 		$config = util::readJsonFile(PLUGINS .$name.'/param/config.json');
 		// Par défaut le plugin est inactif
@@ -57,7 +57,7 @@ class pluginsManager{
 		else $config['activate'] = "0";
 		// Création du fichier config
 		@util::writeJsonFile(DATA_PLUGIN .$name.'/config.json', $config);
-		@chmod(DATA_PLUGIN .$name.'/config.json', 0666);
+		@chmod(DATA_PLUGIN .$name.'/config.json', 0644);
 		// Appel de la fonction d'installation du plugin
 		if(function_exists($name.'Install')) call_user_func($name.'Install');
 		// Check du fichier config
