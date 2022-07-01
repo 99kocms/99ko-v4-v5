@@ -32,7 +32,7 @@ class core{
         // Exemple : array('siteName' => 'val', 'siteUrl' => 'val2')
         $this->config = util::readJsonFile(DATA.'config.json', true);
         // Réglage de l'error reporting suivant le paramètre debug
-        if($this->config['debug']){
+        if ($this->config && $this->config['debug']){
             ini_set('display_errors', 1); 
             error_reporting(E_ALL);
         }
@@ -186,25 +186,25 @@ class core{
     ## Installation de 99ko
     public function install(){
         $install = true;
-        @chmod(ROOT.'.htaccess', 0666);
+        @chmod(ROOT.'.htaccess', 0604);
         if(!file_exists(ROOT.'.htaccess')){
             $rewriteBase = str_replace(array('index.php', 'install.php', 'admin/'), '', $_SERVER['PHP_SELF']);
             $temp = "Options -Indexes\nOptions +FollowSymlinks\nRewriteEngine On\nRewriteBase ".$rewriteBase."\nRewriteRule ^admin/$  admin/ [L]\nRewriteRule ^([a-z-0-9_]+)/$  index.php?p=$1 [L]\nErrorDocument 404 /index.php?p=404";
-            if(!@file_put_contents(ROOT.'.htaccess', $temp, 0666)) $install = false;
+            if(!@file_put_contents(ROOT.'.htaccess', $temp, 0604)) $install = false;
         }
-        if(!is_dir(DATA) && (!@mkdir(DATA) || !@chmod(DATA, 0777))) $install = false;
+        if(!is_dir(DATA) && (!@mkdir(DATA) || !@chmod(DATA, 0644))) $install = false;
         if($install){
             if(!file_exists(DATA. '.htaccess')){
-                if(!@file_put_contents(DATA. '.htaccess', "deny from all", 0666)) $install = false;
+                if(!@file_put_contents(DATA. '.htaccess', "deny from all", 0604)) $install = false;
             }
-            if(!is_dir(DATA_PLUGIN) && (!@mkdir(DATA_PLUGIN) || !@chmod(DATA_PLUGIN, 0777))) $install = false;
-            if(!is_dir(UPLOAD) && (!@mkdir(UPLOAD) || !@chmod(UPLOAD, 0777))) $install = false;
+            if(!is_dir(DATA_PLUGIN) && (!@mkdir(DATA_PLUGIN) || !@chmod(DATA_PLUGIN, 0644))) $install = false;
+            if(!is_dir(UPLOAD) && (!@mkdir(UPLOAD) || !@chmod(UPLOAD, 0644))) $install = false;
             if(!file_exists(UPLOAD. '.htaccess')){
-                if(!@file_put_contents(UPLOAD. '.htaccess', "allow from all", 0666)) $install = false;
+                if(!@file_put_contents(UPLOAD. '.htaccess', "allow from all", 0604)) $install = false;
             }
-            if(!file_exists(__FILE__) || !@chmod(__FILE__, 0666)) $install = false;
+            if(!file_exists(__FILE__) || !@chmod(__FILE__, 0644)) $install = false;
             $key = uniqid(true);
-            if(!file_exists(DATA. 'key.php') && !@file_put_contents(DATA. 'key.php', "<?php define('KEY', '$key'); ?>", 0666)) $install = false;
+            if(!file_exists(DATA. 'key.php') && !@file_put_contents(DATA. 'key.php', "<?php define('KEY', '$key'); ?>", 0644)) $install = false;
         }
         return $install;
     }

@@ -55,7 +55,7 @@ if(count($_POST) > 0 && $administrator->isAuthorized()){
 		'debug' => '0',
 		'defaultAdminPlugin' => 'page',
 	);
-	if(!@file_put_contents(DATA. 'config.json', json_encode($config)) ||	!@chmod(DATA. 'config.json', 0666)){
+	if(!@file_put_contents(DATA. 'config.json', json_encode($config)) ||	!@chmod(DATA. 'config.json', 0600)){
 		$msg = 'Une erreur est survenue';
 	}
 	else{
